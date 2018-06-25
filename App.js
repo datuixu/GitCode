@@ -12,6 +12,7 @@ import {
   View,
   Image
 } from 'react-native';
+import {I18n} from './src/language/i18n';
 import TabNavigator from 'react-native-tab-navigator';
 
 type Props = {};
@@ -29,7 +30,7 @@ export default class App extends Component<Props> {
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_popular'}
             selectedTitleStyle={{color:'red'}}
-            title="最热"
+            title={I18n.t('greeting')}
             renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_polular.png')}/>}
             renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'red'}]} source={require('./res/images/ic_polular.png')}/>}
             onPress={() => this.setState({selectedTab: 'tb_popular'})}>
