@@ -30,7 +30,7 @@ export default class App extends Component<Props> {
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_popular'}
             selectedTitleStyle={{color:'red'}}
-            title={I18n.t('greeting')}
+            title={I18n.t('home.tab_name')}
             renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_polular.png')}/>}
             renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'red'}]} source={require('./res/images/ic_polular.png')}/>}
             onPress={() => this.setState({selectedTab: 'tb_popular'})}>
@@ -38,7 +38,7 @@ export default class App extends Component<Props> {
           </TabNavigator.Item>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_trending'}
-            title="趋势"
+            title={I18n.t('trending.tab_name')}
             selectedTitleStyle={{color:'yellow'}}
             renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_trending.png')}/>}
             renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'yellow'}]} source={require('./res/images/ic_trending.png')}/>}
@@ -47,7 +47,7 @@ export default class App extends Component<Props> {
           </TabNavigator.Item>
             <TabNavigator.Item
               selected={this.state.selectedTab === 'tb_favorite'}
-              title="收藏"
+              title={I18n.t('favorite.tab_name')}
               selectedTitleStyle={{color:'green'}}
               renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_favorite.png')}/>}
               renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'green'}]} source={require('./res/images/ic_favorite.png')}/>}
@@ -56,7 +56,7 @@ export default class App extends Component<Props> {
           </TabNavigator.Item>
           <TabNavigator.Item
               selected={this.state.selectedTab === 'tb_my'}
-              title="我的"
+              title={I18n.t('my.tab_name')}
               selectedTitleStyle={{color:'blue'}}
               renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_my.png')}/>}
               renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'blue'}]} source={require('./res/images/ic_my.png')}/>}
