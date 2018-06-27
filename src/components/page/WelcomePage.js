@@ -8,7 +8,7 @@ import {
     StyleSheet,
     Text,
 } from 'react-native'
-// import NavigatorUtil from '../util/NavigatorUtil'
+import NavigatorUtil from '../util/NavigatorUtil'
 // import ThemeDao from '../expand/dao/ThemeDao'
 import SplashScreen from 'react-native-splash-screen'
 
@@ -18,15 +18,13 @@ export default class WelcomePage extends Component {
     }
 
     componentDidMount() {
-        new ThemeDao().getTheme().then((data) => {
-            this.theme = data;
-        })
         this.timer = setTimeout(() => {
             SplashScreen.hide();
-            NavigatorUtil.resetToHomePage({
-                theme: this.theme,
-                navigation: this.props.navigation
-            })
+            this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
+            // NavigatorUtil.resetToHomePage({
+            //     // theme: this.theme,
+            //     navigation: this.props.navigation
+            // })
         }, 500);
     }
 

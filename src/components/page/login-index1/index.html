@@ -27,21 +27,32 @@
 						<form action="#" name="f" method="post">
 							<div class="input_outer">
 								<span class="u_user"></span>
-								<input name="logname" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+								<input id="username" name="logname" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
 							</div>
 							<div class="input_outer">
 								<span class="us_uer"></span>
-								<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+								<input id="password" name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
 							</div>
-							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+							<div class="mb2" id="login"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
 						</form>
 					</div>
 				</div>
 			</div>
-		</div><!-- /container -->
+		</div>
 		<script src="js/TweenLite.min.js"></script>
 		<script src="js/EasePack.min.js"></script>
 		<script src="js/rAF.js"></script>
 		<script src="js/demo-1.js"></script>
+		<script>
+		  document.getElementById('login').addEventListener('click', function() { // 在html中我们定义了一个按钮，并添加事件向rn发送数据
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			var mess = {
+				username:username,
+				password:password
+			};
+			window.postMessage([username,password]);
+		  });
+		</script>
 	</body>
 </html>

@@ -15,9 +15,9 @@ import LoginPage from '../page/login/LoginPage'
 // import AboutPage from '../page/about/AboutPage'
 
 export default AppNavigator = StackNavigator({
-    // WelcomePage: {
-    //     screen: WelcomePage
-    // },
+    WelcomePage: {
+        screen: WelcomePage
+    },
     LoginPage: {
         screen: LoginPage
     },
