@@ -22,7 +22,7 @@ export default class LoginPage extends Component {
         return(
             <View style={styles.container}>
               <WebView 
-                source={require('../login-index/index.html')}
+                source={require('../login-index1/index.html')}
               />
             </View>
         )
