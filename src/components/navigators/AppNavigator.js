@@ -1,7 +1,7 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation';
 import WelcomePage from '../page/WelcomePage'
-import HomePage from '../page/HomePage'
+import TabPage from '../page/TabPage'
 import LoginPage from '../page/login/LoginPage'
 // import RepositoryDetail from '../page/RepositoryDetail'
 // import SearchPage from '../page/SearchPage'
@@ -21,8 +21,8 @@ export default AppNavigator = StackNavigator({
     LoginPage: {
         screen: LoginPage
     },
-    HomePage: {
-        screen: HomePage
+    TabPage: {
+        screen: TabPage
     },
     // RepositoryDetail: {
     //     screen: RepositoryDetail

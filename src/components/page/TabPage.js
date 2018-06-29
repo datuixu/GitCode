@@ -21,7 +21,7 @@ import {I18n} from '../../language/i18n';
 // import BaseComponent from './BaseComponent'
 // import SafeAreaViewPlus from '../common/SafeAreaViewPlus'
 
-export default class HomePage extends Component {
+export default class TabPage extends Component {
     constructor(props) {
         super(props);
         this.state = {

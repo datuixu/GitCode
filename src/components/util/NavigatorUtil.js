@@ -33,7 +33,7 @@ export default class NavigatorUtil {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: "HomePage",
+                    routeName: "TabPage",
                     // params: {
                     //     // theme: theme,
                     //     selectedTab: selectedTab
