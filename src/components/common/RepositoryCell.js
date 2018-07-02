@@ -1,6 +1,4 @@
-/**
- * Created by penn on 2016/12/21.
- */
+
 import React, {Component} from 'react';
 import {
     View,
@@ -14,62 +12,31 @@ export default class RepositoryCell extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFavorite: this.props.projectModel.isFavorite,
-            favoriteIcon: this.props.projectModel.isFavorite ? require('../../res/images/ic_star.png') : require('../../res/images/ic_unstar_transparent.png'),
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setFavoriteState(nextProps.projectModel.isFavorite)
-    }
-
-    setFavoriteState(isFavorite) {
-        this.props.projectModel.isFavorite = isFavorite;
-        this.setState({
-            isFavorite: isFavorite,
-            favoriteIcon: isFavorite ? require('../../res/images/ic_star.png') : require('../../res/images/ic_unstar_transparent.png')
-        })
-    }
-
-    onPressFavorite() {
-        this.setFavoriteState(!this.state.isFavorite)
-        this.props.onFavorite(this.props.projectModel.item, !this.state.isFavorite)
-    }
     render() {
-        let item = this.props.projectModel.item? this.props.projectModel.item:this.props.projectModel;
-        let favoriteButton=this.props.projectModel.item?
-            <TouchableOpacity
-                style={{padding:6}}
-                onPress={()=>this.onPressFavorite()} underlayColor='transparent'>
-                <Image
-                    ref='favoriteIcon'
-                    style={[{width: 22, height: 22,},{tintColor:"#2196F3"}]}
-                    source={this.state.favoriteIcon}/>
-            </TouchableOpacity>:null;
         return (
-            <TouchableOpacity
-                onPress={this.props.onSelect}
-                style={styles.container}
-            >
+            <TouchableOpacity style={styles.container}>
                 <View style={styles.cell_container}>
-                    <Text style={styles.title}>{item.full_name}</Text>
-                    <Text style={styles.description}>{item.description}</Text>
-                    <View style={styles.row}>
-                        <View style={styles.row}>
-                            <Text>Author:</Text>
-                            <Image
-                                style={{height: 22, width: 22}}
-                                source={{uri: item.owner.avatar_url}}
-                            />
+                    <Image 
+                        style={{height:50,width:50,borderRadius:50}}
+                        source={{uri:this.props.data.owner.avatar_url}}
+                    />
+                    <View style={{margin:5}}>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={styles.title}>{this.props.data.full_name}</Text>
+                            <Text>{this.props.data.language}</Text>
                         </View>
-                        <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                            <Text>Star:</Text>
-                            <Text>{item.stargazers_count}</Text>
+                        
+                        <Text style={styles.description}>{this.props.data.description}</Text>
+
+                        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
+                            <Text>{this.props.data.watchers_count}</Text>
+                            <Text>{this.props.data.stargazers_count}</Text>
+                            <Text>{this.props.data.forks_count}</Text>
                         </View>
-                        {favoriteButton}
                     </View>
-
-
                 </View>
             </TouchableOpacity>
         )
@@ -77,13 +44,7 @@ export default class RepositoryCell extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-
-    },
-    row: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center',
+        flex:1
     },
     title: {
         fontSize: 16,
@@ -97,18 +58,20 @@ const styles = StyleSheet.create({
         color: '#757575'
     },
     cell_container: {
-        backgroundColor: 'white',
-        padding: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        marginVertical: 3,
-        borderColor: '#dddddd',
-        borderWidth: 0.5,
-        borderRadius: 2,
-        shadowColor: 'gray',
-        shadowOffset: {width:0.5, height: 0.5},
-        shadowOpacity: 0.4,
-        shadowRadius: 1,
-        elevation:2
-    },
+        margin:10,
+        flexDirection:'row',
+        backgroundColor:'white',
+        padding:10,
+        marginLeft:5,
+        marginRight:5,
+        marginVertical:3,
+        borderWidth:0.5,
+        borderRadius:2,
+        borderColor:'#dddddd',
+        shadowColor:'gray', // ios
+        shadowOffset:{width:0.5,hight:0.5},// ios
+        shadowOpacity:0.4,// ios
+        shadowRadius:1,// ios
+        elevation:2 // android
+    }
 })

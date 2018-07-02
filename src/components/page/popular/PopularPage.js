@@ -14,7 +14,10 @@ import {
     DeviceEventEmitter
 } from 'react-native';
 import NavigationBar from '../../common/NavigationBar'
+import {TabNavigator} from 'react-navigation'
+import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
+import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
@@ -42,38 +45,27 @@ export default class PopularPage extends Component {
                 statusBar={statusBar}
             />;
         let content = <ScrollableTabView
+          tabBarBackgroundColor="#2196F3"
+          tabBarInactiveTextColor="mintcream"
+          tabBarActiveTextColor="white"
+          tabBarTextStyle={{fontFamily: 'CaviarDreams'}} // 解决android全面屏点击会显示不全问题
+          tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
+          initialPage={0}
           renderTabBar={()=><ScrollableTabBar/>}
         >
-          <PopularTab tabLabel="Java">java</PopularTab>
-          <PopularTab tabLabel="ios">ios</PopularTab>
-          <PopularTab tabLabel="vue">vue</PopularTab>
-          <PopularTab tabLabel="react">react</PopularTab>
+
+          <PopularTab tabLabel="Java">Java</PopularTab>
+          <PopularTab tabLabel="Ios">Ios</PopularTab>
+          <PopularTab tabLabel="Vue">Vue</PopularTab>
+          <PopularTab tabLabel="React">React</PopularTab>
 
         </ScrollableTabView>
         return <View style={styles.container}>
                  {navigationBar}
                  {content}
-                 {/* <FlatList
-                    data={this.state.projectModels}
-                    renderItem={(data) => this.renderRow(data)}
-                    keyExtractor={item => ""+item.item.id}
-                /> */}
                </View>
     }
-    renderRow(data) {
-        const projectModel = data.item;
-        return <RepositoryCell
-            key={projectModel.item.id}
-            projectModel={projectModel}
-            theme={this.props.theme}
-            onSelect={() => ActionUtils.onSelectRepository({
-                projectModel: projectModel,
-                flag: FLAG_STORAGE.flag_popular,
-                ...this.props,
-                onUpdateFavorite: () => this.onUpdateFavorite(),
-            })}
-            onFavorite={(item, isFavorite) => ActionUtils.onFavorite(favoriteDao, item, isFavorite)}/>
-    }
+
 }
 
 class PopularTab extends Component{
@@ -81,7 +73,7 @@ class PopularTab extends Component{
         super(props);
         this.dataRepository = new DataRepository();
         this.state = {
-            result:''
+            result:[]
         }
     }
     componentDidMount(){
@@ -90,10 +82,10 @@ class PopularTab extends Component{
     loadData(){
         let url = URL+this.props.tabLabel+QUERY_STR
         this.dataRepository
-            .fetchRepository(url)
+            .fetchNetRepository(url)
             .then(result =>{
                 this.setState({
-                    resule:JSON.stringify(result)
+                    result:result.items
                 })
             })
             .catch(error =>{
@@ -103,8 +95,20 @@ class PopularTab extends Component{
     render(){
         return(
             <View>
-                <Text style={{height:600}}>{this.state.result}</Text>
+                <FlatList
+                    data={this.state.result}
+                    renderItem={(data) => this.renderRow(data)}
+                    keyExtractor={item => item.id} //FlatList 每一行需要一个key
+                />
             </View>
+        )
+    }
+    renderRow(data) {
+        const projectModel = data.item
+        return (
+            <RepositoryCell 
+              data={projectModel}
+            />
         )
     }
 }
