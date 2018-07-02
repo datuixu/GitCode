@@ -39,6 +39,7 @@ export default class PopularPage extends Component {
         var statusBar = {
             backgroundColor: '#2196F3',
             barStyle: 'light-content',
+            translucent: false
         }
         let navigationBar =
             <NavigationBar
