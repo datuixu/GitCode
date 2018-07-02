@@ -1,6 +1,10 @@
 export default {
     home:{
-        tab_name:'popular'
+        tab_name:'home'
+    },
+    popular:{
+        tab_name:'popular',
+        title:'Popular'
     },
     trending:{
         tab_name:'trending'

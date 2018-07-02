@@ -17,28 +17,28 @@ export default class RepositoryCell extends Component {
 
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
                 <View style={styles.cell_container}>
-                    <Image 
-                        style={{height:50,width:50,borderRadius:50}}
-                        source={{uri:this.props.data.owner.avatar_url}}
-                    />
-                    <View style={{margin:5}}>
+                    <View style={{width:50,marginRight:10}}>
+                        <Image 
+                            style={{height:50,width:50,borderRadius:50}}
+                            source={{uri:this.props.data.owner.avatar_url}}
+                        />
+                    </View>
+                    <View style={{flex:1}}>
                         <View style={{flexDirection:'row'}}>
                             <Text style={styles.title}>{this.props.data.full_name}</Text>
-                            <Text>{this.props.data.language}</Text>
+                            {/* <Text>{this.props.data.language}</Text> */}
                         </View>
-                        
-                        <Text style={styles.description}>{this.props.data.description}</Text>
-
-                        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                            <Text>{this.props.data.watchers_count}</Text>
-                            <Text>{this.props.data.stargazers_count}</Text>
-                            <Text>{this.props.data.forks_count}</Text>
+                        <View>
+                          <Text style={styles.description}>{this.props.data.description}</Text>
+                        </View>
+                        <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
+                            <Text >{this.props.data.watchers_count}</Text>
+                            <Text >{this.props.data.stargazers_count}</Text>
+                            <Text >{this.props.data.forks_count}</Text>
                         </View>
                     </View>
                 </View>
-            </TouchableOpacity>
         )
     }
 }
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 2,
         color: '#212121',
-        flex: 1
     },
     description: {
         fontSize: 14,
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
         color: '#757575'
     },
     cell_container: {
-        margin:10,
         flexDirection:'row',
         backgroundColor:'white',
         padding:10,

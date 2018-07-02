@@ -14,13 +14,14 @@ import {
     DeviceEventEmitter
 } from 'react-native';
 import NavigationBar from '../../common/NavigationBar'
+import {I18n} from '../../../language/i18n'
 import {TabNavigator} from 'react-navigation'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
-const URL = 'https://api.github.com/search/repositories?q=';
-const QUERY_STR = '&sort=stars';
+const URL = 'https://api.github.com/search/repositories?q='
+const QUERY_STR = '&sort=stars'
 export default class PopularPage extends Component {
     constructor(props) {
         super(props);
@@ -41,7 +42,7 @@ export default class PopularPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'最热'}
+                title={I18n.t('popular.title')}
                 statusBar={statusBar}
             />;
         let content = <ScrollableTabView
@@ -51,7 +52,10 @@ export default class PopularPage extends Component {
           tabBarTextStyle={{fontFamily: 'CaviarDreams'}} // 解决android全面屏点击会显示不全问题
           tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
           initialPage={0}
-          renderTabBar={()=><ScrollableTabBar/>}
+          renderTabBar={() => <ScrollableTabBar 
+                style={{height: 40, borderWidth: 0, elevation: 2}}
+                tabStyle={{height: 39}}
+          />}
         >
 
           <PopularTab tabLabel="Java">Java</PopularTab>
@@ -94,7 +98,7 @@ class PopularTab extends Component{
     }
     render(){
         return(
-            <View>
+            <View style={styles.container}>
                 <FlatList
                     data={this.state.result}
                     renderItem={(data) => this.renderRow(data)}

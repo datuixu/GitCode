@@ -37,7 +37,7 @@ export default class TabPage extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'tb_popular'}
                 selectedTitleStyle={{color:'red'}}
-                title={I18n.t('home.tab_name')}
+                title={I18n.t('popular.tab_name')}
                 renderIcon={() => <Image style={styles.image} source={require('../../../res/images/ic_polular.png')}/>}
                 renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'red'}]} source={require('../../../res/images/ic_polular.png')}/>}
                 onPress={() => this.setState({selectedTab: 'tb_popular'})}>
