@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import {I18n} from '../../language/i18n';
+import PopularPage from './popular/PopularPage';
 // import PopularPage from './PopularPage'
 // import TrendingPage from './TrendingPage'
 // import FavoritePage from './FavoritePage'
@@ -40,7 +41,7 @@ export default class TabPage extends Component {
                 renderIcon={() => <Image style={styles.image} source={require('../../../res/images/ic_polular.png')}/>}
                 renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'red'}]} source={require('../../../res/images/ic_polular.png')}/>}
                 onPress={() => this.setState({selectedTab: 'tb_popular'})}>
-                <View style={{backgroundColor: 'red',flex:1}}></View>
+                <PopularPage />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'tb_trending'}
