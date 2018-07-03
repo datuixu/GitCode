@@ -14,5 +14,8 @@ export default {
     },
     my:{
         tab_name:'我的'
-    }
+    },
+    loading:{
+        title:'加载中...'
+    },
 }

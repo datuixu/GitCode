@@ -20,6 +20,7 @@ import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
+import Loading from '../../common/Loading'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUERY_STR = '&sort=stars'
 export default class PopularPage extends Component {
@@ -98,15 +99,25 @@ class PopularTab extends Component{
             })
     }
     render(){
-        return(
-            <View style={styles.container}>
-                <FlatList
-                    data={this.state.result}
-                    renderItem={(data) => this.renderRow(data)}
-                    keyExtractor={item => item.id} //FlatList 每一行需要一个key
-                />
-            </View>
-        )
+        if(this.state.result.length == 0){
+            return(
+                <View>
+                    <Loading 
+                    text={I18n.t('loading.title')}
+                    />
+                </View>
+            )
+        }else{
+            return(
+                <View>
+                    <FlatList
+                        data={this.state.result}
+                        renderItem={(data) => this.renderRow(data)}
+                        keyExtractor={item => item.id.toString()} //FlatList 每一行需要一个key
+                    />
+                </View>
+            )
+        }
     }
     renderRow(data) {
         const projectModel = data.item
@@ -121,7 +132,8 @@ class PopularTab extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
+        backgroundColor:'white',
+        // backgroundColor:"#f6f6f6",
     },
     tips: {
         fontSize: 20

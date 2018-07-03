@@ -14,5 +14,8 @@ export default {
     },
     my:{
         tab_name:'my'
-    }
+    },
+    loading:{
+        title:'loading...'
+    },
 }
