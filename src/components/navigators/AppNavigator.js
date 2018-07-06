@@ -1,19 +1,16 @@
 import React from 'react'
-import {StackNavigator} from 'react-navigation';
+import {
+    Dimensions
+} from 'react-native'
+import {StackNavigator,DrawerNavigator} from 'react-navigation'
+import DrawerItems from '../common/DrawerItems'
 import WelcomePage from '../page/WelcomePage'
 import TabPage from '../page/TabPage'
+import HomePage from '../page/home/HomePage'
 import LoginPage from '../page/login/LoginPage'
-// import RepositoryDetail from '../page/RepositoryDetail'
-// import SearchPage from '../page/SearchPage'
-// import FavoritePage from '../page/FavoritePage'
-// import WebViewPage from '../page/WebViewPage'
-// import CustomKeyPage from '../page/my/CustomKeyPage'
-// import CustomTheme from '../page/my/CustomTheme'
-// import MyPage from '../page/my/MyPage'
-// import SortKeyPagePage from '../page/my/SortKeyPagePage'
-// import AboutMePage from '../page/about/AboutMePage'
-// import AboutPage from '../page/about/AboutPage'
+import MyPage from '../page/my/MyPage'
 
+const deviceWidth = Dimensions.get('window').width
 export default AppNavigator = StackNavigator({
     WelcomePage: {
         screen: WelcomePage
@@ -24,38 +21,42 @@ export default AppNavigator = StackNavigator({
     TabPage: {
         screen: TabPage
     },
-    // RepositoryDetail: {
-    //     screen: RepositoryDetail
-    // },
-    // SearchPage: {
-    //     screen: SearchPage
-    // },
-    // CustomKeyPage: {
-    //     screen: CustomKeyPage
-    // },
-    // FavoritePage: {
-    //     screen: FavoritePage
-    // },
-    // WebViewPage: {
-    //     screen: WebViewPage
-    // },
-    // CustomTheme: {
-    //     screen: CustomTheme
-    // },
-    // MyPage: {
-    //     screen: MyPage
-    // },
-    // SortKeyPagePage: {
-    //     screen: SortKeyPagePage
-    // },
-    // AboutMePage: {
-    //     screen: AboutMePage
-    // },
-    // AboutPage: {
-    //     screen: AboutPage
-    // }
+    HomePage: {
+        screen: HomePage
+    },
 }, {
     navigationOptions: {
         header: null
     }
+})
+
+export const DrawerNav = DrawerNavigator({
+    HomePage: {
+        screen: HomePage
+    },
+    LoginPage: {
+        screen: LoginPage
+    },
+},{
+    drawerWidth: deviceWidth-150, // 抽屉宽
+    drawerPosition: 'left', // 抽屉在左边还是右边
+    contentOptions: {
+    //   initialRouteName: 'MyPage', // 默认页面组件
+      labelStyle : {//标签样式
+           // color : 'red',
+           height : 30,
+      },
+      activeTintColor: 'white',  // 选中文字颜色
+      activeBackgroundColor: '#ff8500', // 选中背景颜色
+      inactiveTintColor: '#666',  // 未选中文字颜色
+      inactiveBackgroundColor: '#fff', // 未选中背景颜色
+      style: {  // 样式
+         marginVertical: 0, 
+      },
+   },
+   contentComponent: props => {
+        return (
+            <DrawerItems {...props}/>
+        )
+    },
 })

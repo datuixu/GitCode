@@ -14,19 +14,15 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 import {I18n} from '../../language/i18n';
 import PopularPage from './popular/PopularPage';
-// import PopularPage from './PopularPage'
-// import TrendingPage from './TrendingPage'
-// import FavoritePage from './FavoritePage'
-// import MyPage from './my/MyPage'
-// import Toast, {DURATION} from 'react-native-easy-toast'
-// import BaseComponent from './BaseComponent'
-// import SafeAreaViewPlus from '../common/SafeAreaViewPlus'
+import MyPage from './my/MyPage';
+import HomePage from './home/HomePage';
+import {DrawerNav} from '../navigators/AppNavigator';
 
 export default class TabPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'tb_popular',
+            selectedTab: 'tb_home',
         }
     }
 
@@ -35,11 +31,20 @@ export default class TabPage extends Component {
           <View style={styles.container}>
             <TabNavigator>
               <TabNavigator.Item
-                selected={this.state.selectedTab === 'tb_popular'}
-                selectedTitleStyle={{color:'red'}}
+                selected={this.state.selectedTab === 'tb_home'}
+                selectedTitleStyle={{color:'#2196F3'}}
                 title={I18n.t('popular.tab_name')}
                 renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_polular.png')}/>}
-                renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'red'}]} source={require('../../res/images/ic_polular.png')}/>}
+                renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'#2196F3'}]} source={require('../../res/images/ic_polular.png')}/>}
+                onPress={() => this.setState({selectedTab: 'tb_home'})}>
+                <DrawerNav />
+              </TabNavigator.Item>
+              <TabNavigator.Item
+                selected={this.state.selectedTab === 'tb_popular'}
+                selectedTitleStyle={{color:'#2196F3'}}
+                title={I18n.t('popular.tab_name')}
+                renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_polular.png')}/>}
+                renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'#2196F3'}]} source={require('../../res/images/ic_polular.png')}/>}
                 onPress={() => this.setState({selectedTab: 'tb_popular'})}>
                 <PopularPage />
               </TabNavigator.Item>
@@ -68,7 +73,7 @@ export default class TabPage extends Component {
                   renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_my.png')}/>}
                   renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'blue'}]} source={require('../../res/images/ic_my.png')}/>}
                   onPress={() => this.setState({selectedTab: 'tb_my'})}>
-                  <View style={{backgroundColor: 'blue',flex:1}}></View>
+                  <MyPage />
               </TabNavigator.Item>
             </TabNavigator>
           </View>

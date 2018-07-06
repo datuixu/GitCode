@@ -11,7 +11,8 @@ import {
     TextInput,
     FlatList,
     RefreshControl,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Dimensions
 } from 'react-native';
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
@@ -23,6 +24,7 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import Loading from '../../common/Loading'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUERY_STR = '&sort=stars'
+const deviceWidth = Dimensions.get('window').width;
 export default class PopularPage extends Component {
     constructor(props) {
         super(props);
@@ -79,19 +81,26 @@ class PopularTab extends Component{
         super(props);
         this.dataRepository = new DataRepository();
         this.state = {
-            result:[]
+            result:[],
+            isRefreshing:false,
+            isFirst:true
         }
     }
     componentDidMount(){
-        this.loadData()
+        this.loadData(this.state.isFirst)
     }
-    loadData(){
+    loadData(isFirst){
+        this.setState({
+            isRefreshing :isFirst ? false : true
+        })
         let url = URL+this.props.tabLabel+QUERY_STR
         this.dataRepository
             .fetchNetRepository(url)
             .then(result =>{
                 this.setState({
-                    result:result.items
+                    result:result.items,
+                    isFirst:false,
+                    isRefreshing:false
                 })
             })
             .catch(error =>{
@@ -103,7 +112,7 @@ class PopularTab extends Component{
             return(
                 <View>
                     <Loading 
-                    text={I18n.t('loading.title')}
+                      text={I18n.t('loading.title')}
                     />
                 </View>
             )
@@ -114,10 +123,25 @@ class PopularTab extends Component{
                         data={this.state.result}
                         renderItem={(data) => this.renderRow(data)}
                         keyExtractor={item => item.id.toString()} //FlatList 每一行需要一个key
+                        // ListHeaderComponent={() => this._renderHeader()}
+                        onScroll={event => this._onScroll(event)}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.isRefreshing} //控制是否可以刷新
+                                onRefresh={this._onRefresh.bind(this)} //刷新方法
+                                colors={['#459ef7', '#006cff','#2400ff','#3aa4d5']}
+                                tintColor={'#2196F3'}
+                                title={I18n.t('loading.title')}  
+                                titleColor={'#2196F3'}
+                            />
+                        }
                     />
                 </View>
             )
         }
+    }
+    _onScroll(event){
+      console.log(event.nativeEvent.contentOffset.y)
     }
     renderRow(data) {
         const projectModel = data.item
@@ -126,6 +150,10 @@ class PopularTab extends Component{
               data={projectModel}
             />
         )
+    }
+    _onRefresh(){
+        console.log(111)
+        this.loadData(this.state.isFirst)
     }
 }
 

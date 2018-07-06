@@ -14,8 +14,6 @@ import {
 } from 'react-native';
 import Storage from 'react-native-storage';
 import AppNavigator from './src/components/navigators/AppNavigator'
-
-import TabNavigator from 'react-native-tab-navigator';
   // //在这里可以进行一些初始化配置
   // var storage = new Storage({
   //   // 最大容量，默认值1000条数据循环存储
@@ -45,7 +43,7 @@ function App() {
 }
 module.exports = App();
 
-
+// export default AppNavigator;
 
 // type Props = {};
 // export default class App extends Component<Props> {

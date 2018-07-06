@@ -16,13 +16,18 @@ export default class RepositoryCell extends Component {
     }
 
     render() {
+        const img = this.props.data.owner.avatar_url ? <Image 
+                        style={{height:50,width:50,borderRadius:50}}
+                        source={{uri:this.props.data.owner.avatar_url}}
+                    /> :
+                    <Image 
+                        style={{height:50,width:50,borderRadius:50}}
+                        source={require('../../res/images/lazy.png')}
+                    />
         return (
                 <View style={styles.cell_container}>
                     <View style={{width:50,marginRight:10}}>
-                        <Image 
-                            style={{height:50,width:50,borderRadius:50}}
-                            source={{uri:this.props.data.owner.avatar_url}}
-                        />
+                      {img}
                     </View>
                     <View style={{flex:1}}>
                         <View style={{flexDirection:'row'}}>
