@@ -13,7 +13,9 @@ export default {
         tab_name:'favorite'
     },
     my:{
-        tab_name:'my'
+        tab_name:'my',
+        custom_key_title:'Custom label',
+        custom_key_save_text:'Save'
     },
     loading:{
         title:'loading...'

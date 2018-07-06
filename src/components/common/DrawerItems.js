@@ -20,7 +20,7 @@ export default class DrawerItems extends Component {
         return(
             <ScrollView style={{backgroundColor: 'white', flex: 1}}>
                 <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('LoginPage')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('CustomKeyPage')}>
                         <View>
                             <Text>ssssss</Text>
                         </View>

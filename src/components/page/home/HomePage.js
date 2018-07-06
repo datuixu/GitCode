@@ -23,7 +23,6 @@ export default class HomePage extends Component {
     }
     render() {
         const {navigation} = this.props;
-        console.log(navigation)
         var statusBar = {
             backgroundColor: '#2196F3',
             barStyle: 'light-content',

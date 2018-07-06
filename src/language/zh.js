@@ -13,7 +13,9 @@ export default {
         tab_name:'收藏'
     },
     my:{
-        tab_name:'我的'
+        tab_name:'我的',
+        custom_key_title:'自定义标签',
+        custom_key_save_text:'保存'
     },
     loading:{
         title:'加载中...'

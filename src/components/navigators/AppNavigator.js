@@ -8,6 +8,7 @@ import WelcomePage from '../page/WelcomePage'
 import TabPage from '../page/TabPage'
 import HomePage from '../page/home/HomePage'
 import LoginPage from '../page/login/LoginPage'
+import CustomKeyPage from '../page/my/CustomKeyPage'
 import MyPage from '../page/my/MyPage'
 
 const deviceWidth = Dimensions.get('window').width
@@ -34,9 +35,9 @@ export const DrawerNav = DrawerNavigator({
     HomePage: {
         screen: HomePage
     },
-    LoginPage: {
-        screen: LoginPage
-    },
+    CustomKeyPage: {
+        screen: CustomKeyPage
+    }
 },{
     drawerWidth: deviceWidth-150, // 抽屉宽
     drawerPosition: 'left', // 抽屉在左边还是右边
