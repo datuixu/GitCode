@@ -6,15 +6,18 @@ import {
     View,
     Button,
     Image,
-    ScrollView
+    ScrollView,
+    Dimensions,
+    Alert
 } from 'react-native';
 import NavigationBar from '../../common/NavigationBar'
 import CheckBox from 'react-native-check-box'
 import {I18n} from '../../../language/i18n'
 import ViewUtils from '../../util/ViewUtils'
+import ArrayUtils from '../../util/ArrayUtils'
 import NavigatorUtil from '../../util/NavigatorUtil'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
-
+const deviceWidth = Dimensions.get('window').width
 export default class CustomKeyPage extends Component {
     constructor(props) {
         super(props)
@@ -39,7 +42,7 @@ export default class CustomKeyPage extends Component {
                 title={I18n.t('my.custom_key_title')}
                 statusBar={statusBar}
                 leftButton={ViewUtils.getLeftButton(()=>this.goBack(navigation))}
-                rightButton={ViewUtils.getRightButton(I18n.t('my.custom_key_save_text'),()=>this.onSave())}
+                rightButton={ViewUtils.getRightButton(I18n.t('my.custom_key_save_text'),()=>this.onSave(navigation))}
             />;
         return <View style={styles.container}>
                  {navigationBar}
@@ -76,6 +79,7 @@ export default class CustomKeyPage extends Component {
           style={styles.checkbox}
           onClick={()=>{this.onClick(data)}}
           leftText={data.name}
+          isChecked={data.checked}
           checkedImage={<Image source={require('./img/ic_check_box.png')}
           style={{tintColor:'#6495ED'}}/>}
           unCheckedImage={<Image source={require('./img/ic_check_box_outline_blank.png')}
@@ -85,14 +89,7 @@ export default class CustomKeyPage extends Component {
     }
     onClick(data){
         data.checked=!data.checked
-        this.changeValues.forEach((item,index)=>{
-            let temp = item
-            if(temp === data){
-                this.changeValues.splice(index,1)
-                return
-            }
-        })
-        this.changeValues.push(data)
+        ArrayUtils.updateArray(this.changeValues,data)
     }
     loadData(){
         this.LanguageDao.fetch()
@@ -106,8 +103,28 @@ export default class CustomKeyPage extends Component {
                 console.log(error)
             })
     }
-    goBack(navigation){
+    onSave(navigation){
+        if(this.changeValues.length === 0){
+            NavigatorUtil.goBack(navigation)
+            return
+        }
+        this.save(this.state.keys)
         NavigatorUtil.goBack(navigation)
+    }
+    goBack(navigation){
+        if(this.changeValues.length === 0){
+            NavigatorUtil.goBack(navigation)
+            return
+        }
+        Alert.alert(
+            '提示',
+            '要保存修改吗？',
+            [
+                {text:'不保存',onPress:()=>{NavigatorUtil.goBack(navigation)}},
+                {text:'保存',onPress:()=>{this.onSave(navigation)}}
+            ]
+        )
+        
     }
 }
 
@@ -120,8 +137,9 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     checkbox:{
-        flex:1,
+        // flex:1,
         flexDirection:'row',
+        width:(deviceWidth-20)/2,
         backgroundColor:'white',
         padding:10,
         marginLeft:5,

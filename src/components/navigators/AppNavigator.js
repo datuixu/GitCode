@@ -9,6 +9,8 @@ import TabPage from '../page/TabPage'
 import HomePage from '../page/home/HomePage'
 import LoginPage from '../page/login/LoginPage'
 import CustomKeyPage from '../page/my/CustomKeyPage'
+import SortKeyPage from '../page/my/SortKeyPage'
+
 import MyPage from '../page/my/MyPage'
 
 const deviceWidth = Dimensions.get('window').width
@@ -37,6 +39,9 @@ export const DrawerNav = DrawerNavigator({
     },
     CustomKeyPage: {
         screen: CustomKeyPage
+    },
+    SortKeyPage: {
+        screen : SortKeyPage
     }
 },{
     drawerWidth: deviceWidth-150, // 抽屉宽

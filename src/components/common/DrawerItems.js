@@ -22,7 +22,12 @@ export default class DrawerItems extends Component {
                 <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
                     <TouchableOpacity onPress={()=>navigation.navigate('CustomKeyPage')}>
                         <View>
-                            <Text>ssssss</Text>
+                            <Text>自定义标签</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('SortKeyPage')}>
+                        <View>
+                            <Text>标签排序</Text>
                         </View>
                     </TouchableOpacity>
                 </SafeAreaView>

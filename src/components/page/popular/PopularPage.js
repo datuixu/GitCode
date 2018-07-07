@@ -22,22 +22,33 @@ import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
+import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUERY_STR = '&sort=stars'
 const deviceWidth = Dimensions.get('window').width;
 export default class PopularPage extends Component {
     constructor(props) {
         super(props);
+        this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
         this.state = {
             projectModels: [],
             languages: [],
         }
     }
-
     componentDidMount() {
+        this.loadData()
     }
-
-
+    loadData(){
+        this.LanguageDao.fetch()
+            .then(res =>{
+               this.setState({
+                languages:res
+               })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     render() {
         var statusBar = {
             backgroundColor: '#2196F3',
@@ -49,7 +60,8 @@ export default class PopularPage extends Component {
                 title={I18n.t('popular.title')}
                 statusBar={statusBar}
             />;
-        let content = <ScrollableTabView
+        let content = this.state.languages.length > 0 ? 
+        <ScrollableTabView
           tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
@@ -61,13 +73,14 @@ export default class PopularPage extends Component {
                 tabStyle={{height: 39}}
           />}
         >
-
-          <PopularTab tabLabel="Java">Java</PopularTab>
-          <PopularTab tabLabel="Ios">Ios</PopularTab>
-          <PopularTab tabLabel="Vue">Vue</PopularTab>
-          <PopularTab tabLabel="React">React</PopularTab>
+        {this.state.languages.map((result,i,arr)=>{
+          let lan = arr[i]
+          return lan.checked ? <PopularTab key={i} tabLabel={lan.name}></PopularTab> : null
+        })}
 
         </ScrollableTabView>
+        :
+        null
         return <View style={styles.container}>
                  {navigationBar}
                  {content}
