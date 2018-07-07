@@ -15,7 +15,9 @@ export default {
     my:{
         tab_name:'我的',
         custom_key_title:'自定义标签',
-        custom_key_save_text:'保存'
+        custom_key_save_text:'保存',
+        sort_key_title:'标签排序',
+        sort_key_save_text:'保存'
     },
     loading:{
         title:'加载中...'

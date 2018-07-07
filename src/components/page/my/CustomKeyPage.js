@@ -17,6 +17,7 @@ import ViewUtils from '../../util/ViewUtils'
 import ArrayUtils from '../../util/ArrayUtils'
 import NavigatorUtil from '../../util/NavigatorUtil'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
+import GlobalStyles from '../../../res/styles/GlobalStyles'
 const deviceWidth = Dimensions.get('window').width
 export default class CustomKeyPage extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ export default class CustomKeyPage extends Component {
     renderCheckBox(data){
       return(
         <CheckBox 
-          style={styles.checkbox}
+          style={[{width:(deviceWidth-20)/2},GlobalStyles.cell_container]}
           onClick={()=>{this.onClick(data)}}
           leftText={data.name}
           isChecked={data.checked}
@@ -135,23 +136,5 @@ const styles = StyleSheet.create({
     item:{
         flexDirection:'row',
         alignItems:'center'
-    },
-    checkbox:{
-        // flex:1,
-        flexDirection:'row',
-        width:(deviceWidth-20)/2,
-        backgroundColor:'white',
-        padding:10,
-        marginLeft:5,
-        marginRight:5,
-        marginVertical:3,
-        borderWidth:0.5,
-        borderRadius:2,
-        borderColor:'#dddddd',
-        shadowColor:'gray', // ios
-        shadowOffset:{width:0.5,hight:0.5},// ios
-        shadowOpacity:0.4,// ios
-        shadowRadius:1,// ios
-        elevation:2 // android
     }
 });

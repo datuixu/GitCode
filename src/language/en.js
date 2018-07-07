@@ -14,8 +14,10 @@ export default {
     },
     my:{
         tab_name:'my',
-        custom_key_title:'Custom label',
-        custom_key_save_text:'Save'
+        custom_key_title:'Custom Label',
+        custom_key_save_text:'Save',
+        sort_key_title:'Sort Lable',
+        sort_key_save_text:'Save'
     },
     loading:{
         title:'loading...'

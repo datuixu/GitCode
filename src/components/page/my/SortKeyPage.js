@@ -9,7 +9,8 @@ import {
     View,
     DeviceEventEmitter,
     TouchableOpacity,
-    Button
+    Button,
+    TouchableHighlight
 } from 'react-native'
 import SortableListview from 'react-native-sortable-listview'
 import NavigationBar from '../../common/NavigationBar'
@@ -61,7 +62,7 @@ export default class SortKeyPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('popular.title')}
+                title={I18n.t('my.sort_key_title')}
                 statusBar={statusBar}
             />;
         return <View style={styles.container}>
@@ -74,20 +75,45 @@ export default class SortKeyPage extends Component {
                 this.state.checkedArray.splice(e.to, 0, this.state.checkedArray.splice(e.from, 1)[0])
                 this.forceUpdate()
                }}
-               renderRow={row=> <SortCell data={row}/>}
+               renderRow={row=> <SortCell data={row} />}
             />
           </View>
     }
 }
 class SortCell extends Component{
-    render(){
-        return <View>
-            <Text>{this.props.data.name}</Text>
-        </View>
+    render() {
+        return <TouchableHighlight
+            underlayColor={'#eee'}
+            delayLongPress={500}
+            style={styles.item}
+            {...this.props.sortHandlers}
+           >
+            <View style={{marginLeft: 10, flexDirection: 'row'}}>
+                <Image source={require('./img/ic_sort.png')} 
+                />
+                <Text>{this.props.data.name}</Text>
+            </View>
+        </TouchableHighlight>
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    item:{
+        padding:15,
+        backgroundColor:'#F8F8F8',
+        borderBottomWidth:1,
+        borderColor:'#eee'
+    },
+    row:{
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    image:{
+        tintColor:'#2196F3',
+        height:16,
+        width:16,
+        marginRight:10
     }
 })

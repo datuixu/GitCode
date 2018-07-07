@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
     View,
     StyleSheet,
@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native'
-
+import GlobalStyles from '../../res/styles/GlobalStyles'
 export default class RepositoryCell extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +25,7 @@ export default class RepositoryCell extends Component {
                         source={require('../../res/images/lazy.png')}
                     />
         return (
-                <View style={styles.cell_container}>
+                <View style={GlobalStyles.cell_container}>
                     <View style={{width:50,marginRight:10}}>
                       {img}
                     </View>
@@ -60,21 +60,5 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginBottom: 2,
         color: '#757575'
-    },
-    cell_container: {
-        flexDirection:'row',
-        backgroundColor:'white',
-        padding:10,
-        marginLeft:5,
-        marginRight:5,
-        marginVertical:3,
-        borderWidth:0.5,
-        borderRadius:2,
-        borderColor:'#dddddd',
-        shadowColor:'gray', // ios
-        shadowOffset:{width:0.5,hight:0.5},// ios
-        shadowOpacity:0.4,// ios
-        shadowRadius:1,// ios
-        elevation:2 // android
     }
 })
