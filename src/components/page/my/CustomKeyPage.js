@@ -22,6 +22,7 @@ const deviceWidth = Dimensions.get('window').width
 export default class CustomKeyPage extends Component {
     constructor(props) {
         super(props)
+        this.isRemoveKey = this.props.navigation.state.params.isRemoveKey ? true : false
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
         this.changeValues = []
         this.state = {
@@ -33,6 +34,9 @@ export default class CustomKeyPage extends Component {
     }
     render() {
         const {navigation} = this.props
+        console.log(navigation)
+        const title = this.isRemoveKey ? I18n.t('my.remove_key_title') : I18n.t('my.custom_key_title')
+        const rightButton = this.isRemoveKey ? I18n.t('my.remove_key_text') : I18n.t('my.custom_key_save_text')
         var statusBar = {
             backgroundColor: '#2196F3',
             barStyle: 'light-content',
@@ -40,10 +44,10 @@ export default class CustomKeyPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('my.custom_key_title')}
+                title={title}
                 statusBar={statusBar}
                 leftButton={ViewUtils.getLeftButton(()=>this.goBack(navigation))}
-                rightButton={ViewUtils.getRightButton(I18n.t('my.custom_key_save_text'),()=>this.onSave(navigation))}
+                rightButton={ViewUtils.getRightButton(rightButton,()=>this.onSave(navigation))}
             />;
         return <View style={styles.container}>
                  {navigationBar}
@@ -75,12 +79,13 @@ export default class CustomKeyPage extends Component {
        return views
     }
     renderCheckBox(data){
+      let isChecked = this.isRemoveKey ? false : data.checked
       return(
         <CheckBox 
           style={[{width:(deviceWidth-20)/2},GlobalStyles.cell_container]}
           onClick={()=>{this.onClick(data)}}
           leftText={data.name}
-          isChecked={data.checked}
+          isChecked={isChecked}
           checkedImage={<Image source={require('./img/ic_check_box.png')}
           style={{tintColor:'#6495ED'}}/>}
           unCheckedImage={<Image source={require('./img/ic_check_box_outline_blank.png')}
@@ -89,7 +94,7 @@ export default class CustomKeyPage extends Component {
       )
     }
     onClick(data){
-        data.checked=!data.checked
+        if(!this.isRemoveKey)data.checked=!data.checked
         ArrayUtils.updateArray(this.changeValues,data)
     }
     loadData(){
@@ -109,7 +114,12 @@ export default class CustomKeyPage extends Component {
             NavigatorUtil.goBack(navigation)
             return
         }
-        this.save(this.state.keys)
+        if(this.isRemoveKey){
+            this.changeValues.forEach(item=>{
+                ArrayUtils.remove(this.state.dataArray,item)
+            })
+        }
+        this.LanguageDao.save(this.state.keys)
         NavigatorUtil.goBack(navigation)
     }
     goBack(navigation){

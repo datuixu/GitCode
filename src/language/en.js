@@ -17,7 +17,9 @@ export default {
         custom_key_title:'Custom Label',
         custom_key_save_text:'Save',
         sort_key_title:'Sort Lable',
-        sort_key_save_text:'Save'
+        sort_key_save_text:'Save',
+        remove_key_title:'Remove Lable',
+        remove_key_text:'Remove'
     },
     loading:{
         title:'loading...'

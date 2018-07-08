@@ -17,7 +17,9 @@ export default {
         custom_key_title:'自定义标签',
         custom_key_save_text:'保存',
         sort_key_title:'标签排序',
-        sort_key_save_text:'保存'
+        sort_key_save_text:'保存',
+        remove_key_title:'标签移除',
+        remove_key_text:'移除'
     },
     loading:{
         title:'加载中...'

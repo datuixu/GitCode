@@ -22,6 +22,7 @@ import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
+import Utils from '../../util/Utils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUERY_STR = '&sort=stars'
@@ -108,16 +109,27 @@ class PopularTab extends Component{
         })
         let url = URL+this.props.tabLabel+QUERY_STR
         this.dataRepository
-            .fetchNetRepository(url)
+            .fetchRepository(url)
             .then(result =>{
+                let items = result && result.items ? result.items : result ? result : []
                 this.setState({
-                    result:result.items,
+                    result:items,
                     isFirst:false,
                     isRefreshing:false
+                })
+                if (result && result.update_date && !Utils.checkDate(result.update_date)) return dataRepository.fetchNetRepository(url)
+            })
+            .then((items) => {
+                if (!items || items.length === 0) return
+                this.setState({
+                    result:items
                 })
             })
             .catch(error =>{
                 console.log(error)
+                this.setState({
+                    isRefreshing:false
+                })
             })
     }
     render(){
