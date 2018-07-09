@@ -7,7 +7,8 @@ export default {
         title:'最热'
     },
     trending:{
-        tab_name:'趋势'
+        tab_name:'趋势',
+        title:'趋势'
     },
     favorite:{
         tab_name:'收藏'

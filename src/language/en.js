@@ -7,7 +7,8 @@ export default {
         title:'Popular'
     },
     trending:{
-        tab_name:'trending'
+        tab_name:'trending',
+        title:'Trending'
     },
     favorite:{
         tab_name:'favorite'

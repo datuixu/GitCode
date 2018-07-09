@@ -10,13 +10,14 @@ import {
     Image,
     View,
     DeviceEventEmitter
-} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
-import {I18n} from '../../language/i18n';
-import PopularPage from './popular/PopularPage';
-import MyPage from './my/MyPage';
-import HomePage from './home/HomePage';
-import {DrawerNav} from '../navigators/AppNavigator';
+} from 'react-native'
+import TabNavigator from 'react-native-tab-navigator'
+import {I18n} from '../../language/i18n'
+import PopularPage from './popular/PopularPage'
+import TrendingPage from './trending/TrendingPage'
+import MyPage from './my/MyPage'
+import HomePage from './home/HomePage'
+import {DrawerNav} from '../navigators/AppNavigator'
 
 export default class TabPage extends Component {
     constructor(props) {
@@ -46,7 +47,7 @@ export default class TabPage extends Component {
                 renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_polular.png')}/>}
                 renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'#2196F3'}]} source={require('../../res/images/ic_polular.png')}/>}
                 onPress={() => this.setState({selectedTab: 'tb_popular'})}>
-                <PopularPage />
+                <PopularPage {...this.props}/>
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'tb_trending'}
@@ -55,7 +56,7 @@ export default class TabPage extends Component {
                 renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_trending.png')}/>}
                 renderSelectedIcon={() =><Image style={[styles.image,{tintColor:'yellow'}]} source={require('../../res/images/ic_trending.png')}/>}
                 onPress={() => this.setState({selectedTab: 'tb_trending'})}>
-                <View style={{backgroundColor: 'yellow',flex:1}}></View>
+                <TrendingPage />
               </TabNavigator.Item>
               <TabNavigator.Item
                   selected={this.state.selectedTab === 'tb_favorite'}

@@ -10,6 +10,8 @@ import HomePage from '../page/home/HomePage'
 import LoginPage from '../page/login/LoginPage'
 import CustomKeyPage from '../page/my/CustomKeyPage'
 import SortKeyPage from '../page/my/SortKeyPage'
+import PopularPage from '../page/popular/PopularPage'
+import PopularDetailPage from '../page/popular/PopularDetailPage'
 
 import MyPage from '../page/my/MyPage'
 
@@ -27,6 +29,9 @@ export default AppNavigator = StackNavigator({
     HomePage: {
         screen: HomePage
     },
+    PopularDetailPage:{
+        screen:PopularDetailPage
+    }
 }, {
     navigationOptions: {
         header: null

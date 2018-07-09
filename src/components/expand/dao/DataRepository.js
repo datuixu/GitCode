@@ -1,17 +1,17 @@
 /**
- * Created by penn on 2016/12/21.
+ * Created by wangjh on 2018/7/8.
  */
 
 import {
     AsyncStorage,
 } from 'react-native';
-// import Trending from "GitHubTrending";
+import GitHubTrending from '../../github-trending/GitHubTrending';
 export var FLAG_STORAGE = {flag_popular: 'popular', flag_trending: 'trending', flag_my: 'my'}
 
 export default class DataRepository {
     constructor(flag) {
         this.flag = flag;
-        // if (flag === FLAG_STORAGE.flag_trending)this.treding = new Trending();
+        if (flag === FLAG_STORAGE.flag_trending)this.trending = new GitHubTrending()
     }
 
     saveRepository(url, items, callback) {
@@ -85,7 +85,7 @@ export default class DataRepository {
                     }
                 })
             } else {
-                this.treding.fetchTrending(url)
+                this.trending.fetchTrending(url)
                     .then((items)=> {
                         if (!items) {
                             reject(new Error('responseData is null'));

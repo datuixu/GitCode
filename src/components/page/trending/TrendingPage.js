@@ -13,10 +13,9 @@ import {
     RefreshControl,
     DeviceEventEmitter,
     Dimensions
-} from 'react-native';
+} from 'react-native'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
-import {TabNavigator} from 'react-navigation'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
@@ -24,13 +23,12 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
-const URL = 'https://api.github.com/search/repositories?q='
-const QUERY_STR = '&sort=stars'
-const deviceWidth = Dimensions.get('window').width;
-export default class PopularPage extends Component {
+const URL = 'https://github.com/trending/'
+
+export default class TrendingPage extends Component {
     constructor(props) {
         super(props);
-        this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
+        this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_language)
         this.state = {
             projectModels: [],
             languages: [],
@@ -76,7 +74,7 @@ export default class PopularPage extends Component {
         >
         {this.state.languages.map((result,i,arr)=>{
           let lan = arr[i]
-          return lan.checked ? <PopularTab key={i} tabLabel={lan.name} {...this.props}></PopularTab> : null
+          return lan.checked ? <TrendingTab key={i} tabLabel={lan.name} {...this.props}></TrendingTab> : null
         })}
 
         </ScrollableTabView>
@@ -90,10 +88,10 @@ export default class PopularPage extends Component {
 
 }
 
-class PopularTab extends Component{
+class TrendingTab extends Component{
     constructor(props) {
         super(props);
-        this.dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
+        this.dataRepository = new DataRepository(FLAG_STORAGE.flag_trending)
         this.state = {
             result:[],
             isRefreshing:false,
@@ -101,7 +99,7 @@ class PopularTab extends Component{
         }
     }
     componentDidMount(){
-        this.loadData(this.state.isFirst)
+        // this.loadData(this.state.isFirst)
     }
     loadData(isFirst){
         this.setState({

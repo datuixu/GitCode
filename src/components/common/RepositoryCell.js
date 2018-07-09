@@ -25,6 +25,9 @@ export default class RepositoryCell extends Component {
                         source={require('../../res/images/lazy.png')}
                     />
         return (
+             <TouchableOpacity
+                onPress={this.props.onSelect}
+             >
                 <View style={GlobalStyles.cell_container}>
                     <View style={{width:50,marginRight:10}}>
                       {img}
@@ -44,6 +47,7 @@ export default class RepositoryCell extends Component {
                         </View>
                     </View>
                 </View>
+             </TouchableOpacity>
         )
     }
 }
