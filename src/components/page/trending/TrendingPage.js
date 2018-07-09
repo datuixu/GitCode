@@ -99,13 +99,13 @@ class TrendingTab extends Component{
         }
     }
     componentDidMount(){
-        // this.loadData(this.state.isFirst)
+        this.loadData(this.state.isFirst)
     }
     loadData(isFirst){
         this.setState({
             isRefreshing :isFirst ? false : true
         })
-        let url = URL+this.props.tabLabel+QUERY_STR
+        let url = this.genFetchUrl('?since=daily',this.props.tabLabel)
         this.dataRepository
             .fetchRepository(url)
             .then(result =>{
@@ -129,6 +129,9 @@ class TrendingTab extends Component{
                     isRefreshing:false
                 })
             })
+    }
+    genFetchUrl(timeSpan,category){
+       return URL + category + timeSpan.searchText
     }
     render(){
         if(this.state.result.length == 0){
