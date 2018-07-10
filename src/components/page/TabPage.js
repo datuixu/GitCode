@@ -45,7 +45,7 @@ export default class TabPage extends Component {
                                                  source={renderIcon}/>}
                 onPress={() => this.onTabClick(this.state.selectedTab, selectedTab)}
             >
-                <Component {...this.props}/>
+                {Component}
             </TabNavigator.Item>
         )
     }
@@ -57,10 +57,10 @@ export default class TabPage extends Component {
         return (
           <View style={styles.container}>
             <TabNavigator>
-                {this._renderTab(DrawerNav, FLAG_TAB.flag_homeTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
-                {this._renderTab(PopularPage, FLAG_TAB.flag_popularTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
-                {this._renderTab(TrendingPage, FLAG_TAB.flag_trendingTab, I18n.t('trending.tab_name'), require('../../res/images/ic_trending.png'))}
-                {this._renderTab(FavoritePage, FLAG_TAB.flag_favoriteTab, I18n.t('favorite.tab_name'), require('../../res/images/ic_favorite.png'))}
+                {this._renderTab(<DrawerNav />, FLAG_TAB.flag_homeTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
+                {this._renderTab(<PopularPage {...this.props}/>, FLAG_TAB.flag_popularTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
+                {this._renderTab(<TrendingPage {...this.props}/>, FLAG_TAB.flag_trendingTab, I18n.t('trending.tab_name'), require('../../res/images/ic_trending.png'))}
+                {/* {this._renderTab(PopularPage, FLAG_TAB.flag_favoriteTab, I18n.t('favorite.tab_name'), require('../../res/images/ic_favorite.png'))} */}
             </TabNavigator>
           </View>
         )

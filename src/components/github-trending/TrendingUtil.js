@@ -15,12 +15,12 @@ var TAGS = {
         start: '<span class="d-inline-block float-sm-right">',
         end: '</span>'
     },
-    forkCount: {
+    starCount: {
         start: '<a class="muted-link d-inline-block mr-3"',
         flag: '/stargazers">',
         end: '</a>'
     },
-    starCount: {
+    forkCount: {
         start: '<a class="muted-link d-inline-block mr-3"',
         flag: '/network">',
         end: '</a>'
@@ -63,7 +63,8 @@ export default class TrendingUtil {
         var content = htmlStr.substring(noteStar, noteEnd);
         return StringUtil.trim(content)
     }
-
+    
+    // 描述
     static parseRepoBaseInfo(repo, htmlBaseInfo) {
         var urlIndex = htmlBaseInfo.indexOf('<a href="') + '<a href="'.length;
         var url = htmlBaseInfo.slice(urlIndex, htmlBaseInfo.indexOf('">', urlIndex));
@@ -85,14 +86,17 @@ export default class TrendingUtil {
         let metaContent = content.substring(content.indexOf('</svg>') + '</svg>'.length, content.length);
         return StringUtil.trim(metaContent);
     }
-
+    // 所属语言与对应的颜色
     static parseRepoLang(repo, metaNoteContent) {
         var content = this.parseContentWithNote(metaNoteContent, 'programmingLanguage">', '</span>');
+        var languageColor = this.parseContentWithNote(metaNoteContent, '<span class="repo-language-color ml-0" style="background-color:', ';"></span>');
         repo.language = StringUtil.trim(content);
+        repo.languageColor = StringUtil.trim(languageColor);
     }
-
+    
+    // 所有贡献者头像
     static parseRepoContributors(repo, htmlContributors) {
-        htmlContributors = this.parseContentWithNote(htmlContributors, 'Built by', '</a>');
+        htmlContributors = this.parseContentWithNote(htmlContributors, 'Built by', '</span>');
         var splitWitSemicolon = htmlContributors.split('"');
         repo.contributorsUrl = splitWitSemicolon[1];
         var contributors = [];

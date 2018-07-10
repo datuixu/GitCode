@@ -3,12 +3,13 @@ export default {
         tab_name:'首页'
     },
     popular:{
-        tab_name:'最热',
-        title:'最热'
+        tab_name:'热门',
+        title:'热门版本库'
     },
     trending:{
         tab_name:'趋势',
-        title:'趋势'
+        title:'趋势版本库',
+        built_by_title:'贡献者'
     },
     favorite:{
         tab_name:'收藏'

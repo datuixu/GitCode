@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native'
+import HTMLView from 'react-native-htmlview'
 import GlobalStyles from '../../res/styles/GlobalStyles'
 export default class RepositoryCell extends Component {
     constructor(props) {
@@ -16,14 +17,16 @@ export default class RepositoryCell extends Component {
     }
 
     render() {
-        const img = this.props.data.owner.avatar_url ? <Image 
+        const data = this.props.data
+        const img = data.owner.avatar_url ? <Image 
                         style={{height:50,width:50,borderRadius:50}}
-                        source={{uri:this.props.data.owner.avatar_url}}
+                        source={{uri:data.owner.avatar_url}}
                     /> :
                     <Image 
                         style={{height:50,width:50,borderRadius:50}}
                         source={require('../../res/images/lazy.png')}
                     />
+        const description='<p>'+data.description+'</p>';
         return (
              <TouchableOpacity
                 onPress={this.props.onSelect}
@@ -34,16 +37,21 @@ export default class RepositoryCell extends Component {
                     </View>
                     <View style={{flex:1}}>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={styles.title}>{this.props.data.full_name}</Text>
-                            {/* <Text>{this.props.data.language}</Text> */}
+                            <Text style={styles.title}>{data.full_name}</Text>
                         </View>
-                        <View>
-                          <Text style={styles.description}>{this.props.data.description}</Text>
-                        </View>
+                        <HTMLView
+                            value={description}
+                            onLinkPress={(url) => {
+                            }}
+                            stylesheet={{
+                                p:styles.description,
+                                a:styles.description
+                            }}
+                        />
                         <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-                            <Text >{this.props.data.watchers_count}</Text>
-                            <Text >{this.props.data.stargazers_count}</Text>
-                            <Text >{this.props.data.forks_count}</Text>
+                            <Text style={{fontSize:12}}>{data.watchers_count}</Text>
+                            <Text style={{fontSize:12}}>{data.stargazers_count}</Text>
+                            <Text style={{fontSize:12}}>{data.forks_count}</Text>
                         </View>
                     </View>
                 </View>
@@ -57,12 +65,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        marginBottom: 2,
-        color: '#212121',
+        marginBottom: 5,
+        color: '#2196F3'
     },
     description: {
         fontSize: 14,
-        marginBottom: 2,
-        color: '#757575'
+        marginBottom: 5,
+        color: '#212121'
     }
 })

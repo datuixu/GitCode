@@ -18,7 +18,7 @@ import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
-import RepositoryCell from '../../common/RepositoryCell'
+import TrendingCell from '../../common/TrendingCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
@@ -56,7 +56,7 @@ export default class TrendingPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('popular.title')}
+                title={I18n.t('trending.title')}
                 statusBar={statusBar}
             />;
         let content = this.state.languages.length > 0 ? 
@@ -109,13 +109,15 @@ class TrendingTab extends Component{
         this.dataRepository
             .fetchRepository(url)
             .then(result =>{
-                let items = result && result.items ? result.items : result ? result : []
-                this.setState({
-                    result:items,
-                    isFirst:false,
-                    isRefreshing:false
-                })
-                if (result && result.update_date && !Utils.checkDate(result.update_date)) return dataRepository.fetchNetRepository(url)
+                // console.log(result)
+                // let items = result && result.items ? result.items : result ? result : []
+                // this.setState({
+                //     result:items,
+                //     isFirst:false,
+                //     isRefreshing:false
+                // })
+                return this.dataRepository.fetchNetRepository(url)
+                // if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
             })
             .then((items) => {
                 if (!items || items.length === 0) return
@@ -148,8 +150,7 @@ class TrendingTab extends Component{
                     <FlatList
                         data={this.state.result}
                         renderItem={(data) => this.renderRow(data)}
-                        keyExtractor={item => item.id.toString()} //FlatList 每一行需要一个key
-                        // ListHeaderComponent={() => this._renderHeader()}
+                        keyExtractor={item => item.fullName} //FlatList 每一行需要一个key
                         onScroll={event => this._onScroll(event)}
                         refreshControl={
                             <RefreshControl
@@ -172,7 +173,7 @@ class TrendingTab extends Component{
     renderRow(data) {
         const item = data.item
         return (
-            <RepositoryCell 
+            <TrendingCell 
               data={item}
               onSelect={()=>this.onSelect(item)}
             />
