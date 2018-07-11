@@ -25,8 +25,9 @@ import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 const URL = 'https://api.github.com/search/repositories?q='
-const QUERY_STR = '&sort=stars'
+const QUERY_STR = '&page=1&per_page=10&sort=stars'
 const deviceWidth = Dimensions.get('window').width;
+var dataRepository = new DataRepository(FLAG_STORAGE.flag_popular);
 export default class PopularPage extends Component {
     constructor(props) {
         super(props);
@@ -35,11 +36,12 @@ export default class PopularPage extends Component {
             projectModels: [],
             languages: [],
         }
+        this.loadLanguage()
     }
-    componentDidMount() {
-        this.loadData()
-    }
-    loadData(){
+    // componentDidMount() {
+    //     this.loadData()
+    // }
+    loadLanguage(){
         this.LanguageDao.fetch()
             .then(res =>{
                this.setState({
@@ -93,7 +95,7 @@ export default class PopularPage extends Component {
 class PopularTab extends Component{
     constructor(props) {
         super(props);
-        this.dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
+        // this.dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
         this.state = {
             result:[],
             isRefreshing:false,
@@ -108,21 +110,20 @@ class PopularTab extends Component{
             isRefreshing :isFirst ? false : true
         })
         let url = URL+this.props.tabLabel+QUERY_STR
-        this.dataRepository
+        dataRepository
             .fetchRepository(url)
             .then(result =>{
+                // return dataRepository.fetchNetRepository(url)
                 let items = result && result.items ? result.items : result ? result : []
-                this.setState({
-                    result:items,
-                    isFirst:false,
-                    isRefreshing:false
-                })
                 if (result && result.update_date && !Utils.checkDate(result.update_date)) return dataRepository.fetchNetRepository(url)
+                return items
             })
             .then((items) => {
                 if (!items || items.length === 0) return
                 this.setState({
-                    result:items
+                    result:items,
+                    isFirst:false,
+                    isRefreshing:false
                 })
             })
             .catch(error =>{
@@ -148,8 +149,7 @@ class PopularTab extends Component{
                         data={this.state.result}
                         renderItem={(data) => this.renderRow(data)}
                         keyExtractor={item => item.id.toString()} //FlatList 每一行需要一个key
-                        // ListHeaderComponent={() => this._renderHeader()}
-                        onScroll={event => this._onScroll(event)}
+                        // onScroll={event => this._onScroll(event)}
                         refreshControl={
                             <RefreshControl
                                 refreshing={this.state.isRefreshing} //控制是否可以刷新

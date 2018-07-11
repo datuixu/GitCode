@@ -12,7 +12,9 @@ import {
     FlatList,
     RefreshControl,
     DeviceEventEmitter,
-    Dimensions
+    Dimensions,
+    TouchableOpacity,
+    TouchableHighlight
 } from 'react-native'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
@@ -23,7 +25,14 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
+import TimeSpan from '../../model/TimeSpan'
+import Popover from '../../common/Popover'
+import PopMenu from '../../common/PopMenu'
 const URL = 'https://github.com/trending/'
+
+const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
+                           new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
+                           new TimeSpan(I18n.t('trending.since_monthly'),'since=monthly')]
 
 export default class TrendingPage extends Component {
     constructor(props) {
@@ -32,6 +41,7 @@ export default class TrendingPage extends Component {
         this.state = {
             projectModels: [],
             languages: [],
+            isVisible: false
         }
     }
     componentDidMount() {
@@ -42,11 +52,16 @@ export default class TrendingPage extends Component {
             .then(res =>{
                this.setState({
                 languages:res
-               })
+               }) 
             })
             .catch(error => {
                 console.log(error)
             })
+    }
+    renderTieleView(){
+        return <View>
+            <Text>sssssssssss</Text>
+        </View>
     }
     render() {
         var statusBar = {
@@ -56,11 +71,10 @@ export default class TrendingPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('trending.title')}
+                titleView={this.renderTieleView()}
                 statusBar={statusBar}
             />;
-        let content = this.state.languages.length > 0 ? 
-        <ScrollableTabView
+        let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
           tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
@@ -72,14 +86,11 @@ export default class TrendingPage extends Component {
                 tabStyle={{height: 39}}
           />}
         >
-        {this.state.languages.map((result,i,arr)=>{
-          let lan = arr[i]
-          return lan.checked ? <TrendingTab key={i} tabLabel={lan.name} {...this.props}></TrendingTab> : null
+        {timeSpanTextArray.map((result,i,arr)=>{
+           return <TrendingTab key={i} tabLabel={arr[i].showText} searchText={arr[i].searchText} {...this.props}></TrendingTab>
         })}
-
         </ScrollableTabView>
-        :
-        null
+        :null
         return <View style={styles.container}>
                  {navigationBar}
                  {content}
@@ -105,24 +116,26 @@ class TrendingTab extends Component{
         this.setState({
             isRefreshing :isFirst ? false : true
         })
-        let url = this.genFetchUrl('?since=daily',this.props.tabLabel)
+        let url = this.genFetchUrl(this.props.searchText)
         this.dataRepository
             .fetchRepository(url)
             .then(result =>{
-                // console.log(result)
-                // let items = result && result.items ? result.items : result ? result : []
+                let items = result && result.items ? result.items : result ? result : []
                 // this.setState({
                 //     result:items,
                 //     isFirst:false,
                 //     isRefreshing:false
                 // })
-                return this.dataRepository.fetchNetRepository(url)
-                // if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
+                // return this.dataRepository.fetchNetRepository(url)
+                if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
+                return items
             })
             .then((items) => {
                 if (!items || items.length === 0) return
                 this.setState({
-                    result:items
+                    result:items,
+                    isFirst:false,
+                    isRefreshing:false
                 })
             })
             .catch(error =>{
@@ -132,8 +145,8 @@ class TrendingTab extends Component{
                 })
             })
     }
-    genFetchUrl(timeSpan,category){
-       return URL + category + timeSpan.searchText
+    genFetchUrl(timeSpan){
+       return URL + 'java?' + timeSpan
     }
     render(){
         if(this.state.result.length == 0){

@@ -9,7 +9,10 @@ export default {
     trending:{
         tab_name:'趋势',
         title:'趋势版本库',
-        built_by_title:'贡献者'
+        built_by_title:'贡献者',
+        since_daily:'今日',
+        since_weekly:'本周',
+        since_monthly:'本月'
     },
     favorite:{
         tab_name:'收藏'

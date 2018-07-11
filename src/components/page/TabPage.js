@@ -14,10 +14,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator'
 import {I18n} from '../../language/i18n'
 import PopularPage from './popular/PopularPage'
-import TrendingPage from './trending/TrendingPage'
-import MyPage from './my/MyPage'
-import HomePage from './home/HomePage'
-import {DrawerNav} from '../navigators/AppNavigator'
+import {HomeNavigator,TrendingNavigator} from '../navigators/AppNavigator'
 
 export const FLAG_TAB = {
     flag_homeTab: 'tb_home',
@@ -57,9 +54,9 @@ export default class TabPage extends Component {
         return (
           <View style={styles.container}>
             <TabNavigator>
-                {this._renderTab(<DrawerNav />, FLAG_TAB.flag_homeTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
+                {this._renderTab(<HomeNavigator />, FLAG_TAB.flag_homeTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
                 {this._renderTab(<PopularPage {...this.props}/>, FLAG_TAB.flag_popularTab, I18n.t('popular.tab_name'), require('../../res/images/ic_polular.png'))}
-                {this._renderTab(<TrendingPage {...this.props}/>, FLAG_TAB.flag_trendingTab, I18n.t('trending.tab_name'), require('../../res/images/ic_trending.png'))}
+                {this._renderTab(<TrendingNavigator />, FLAG_TAB.flag_trendingTab, I18n.t('trending.tab_name'), require('../../res/images/ic_trending.png'))}
                 {/* {this._renderTab(PopularPage, FLAG_TAB.flag_favoriteTab, I18n.t('favorite.tab_name'), require('../../res/images/ic_favorite.png'))} */}
             </TabNavigator>
           </View>

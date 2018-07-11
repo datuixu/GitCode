@@ -9,7 +9,10 @@ export default {
     trending:{
         tab_name:'trending',
         title:'Trending',
-        built_by_title:'Built by'
+        built_by_title:'Built by',
+        since_daily:'today',
+        since_weekly:'this week',
+        since_monthly:'this month'
     },
     favorite:{
         tab_name:'favorite'
