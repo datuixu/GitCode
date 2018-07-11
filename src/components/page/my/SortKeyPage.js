@@ -128,7 +128,7 @@ class SortCell extends Component{
             {...this.props.sortHandlers}
            >
             <View style={styles.row}>
-                <Image source={require('./img/ic_sort.png')} 
+                <Image source={require('../../../res/images/ic_sort.png')} 
                        style={styles.image}
                 />
                 <Text>{this.props.data.name}</Text>

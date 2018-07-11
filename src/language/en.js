@@ -10,9 +10,10 @@ export default {
         tab_name:'trending',
         title:'Trending',
         built_by_title:'Built by',
-        since_daily:'today',
-        since_weekly:'this week',
-        since_monthly:'this month'
+        since_daily:'Daily',
+        since_weekly:'Weekly',
+        since_monthly:'Monthly',
+        select_lan_nav_title:'Select Languages'
     },
     favorite:{
         tab_name:'favorite'

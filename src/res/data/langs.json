@@ -8,50 +8,50 @@
   {
     "path": "unknown",
     "name": "Unknown",
-    "checked": true
+    "checked": false
   },
   {
     "path": "as3",
     "name": "ActionScript",
     "short_name": "AS",
-    "checked": true
+    "checked": false
   },
   {
     "path": "apacheconf",
     "name": "ApacheConf",
-    "checked": true
+    "checked": false
   },
   {
     "path": "nasm",
     "name": "Assembly",
     "short_name": "NASM",
-    "checked": true
+    "checked": false
   },
   {
     "path": "bat",
     "name": "Batchfile",
     "short_name": "BAT",
-    "checked": true
+    "checked": false
   },
   {
     "path": "c",
     "name": "C",
-    "checked": true
+    "checked": false
   },
   {
     "path": "csharp",
     "name": "C#",
-    "checked": true
+    "checked": false
   },
   {
     "path": "cpp",
     "name": "C++",
-    "checked": true
+    "checked": false
   },
   {
     "path": "cmake",
     "name": "CMake",
-    "checked": true
+    "checked": false
   },
   {
     "path": "css",

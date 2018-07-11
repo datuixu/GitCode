@@ -12,7 +12,8 @@ export default {
         built_by_title:'贡献者',
         since_daily:'今日',
         since_weekly:'本周',
-        since_monthly:'本月'
+        since_monthly:'本月',
+        select_lan_nav_title:'选择语言'
     },
     favorite:{
         tab_name:'收藏'

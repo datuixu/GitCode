@@ -17,6 +17,7 @@ export default class TrendingCell extends Component {
         };
     }
     renderContributors(contributors){
+       if(contributors.length === 0)return null
        let items = []
        contributors.forEach((item,index) => {
         items.push(
@@ -57,10 +58,13 @@ export default class TrendingCell extends Component {
                                 a:styles.description
                             }}
                         />
-                        <View style={{flexDirection:'row',marginBottom:5,alignItems:'center'}}>
-                          <Text>{I18n.t('trending.built_by_title')}</Text>
-                          {this.renderContributors(data.contributors)}
-                        </View>
+                        {
+                        data.contributors.length === 0 ? null : 
+                            <View style={{flexDirection:'row',marginBottom:5,alignItems:'center'}}>
+                                <Text>{I18n.t('trending.built_by_title')}</Text>
+                                {this.renderContributors(data.contributors)}
+                            </View>
+                        }
                         <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
                             <Text style={{fontSize:12}}>{data.starCount}</Text>
                             <Text style={{fontSize:12}}>{data.forkCount}</Text>

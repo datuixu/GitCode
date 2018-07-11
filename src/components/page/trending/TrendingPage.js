@@ -24,6 +24,7 @@ import TrendingCell from '../../common/TrendingCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
+import ViewUtils from '../../util/ViewUtils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 import TimeSpan from '../../model/TimeSpan'
 import Popover from '../../common/Popover'
@@ -40,8 +41,8 @@ export default class TrendingPage extends Component {
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_language)
         this.state = {
             projectModels: [],
-            languages: [],
-            isVisible: false
+            isVisible: false,
+            lan_title:"All Language"
         }
     }
     componentDidMount() {
@@ -50,9 +51,14 @@ export default class TrendingPage extends Component {
     loadData(){
         this.LanguageDao.fetch()
             .then(res =>{
-               this.setState({
-                languages:res
-               }) 
+                res.map((result,i,arr)=>{
+                    if(arr[i].checked){
+                        this.setState({
+                            lan_title:arr[i].name
+                        }) 
+                    }
+                })
+               
             })
             .catch(error => {
                 console.log(error)
@@ -60,10 +66,11 @@ export default class TrendingPage extends Component {
     }
     renderTieleView(){
         return <View>
-            <Text>sssssssssss</Text>
+            <Text style={{color:'#FFFFFF',fontSize:16}}>{this.state.lan_title}</Text>
         </View>
     }
     render() {
+        const {navigation} = this.props
         var statusBar = {
             backgroundColor: '#2196F3',
             barStyle: 'light-content',
@@ -73,6 +80,8 @@ export default class TrendingPage extends Component {
             <NavigationBar
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
+                leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
+                rightButton={ViewUtils.getRightButton(<Text>sss</Text>,() => navigation.openDrawer())}
             />;
         let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
           tabBarBackgroundColor="#2196F3"
@@ -121,11 +130,6 @@ class TrendingTab extends Component{
             .fetchRepository(url)
             .then(result =>{
                 let items = result && result.items ? result.items : result ? result : []
-                // this.setState({
-                //     result:items,
-                //     isFirst:false,
-                //     isRefreshing:false
-                // })
                 // return this.dataRepository.fetchNetRepository(url)
                 if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
                 return items
@@ -209,5 +213,10 @@ const styles = StyleSheet.create({
     },
     tips: {
         fontSize: 20
+    },
+    leftButton:{
+        fontSize: 20,
+        color: '#FFFFFF',
+        marginLeft:10
     }
 })

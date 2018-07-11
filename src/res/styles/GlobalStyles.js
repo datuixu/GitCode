@@ -35,5 +35,20 @@ module.exports ={
         shadowOpacity:0.4,// ios
         shadowRadius:1,// ios
         elevation:2 // android
+    },
+    cell_select_lan:{
+        backgroundColor:'white',
+        padding:10,
+        marginLeft:5,
+        marginRight:5,
+        marginVertical:3,
+        borderWidth:0.5,
+        borderRadius:2,
+        borderColor:'#dddddd',
+        shadowColor:'gray', // ios
+        shadowOffset:{width:0.5,hight:0.5},// ios
+        shadowOpacity:0.4,// ios
+        shadowRadius:1,// ios
+        elevation:2 // android
     }
 };
