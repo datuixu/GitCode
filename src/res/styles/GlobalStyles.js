@@ -49,6 +49,6 @@ module.exports ={
         shadowOffset:{width:0.5,hight:0.5},// ios
         shadowOpacity:0.4,// ios
         shadowRadius:1,// ios
-        elevation:2 // android
+        elevation:2, // android
     }
 };

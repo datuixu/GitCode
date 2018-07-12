@@ -27,8 +27,7 @@ import Utils from '../../util/Utils'
 import ViewUtils from '../../util/ViewUtils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 import TimeSpan from '../../model/TimeSpan'
-import Popover from '../../common/Popover'
-import PopMenu from '../../common/PopMenu'
+import languageColors from '../../../res/data/language_colors.json'
 const URL = 'https://github.com/trending/'
 
 const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
@@ -42,13 +41,16 @@ export default class TrendingPage extends Component {
         this.state = {
             projectModels: [],
             isVisible: false,
-            lan_title:"All Language"
+            lan_title:"All languages"
         }
     }
     componentDidMount() {
         this.loadData()
     }
     loadData(){
+        // languageColors.map((result,i,arr)=>{
+
+        // })
         this.LanguageDao.fetch()
             .then(res =>{
                 res.map((result,i,arr)=>{

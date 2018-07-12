@@ -2,7 +2,7 @@ import React from 'react'
 import {
     Dimensions
 } from 'react-native'
-import {StackNavigator,DrawerNavigator} from 'react-navigation'
+import {createStackNavigator,createDrawerNavigator} from 'react-navigation'
 import HomeDrawerItems from '../common/HomeDrawerItems'
 import TrendingDrawerItems from '../common/TrendingDrawerItems'
 import WelcomePage from '../page/WelcomePage'
@@ -16,7 +16,7 @@ import PopularDetailPage from '../page/popular/PopularDetailPage'
 
 const deviceWidth = Dimensions.get('window').width
 
-export default AppNavigator = StackNavigator({
+export default AppNavigator = createStackNavigator({
     WelcomePage: {
         screen: WelcomePage
     },
@@ -38,27 +38,27 @@ export default AppNavigator = StackNavigator({
     }
 })
 
-export const TrendingNavigator = DrawerNavigator({
+export const TrendingNavigator = createDrawerNavigator({
     TrendingPage: {
         screen: TrendingPage
     }
 },{
     drawerWidth: deviceWidth-200, // 抽屉宽
     drawerPosition: 'right', // 抽屉在左边还是右边
-    contentOptions: {
-    //   initialRouteName: 'MyPage', // 默认页面组件
-      labelStyle : {//标签样式
-           // color : 'red',
-           height : 30,
-      },
-      activeTintColor: 'white',  // 选中文字颜色
-      activeBackgroundColor: '#ff8500', // 选中背景颜色
-      inactiveTintColor: '#666',  // 未选中文字颜色
-      inactiveBackgroundColor: '#fff', // 未选中背景颜色
-      style: {  // 样式
-         marginVertical: 0, 
-      },
-   },
+//     contentOptions: {
+//     //   initialRouteName: 'MyPage', // 默认页面组件
+//       labelStyle : {//标签样式
+//            // color : 'red',
+//            height : 130,
+//       },
+//       activeTintColor: 'white',  // 选中文字颜色
+//       activeBackgroundColor: '#ff8500', // 选中背景颜色
+//       inactiveTintColor: '#666',  // 未选中文字颜色
+//       inactiveBackgroundColor: '#fff', // 未选中背景颜色
+//       style: {  // 样式
+//          marginVertical: 0, 
+//       },
+//    },
    contentComponent: props => {
         return (
             <TrendingDrawerItems {...props}/>
@@ -66,7 +66,7 @@ export const TrendingNavigator = DrawerNavigator({
     },
 })
 
-export const HomeNavigator = DrawerNavigator({
+export const HomeNavigator = createDrawerNavigator({
     HomePage: {
         screen: HomePage
     },
@@ -79,20 +79,20 @@ export const HomeNavigator = DrawerNavigator({
 },{
     drawerWidth: deviceWidth-150, // 抽屉宽
     drawerPosition: 'left', // 抽屉在左边还是右边
-    contentOptions: {
-    //   initialRouteName: 'MyPage', // 默认页面组件
-      labelStyle : {//标签样式
-           // color : 'red',
-           height : 30,
-      },
-      activeTintColor: 'white',  // 选中文字颜色
-      activeBackgroundColor: '#ff8500', // 选中背景颜色
-      inactiveTintColor: '#666',  // 未选中文字颜色
-      inactiveBackgroundColor: '#fff', // 未选中背景颜色
-      style: {  // 样式
-         marginVertical: 0, 
-      },
-   },
+//     contentOptions: {
+//     //   initialRouteName: 'MyPage', // 默认页面组件
+//       labelStyle : {//标签样式
+//            // color : 'red',
+//            height : 30,
+//       },
+//       activeTintColor: 'white',  // 选中文字颜色
+//       activeBackgroundColor: '#ff8500', // 选中背景颜色
+//       inactiveTintColor: '#666',  // 未选中文字颜色
+//       inactiveBackgroundColor: '#fff', // 未选中背景颜色
+//       style: {  // 样式
+//          marginVertical: 0, 
+//       },
+//    },
    contentComponent: props => {
         return (
             <HomeDrawerItems {...props}/>
