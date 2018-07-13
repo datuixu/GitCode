@@ -25,7 +25,8 @@ export default class TrendingDrawerItems extends Component {
         this.endNo = 19 // 分页结束值
         this.items = [] //存储数据用于分页
         this.state = {
-            languages:[]
+            languages:[],
+            checkeIndex:0
         };
     }
     componentDidMount(){
@@ -55,10 +56,10 @@ export default class TrendingDrawerItems extends Component {
     renderRow(data){
         console.log(data)
         const {item,index} = data
-        return  <TouchableOpacity key={index} style={[GlobalStyles.cell_container,{alignItems:'center'}]} activeOpacity={0.7}>
+        return  <TouchableOpacity key={index} style={[GlobalStyles.cell_container,{alignItems:'center'}]} activeOpacity={0.7} onPress={()=>this.selectLanguage(item,index)}>
                     <View style={[styles.colorView,{backgroundColor:item.color}]}></View>
                     <Text style={{flex:1,color:'#000000'}}>{item.language}</Text>
-                    {/* {arr[i].checked ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null} */}
+                    {this.state.checkeIndex == index ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null}
                 </TouchableOpacity>
      
     }
@@ -66,6 +67,12 @@ export default class TrendingDrawerItems extends Component {
         return(
             <Footer />
         )
+    }
+    selectLanguage(item,index){
+       console.log(index)
+       this.setState({
+           checkeIndex:index
+       })
     }
     render(){
         const {navigation} = this.props

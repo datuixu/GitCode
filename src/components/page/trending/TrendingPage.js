@@ -41,16 +41,18 @@ export default class TrendingPage extends Component {
         this.state = {
             projectModels: [],
             isVisible: false,
-            lan_title:"All languages"
+            lan_title:"All languages",
+            isShowLanLoad:false,
+            isImage:false
         }
     }
     componentDidMount() {
+        // this.deEmitter = DeviceEventEmitter.addListener('left', (a) => {
+        //     alert('收到通知：' + a);
+        // });
         this.loadData()
     }
     loadData(){
-        // languageColors.map((result,i,arr)=>{
-
-        // })
         this.LanguageDao.fetch()
             .then(res =>{
                 res.map((result,i,arr)=>{
@@ -71,6 +73,26 @@ export default class TrendingPage extends Component {
             <Text style={{color:'#FFFFFF',fontSize:16}}>{this.state.lan_title}</Text>
         </View>
     }
+    renderRightBtn(){
+       if(this.state.isImage){
+         return <Image style={{width:18,height:18}} source={require('../../../res/images/loading.gif')}/>
+       }else{
+         return <Text>ssss</Text>
+       }
+    }
+    openDrawer(navigation){
+        this.setState({
+            isImage:true
+        })
+        setTimeout(()=>{
+            navigation.openDrawer()
+        },100)
+        setTimeout(()=>{
+            this.setState({
+                isImage:false
+            })
+        },200)
+    }
     render() {
         const {navigation} = this.props
         var statusBar = {
@@ -83,7 +105,7 @@ export default class TrendingPage extends Component {
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
-                rightButton={ViewUtils.getRightButton(<Text>sss</Text>,() => navigation.openDrawer())}
+                rightButton={ViewUtils.getRightButton(this.renderRightBtn(),() => this.openDrawer(navigation),this.state.isImage)}
             />;
         let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
           tabBarBackgroundColor="#2196F3"

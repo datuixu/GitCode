@@ -16,7 +16,7 @@ import PopularDetailPage from '../page/popular/PopularDetailPage'
 
 const deviceWidth = Dimensions.get('window').width
 
-export default AppNavigator = createStackNavigator({
+export const AppNavigator = createStackNavigator({
     WelcomePage: {
         screen: WelcomePage
     },
@@ -45,20 +45,20 @@ export const TrendingNavigator = createDrawerNavigator({
 },{
     drawerWidth: deviceWidth-200, // 抽屉宽
     drawerPosition: 'right', // 抽屉在左边还是右边
-//     contentOptions: {
-//     //   initialRouteName: 'MyPage', // 默认页面组件
-//       labelStyle : {//标签样式
-//            // color : 'red',
-//            height : 130,
-//       },
-//       activeTintColor: 'white',  // 选中文字颜色
-//       activeBackgroundColor: '#ff8500', // 选中背景颜色
-//       inactiveTintColor: '#666',  // 未选中文字颜色
-//       inactiveBackgroundColor: '#fff', // 未选中背景颜色
-//       style: {  // 样式
-//          marginVertical: 0, 
-//       },
-//    },
+    contentOptions: {
+      initialRouteName: 'TrendingPage', // 默认页面组件
+    //   labelStyle : {//标签样式
+    //        // color : 'red',
+    //        height : 130,
+    //   },
+    //   activeTintColor: 'white',  // 选中文字颜色
+    //   activeBackgroundColor: '#ff8500', // 选中背景颜色
+    //   inactiveTintColor: '#666',  // 未选中文字颜色
+    //   inactiveBackgroundColor: '#fff', // 未选中背景颜色
+    //   style: {  // 样式
+    //      marginVertical: 0, 
+    //   },
+   },
    contentComponent: props => {
         return (
             <TrendingDrawerItems {...props}/>
@@ -79,23 +79,24 @@ export const HomeNavigator = createDrawerNavigator({
 },{
     drawerWidth: deviceWidth-150, // 抽屉宽
     drawerPosition: 'left', // 抽屉在左边还是右边
-//     contentOptions: {
-//     //   initialRouteName: 'MyPage', // 默认页面组件
-//       labelStyle : {//标签样式
-//            // color : 'red',
-//            height : 30,
-//       },
-//       activeTintColor: 'white',  // 选中文字颜色
-//       activeBackgroundColor: '#ff8500', // 选中背景颜色
-//       inactiveTintColor: '#666',  // 未选中文字颜色
-//       inactiveBackgroundColor: '#fff', // 未选中背景颜色
-//       style: {  // 样式
-//          marginVertical: 0, 
-//       },
-//    },
+    contentOptions: {
+      initialRouteName: 'HomePage', // 默认页面组件
+    //   labelStyle : {//标签样式
+    //        // color : 'red',
+    //        height : 30,
+    //   },
+    //   activeTintColor: 'white',  // 选中文字颜色
+    //   activeBackgroundColor: '#ff8500', // 选中背景颜色
+    //   inactiveTintColor: '#666',  // 未选中文字颜色
+    //   inactiveBackgroundColor: '#fff', // 未选中背景颜色
+    //   style: {  // 样式
+    //      marginVertical: 0, 
+    //   },
+   },
    contentComponent: props => {
         return (
             <HomeDrawerItems {...props}/>
         )
     },
 })
+

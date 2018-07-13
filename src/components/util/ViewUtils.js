@@ -60,14 +60,18 @@ export default class ViewUtils {
         </TouchableOpacity>
     }
 
-    static getRightButton(title, callBack) {
-        return <TouchableOpacity
+    static getRightButton(title, callBack,isImage) {
+        let content = isImage ? <View style={{alignItems: 'center',marginRight: 10}}>{title}</View> :
+        <TouchableOpacity
             style={{alignItems: 'center',}}
-            onPress={callBack}>
+            onPress={callBack}
+            activeOpacity={0.7}
+            >
             <View style={{marginRight: 10}}>
                 <Text style={{fontSize: 20, color: '#FFFFFF',}}>{title}</Text>
             </View>
         </TouchableOpacity>
+        return content
     }
 
     /**
