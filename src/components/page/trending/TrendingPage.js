@@ -212,7 +212,6 @@ class TrendingTab extends Component{
         this.loadData(this.state.isFirst)
     }
     onSelect(item){
-        console.log(this.props.navigation)
         this.props.navigation.navigate('PopularDetailPage',{item:item})
     }
 }

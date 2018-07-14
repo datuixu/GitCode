@@ -8,19 +8,18 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
-    FlatList
+    FlatList,
+    TextInput
 } from 'react-native';
 import { connect } from 'react-redux'
 import * as actions from '../../actions/requestTrendingData'
-import CheckBox from 'react-native-check-box'
-import langsData from '../../res/data/langs.json'
 import LanguageItem from '../common/LanguageItem'
 import {I18n} from '../../language/i18n'
-
 import languageColors from '../../res/data/language_colors.json'
 import Footer from '../common/Footer'
-const deviceWidth = Dimensions.get('window').width
+import SearchBox from '../common/SearchBox'
 
+const deviceWidth = Dimensions.get('window').width
 class TrendingDrawerItems extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +28,8 @@ class TrendingDrawerItems extends Component {
         this.endNo = 19 // 分页结束值
         this.items = [] //存储数据用于分页
         this.state = {
-            isMoreData:true // 是否有更多数据
+            isMoreData:true, // 是否有更多数据
+            searching:false
         };
     }
     componentDidMount(){
@@ -107,17 +107,35 @@ class TrendingDrawerItems extends Component {
        }, 50)
        
     }
+    searchLanguage(){
+        this.props.dispatch(actions.updateIsRenderer(true))
+        this.setState({searching:true})
+    }
     render(){
         const {navigation} = this.props
         return(
             <View style={{backgroundColor: '#e6e6e6', flex: 1}}>
                 <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
-                  <View style={styles.topView}>
-                      <Text style={{color:'white',fontSize:18,marginRight:10}}>{I18n.t('trending.select_lan_nav_title')}</Text>
-                      <Image style={{width:23,height:23}} source={require('../../res/images/ic_search_white_48pt.png')}/>
+                  <View style={[styles.topView,{height:this.state.searching?80:50}]}>
+                      <View style={styles.titleView}>
+                        <Text style={{color:'white',fontSize:18,marginRight:10}}>{I18n.t('trending.select_lan_nav_title')}</Text>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.searchLanguage()}>
+                            <Image style={{width:23,height:23}} source={require('../../res/images/ic_search_white_48pt.png')}/>
+                        </TouchableOpacity>
+                      </View>
+                      {this.state.searching ? 
+                        <View style={{marginTop:5}}>
+                            <SearchBox 
+                            width={deviceWidth-210}
+                            placeholderText={I18n.t('trending.placeholder_text')}
+                            />
+                        </View>:
+                        null
+                      }
                   </View>
+                  
                   <FlatList
-                        style={{marginBottom:55}}
+                        style={{marginBottom: this.state.searching ? 85 : 55}}
                         data={this.props.languages}
                         renderItem={(data) => this.renderRow(data)}
                         keyExtractor={item => item.language} //FlatList 每一行需要一个key
@@ -134,12 +152,16 @@ class TrendingDrawerItems extends Component {
 
 const styles = StyleSheet.create({
     topView:{
-        flexDirection:'row',
         backgroundColor:'#2196F3',
         height:50,
         justifyContent:'center',
         alignItems:'center',
         marginBottom:3
+    },
+    titleView:{
+        flexDirection:'row',
+        alignItems:'center',
+        marginTop:10
     }
 
 })

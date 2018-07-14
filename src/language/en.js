@@ -13,7 +13,8 @@ export default {
         since_daily:'Daily',
         since_weekly:'Weekly',
         since_monthly:'Monthly',
-        select_lan_nav_title:'Select Languages'
+        select_lan_nav_title:'Select Languages',
+        placeholder_text:'please enter the language'
     },
     favorite:{
         tab_name:'favorite'

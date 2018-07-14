@@ -13,7 +13,8 @@ export default {
         since_daily:'今日',
         since_weekly:'本周',
         since_monthly:'本月',
-        select_lan_nav_title:'选择语言'
+        select_lan_nav_title:'选择语言',
+        placeholder_text:'请输入语言'
     },
     favorite:{
         tab_name:'收藏'
