@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,PureComponent } from 'react';
 import {
     View,
     StyleSheet,
@@ -10,27 +10,46 @@ import {
     Dimensions,
     FlatList
 } from 'react-native';
+import { connect } from 'react-redux'
+import * as actions from '../../actions/requestTrendingData'
 import CheckBox from 'react-native-check-box'
 import langsData from '../../res/data/langs.json'
+import LanguageItem from '../common/LanguageItem'
 import {I18n} from '../../language/i18n'
-import GlobalStyles from '../../res/styles/GlobalStyles'
+
 import languageColors from '../../res/data/language_colors.json'
 import Footer from '../common/Footer'
 const deviceWidth = Dimensions.get('window').width
 
-export default class TrendingDrawerItems extends Component {
+class TrendingDrawerItems extends Component {
     constructor(props) {
         super(props);
+        this.prevIndex = 0 // 前一个选中的语言
         this.startNo = 0 // 分页初始值
         this.endNo = 19 // 分页结束值
         this.items = [] //存储数据用于分页
         this.state = {
-            languages:[],
-            checkeIndex:0
+            isMoreData:true // 是否有更多数据
         };
     }
     componentDidMount(){
         this.loadLanguages()
+    }
+    componentDidUpdate(){ // 组件更新结束之后执行，在初始化render时不执行
+        this.prevIndex = this.props.selectIndex
+        if(this.props.isRenderer == true){
+            this.props.dispatch(actions.updateIsRenderer(false))
+        }
+    }
+    // 判断是否需要重新渲染页面
+    // 这个方法在初始化render时不会执行，当props或者state发生变化时执行，
+    // 并且是在render之前，当新的props或者state不需要更新组件时，返回false
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.isRenderer == true){
+            return true
+        }else{
+            return false
+        }
     }
     loadLanguages(){
         let items = []
@@ -44,35 +63,49 @@ export default class TrendingDrawerItems extends Component {
           }
         })
         this.items = this.items.concat(items)
-        this.setState({
-            languages : this.items
-        })
+        this.props.dispatch(actions.updateTrendingLans(this.items))
         this.startNo = this.startNo+20
         this.endNo = this.endNo+20
+        if(this.startNo >= Object.keys(languageColors).length){
+            this.setState({
+                isMoreData:false
+            })
+        }
     }
     endReached(){
-        this.loadLanguages()
+        if(this.state.isMoreData){
+            this.props.dispatch(actions.updateIsRenderer(true))
+            this.loadLanguages()
+        }else{
+            return
+        }
     }
     renderRow(data){
-        console.log(data)
-        const {item,index} = data
-        return  <TouchableOpacity key={index} style={[GlobalStyles.cell_container,{alignItems:'center'}]} activeOpacity={0.7} onPress={()=>this.selectLanguage(item,index)}>
-                    <View style={[styles.colorView,{backgroundColor:item.color}]}></View>
-                    <Text style={{flex:1,color:'#000000'}}>{item.language}</Text>
-                    {this.state.checkeIndex == index ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null}
-                </TouchableOpacity>
-     
+        return <LanguageItem 
+                data={data} 
+                prevIndex={this.prevIndex}
+                selectIndex={this.props.selectIndex}
+                isRenderer={this.props.isRenderer}
+                isRendererItem={this.props.isRendererItem}
+                selectLanguage={(item,index)=>this.selectLanguage(item,index)}
+                updateIsRendererItem={()=>this.props.dispatch(actions.updateIsRendererItem(false))}
+               />
     }
     renderFooter(){
         return(
-            <Footer />
+            <Footer 
+              isMoreData={this.state.isMoreData}
+            />
         )
     }
     selectLanguage(item,index){
-       console.log(index)
-       this.setState({
-           checkeIndex:index
-       })
+       this.props.navigation.closeDrawer()
+       this.props.dispatch(actions.updateSelcetIndex(index))
+       setTimeout(() => {
+        this.props.dispatch(actions.updateIsRenderer(true))
+        this.props.dispatch(actions.updateIsRendererItem(true))
+       }, 50)
+       
     }
     render(){
         const {navigation} = this.props
@@ -85,7 +118,7 @@ export default class TrendingDrawerItems extends Component {
                   </View>
                   <FlatList
                         style={{marginBottom:55}}
-                        data={this.state.languages}
+                        data={this.props.languages}
                         renderItem={(data) => this.renderRow(data)}
                         keyExtractor={item => item.language} //FlatList 每一行需要一个key
                         initialNumToRender={20}
@@ -107,11 +140,15 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginBottom:3
-    },
-    colorView:{
-        width:12,
-        height:12,
-        borderRadius:50,
-        marginRight:8
     }
+
 })
+
+const mapStateToProps = state => ({
+    selectIndex: state.trendigDataState.selectIndex,
+    languages:state.trendigDataState.languages,
+    isRenderer:state.trendigDataState.isRenderer,
+    isRendererItem:state.trendigDataState.isRendererItem
+})
+
+export default connect(mapStateToProps)(TrendingDrawerItems)

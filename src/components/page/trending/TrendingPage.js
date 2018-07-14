@@ -16,6 +16,8 @@ import {
     TouchableOpacity,
     TouchableHighlight
 } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../../../actions/requestTrendingData'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
@@ -34,7 +36,7 @@ const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=da
                            new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
                            new TimeSpan(I18n.t('trending.since_monthly'),'since=monthly')]
 
-export default class TrendingPage extends Component {
+class TrendingPage extends Component {
     constructor(props) {
         super(props);
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_language)
@@ -42,8 +44,6 @@ export default class TrendingPage extends Component {
             projectModels: [],
             isVisible: false,
             lan_title:"All languages",
-            isShowLanLoad:false,
-            isImage:false
         }
     }
     componentDidMount() {
@@ -51,6 +51,10 @@ export default class TrendingPage extends Component {
         //     alert('收到通知：' + a);
         // });
         this.loadData()
+    }
+    componentWillUnmount(){
+        console.log(1)
+        this.props.dispatch(actions.updateIsRenderer(false))
     }
     loadData(){
         this.LanguageDao.fetch()
@@ -73,25 +77,9 @@ export default class TrendingPage extends Component {
             <Text style={{color:'#FFFFFF',fontSize:16}}>{this.state.lan_title}</Text>
         </View>
     }
-    renderRightBtn(){
-       if(this.state.isImage){
-         return <Image style={{width:18,height:18}} source={require('../../../res/images/loading.gif')}/>
-       }else{
-         return <Text>ssss</Text>
-       }
-    }
     openDrawer(navigation){
-        this.setState({
-            isImage:true
-        })
-        setTimeout(()=>{
-            navigation.openDrawer()
-        },100)
-        setTimeout(()=>{
-            this.setState({
-                isImage:false
-            })
-        },200)
+        this.props.dispatch(actions.updateIsRenderer(false))
+        navigation.openDrawer()
     }
     render() {
         const {navigation} = this.props
@@ -105,7 +93,7 @@ export default class TrendingPage extends Component {
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
-                rightButton={ViewUtils.getRightButton(this.renderRightBtn(),() => this.openDrawer(navigation),this.state.isImage)}
+                rightButton={ViewUtils.getRightButton(<Text>ssss</Text>,() => this.openDrawer(navigation))}
             />;
         let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
           tabBarBackgroundColor="#2196F3"
@@ -244,3 +232,9 @@ const styles = StyleSheet.create({
         marginLeft:10
     }
 })
+
+const mapStateToProps = state => ({
+    isRenderer:state.trendigDataState.isRenderer
+})
+
+export default connect(mapStateToProps)(TrendingPage)

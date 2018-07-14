@@ -11,6 +11,8 @@ import {
     View,
     DeviceEventEmitter
 } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/requestTrendingData'
 import TabNavigator from 'react-native-tab-navigator'
 import {I18n} from '../../language/i18n'
 import PopularPage from './popular/PopularPage'
@@ -23,7 +25,7 @@ export const FLAG_TAB = {
     flag_favoriteTab: 'tb_favorite'
     
 }
-export default class TabPage extends Component {
+class TabPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -73,4 +75,10 @@ const styles = StyleSheet.create({
         width: 26,
     }
 });
+
+const mapStateToProps = state => ({
+    isRenderer:state.trendigDataState.isRenderer
+})
+
+export default connect(mapStateToProps)(TabPage)
 

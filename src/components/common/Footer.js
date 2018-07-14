@@ -21,12 +21,14 @@ export default class Footer extends Component {
         }
       }
       render() {
-        return (
-            <View style={{flexDirection:'row',justifyContent:'center',marginTop:5,marginBottom:5}}>
-                <Image style={styles.loading} source={require('../../res/images/loading.gif')}/>
-                <Text style={{color:'#757575',fontSize:12,marginTop:3}}>{I18n.t('loading.title')}</Text>
-            </View>
-        )
+        const content = this.props.isMoreData ? <View style={{flexDirection:'row',justifyContent:'center',marginTop:5,marginBottom:5}}>
+                            <Image style={styles.loading} source={require('../../res/images/loading.gif')}/>
+                            <Text style={{color:'#757575',fontSize:12,marginTop:3}}>{I18n.t('loading.title')}</Text>
+                        </View> :
+                        <View  style={{flexDirection:'row',justifyContent:'center',marginTop:5,marginBottom:5}}>
+                            <Text style={{color:'#757575',fontSize:12}}>没有更多语言啦~~</Text>
+                        </View>
+        return content
       }
 }
 
