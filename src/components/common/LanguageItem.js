@@ -12,6 +12,7 @@ import {
     Image
 }from 'react-native'
 import GlobalStyles from '../../res/styles/GlobalStyles'
+import Icon from './Icon'
 export default class LanguageItem extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +48,7 @@ export default class LanguageItem extends Component {
         return <TouchableOpacity key={index} style={[GlobalStyles.cell_container,{alignItems:'center'}]} activeOpacity={0.7} onPress={()=>this.props.selectLanguage(item,index)}>
                     <View style={[styles.colorView,{backgroundColor:item.color}]}></View>
                     <Text style={{flex:1,color:'#000000'}}>{item.language}</Text>
-                    {this.props.selectKey == item.language ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null}
+                    {this.props.selectKey == item.language ? <Icon name="commit" style={{color:'#2196F3',fontSize:20}}/> : null}
                 </TouchableOpacity>
       }
 }

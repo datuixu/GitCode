@@ -15,6 +15,7 @@ import * as actions from '../../../actions/requestTrendingData'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
+import Icon from '../../common/Icon'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import TrendingCell from '../../common/TrendingCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
@@ -70,7 +71,7 @@ class TrendingPage extends Component {
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
-                rightButton={ViewUtils.getRightButton(<Text>ssss</Text>,() => this.openDrawer(navigation))}
+                rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;
         let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
           tabBarBackgroundColor="#2196F3"

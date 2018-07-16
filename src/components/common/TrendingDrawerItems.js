@@ -17,6 +17,7 @@ import LanguageItem from '../common/LanguageItem'
 import {I18n} from '../../language/i18n'
 import languageColors from '../../res/data/language_colors.json'
 import Footer from '../common/Footer'
+import Icon from '../common/Icon'
 import SearchBox from '../common/SearchBox'
 import Utils from '../util/Utils'
 
@@ -172,7 +173,7 @@ class TrendingDrawerItems extends Component {
                       <View style={styles.titleView}>
                         <Text style={{color:'white',fontSize:18,marginRight:10}}>{I18n.t('trending.select_lan_nav_title')}</Text>
                         <TouchableOpacity activeOpacity={0.8} onPress={()=>this.showSearchBox()}>
-                            <Image style={{width:23,height:23}} source={require('../../res/images/ic_search_white_48pt.png')}/>
+                            <Icon name="search" style={{fontSize:15,color:'#ffffff',marginTop:2}}/>
                         </TouchableOpacity>
                       </View>
                       {this.state.searching ? 
