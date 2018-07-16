@@ -22,10 +22,10 @@ export default class LanguageItem extends Component {
       // 这个方法在初始化render时不会执行，当props或者state发生变化时执行，
       // 并且是在render之前，当新的props或者state不需要更新组件时，返回false
       shouldComponentUpdate(nextProps, nextState) {
-        const {data,selectIndex,isRenderer,isRendererItem,prevIndex} = nextProps
+        const {data,selectKey,isRenderer,isRendererItem,prevKey} = nextProps
         if(isRenderer == true){
             if(isRendererItem == true){
-                if(selectIndex === data.index || prevIndex == data.index){
+                if(selectKey === data.item.language || prevKey == data.item.language){
                     return true
                 }else{
                     return false
@@ -47,7 +47,7 @@ export default class LanguageItem extends Component {
         return <TouchableOpacity key={index} style={[GlobalStyles.cell_container,{alignItems:'center'}]} activeOpacity={0.7} onPress={()=>this.props.selectLanguage(item,index)}>
                     <View style={[styles.colorView,{backgroundColor:item.color}]}></View>
                     <Text style={{flex:1,color:'#000000'}}>{item.language}</Text>
-                    {this.props.selectIndex == index ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null}
+                    {this.props.selectKey == item.language ? <Image source={require('../../res/images/ic_check_box.png')} style={{tintColor:'#6495ED'}}/> : null}
                 </TouchableOpacity>
       }
 }

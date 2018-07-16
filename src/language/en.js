@@ -14,7 +14,8 @@ export default {
         since_weekly:'Weekly',
         since_monthly:'Monthly',
         select_lan_nav_title:'Select Languages',
-        placeholder_text:'please enter the language'
+        placeholder_text:'please enter the language',
+        no_search_result:'Sorry, no related language is not querying'
     },
     favorite:{
         tab_name:'favorite'

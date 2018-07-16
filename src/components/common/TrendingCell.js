@@ -42,6 +42,7 @@ export default class TrendingCell extends Component {
         return (
              <TouchableOpacity
                 onPress={this.props.onSelect}
+                activeOpacity={1}
              >
                 <View style={GlobalStyles.cell_container}>
                     <View style={{flex:1}}>

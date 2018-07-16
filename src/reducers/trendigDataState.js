@@ -3,19 +3,20 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    selectIndex:0,// 当前选中的语言的index
+    selectKey:'All Languages',// 当前选中的语言的key
     languages:[],// 所有语言的数据
     isRenderer:true,// 是否需要重新渲染整列表
-    isRendererItem:false // 是否需要单独渲染一行
+    isRendererItem:false, // 是否需要单独渲染一行
+    url:'https://github.com/trending'
 };
 
 export default function trendigDataState(state = initialState, action) {
   
     switch (action.type) {
-        case types.UPDATE_SELECT_INDEX:
+        case types.UPDATE_SELECT_KEY:
             return Object.assign({}, state, {
                 ...state,
-                selectIndex: action.selectIndex
+                selectKey: action.selectKey
         });
         case types.UPDATE_TRENDING_LANS:
             return Object.assign({}, state, {
@@ -32,6 +33,11 @@ export default function trendigDataState(state = initialState, action) {
                 ...state,
                 isRendererItem: action.isRendererItem
         });
+        case types.UPDATE_URL:
+            return Object.assign({}, state, {
+                ...state,
+                url: action.url
+            });
         default: 
             return state;
     }

@@ -24,7 +24,7 @@ const deviceWidth = Dimensions.get('window').width
 class TrendingDrawerItems extends Component {
     constructor(props) {
         super(props);
-        this.prevIndex = 0 // 前一个选中的语言
+        this.prevKey = 'All Languages' // 前一个选中的语言
         this.startNo = 0 // 分页初始值
         this.endNo = 19 // 分页结束值
         this.items = [] //存储数据用于分页
@@ -38,7 +38,7 @@ class TrendingDrawerItems extends Component {
         this.loadLanguages(true,this.startNo,this.endNo)
     }
     componentDidUpdate(){ // 组件更新结束之后执行，在初始化render时不执行
-        this.prevIndex = this.props.selectIndex
+        this.prevKey = this.props.selectKey
         if(this.props.isRenderer == true){
             this.props.dispatch(actions.updateIsRenderer(false))
         }
@@ -122,8 +122,8 @@ class TrendingDrawerItems extends Component {
     renderRow(data){
         return <LanguageItem 
                 data={data} 
-                prevIndex={this.prevIndex}
-                selectIndex={this.props.selectIndex}
+                prevKey={this.prevKey}
+                selectKey={this.props.selectKey}
                 isRenderer={this.props.isRenderer}
                 isRendererItem={this.props.isRendererItem}
                 selectLanguage={(item,index)=>this.selectLanguage(item,index)}
@@ -138,8 +138,9 @@ class TrendingDrawerItems extends Component {
         )
     }
     selectLanguage(item,index){
+       this.props.dispatch(actions.updateSelcetKey(item.language))
+       this.props.dispatch(actions.updateUrl(item.url))
        this.props.navigation.closeDrawer()
-       this.props.dispatch(actions.updateSelcetIndex(index))
        setTimeout(() => {
         this.props.dispatch(actions.updateIsRenderer(true))
         this.props.dispatch(actions.updateIsRendererItem(true))
@@ -152,18 +153,15 @@ class TrendingDrawerItems extends Component {
     }
     searchLanguage(text){
         this.searchText=text
-        // this.setState({
-        //     isMoreData:true
-        // })
-        // if(this.searchText == ''){
-        //    this.loadLanguages(true)
-        // }else{
-            this.isMoreData = true
-            this.startNo=0
-            this.endNo = 19
-            console.log(19)
-          this.loadLanguages(false,this.startNo,this.endNo)
-        // }
+        this.isMoreData = true
+        this.startNo = 0
+        this.endNo = 19
+        this.loadLanguages(false,this.startNo,this.endNo)
+    }
+    updateIsRenderer(){
+        if(this.props.isRenderer == true){
+            this.props.dispatch(actions.updateIsRenderer(false))
+        }
     }
     render(){
         const {navigation} = this.props
@@ -184,6 +182,7 @@ class TrendingDrawerItems extends Component {
                                 placeholderText={I18n.t('trending.placeholder_text')}
                                 keyboardType='email-address'
                                 search={(text)=>this.searchLanguage(text)}
+                                updateIsRenderer={()=>this.updateIsRenderer()}
                             />
                         </View>:
                         null
@@ -201,8 +200,8 @@ class TrendingDrawerItems extends Component {
                         onEndReached={()=> this.endReached()} //上拉加载
                         onEndReachedThreshold={0.2} //这个值是触发onEndReached方法的阈值
                   />:
-                  <View>
-                      <Text>meiyou</Text>
+                  <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
+                      <Text style={{fontSize:12}}>{I18n.t('trending.no_search_result')}</Text>
                   </View>
                 }
                 </SafeAreaView>
@@ -228,10 +227,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    selectIndex: state.trendigDataState.selectIndex,
+    selectKey: state.trendigDataState.selectKey,
     languages:state.trendigDataState.languages,
     isRenderer:state.trendigDataState.isRenderer,
-    isRendererItem:state.trendigDataState.isRendererItem
+    isRendererItem:state.trendigDataState.isRendererItem,
+    url:state.trendigDataState.url
 })
 
 export default connect(mapStateToProps)(TrendingDrawerItems)

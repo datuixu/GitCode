@@ -20,6 +20,9 @@ export default class SearchBox extends Component {
             text:''
         }
     }
+    componentDidUpdate(){ // 组件更新结束之后执行，在初始化render时不执行
+       this.props.updateIsRenderer()
+    }
     _changeText(text){
         this.setState({
             text:text

@@ -30,6 +30,7 @@ export default class RepositoryCell extends Component {
         return (
              <TouchableOpacity
                 onPress={this.props.onSelect}
+                activeOpacity={1}
              >
                 <View style={GlobalStyles.cell_container}>
                     <View style={{width:50,marginRight:10}}>

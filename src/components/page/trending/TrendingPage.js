@@ -6,15 +6,9 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    Image,
     View,
-    TextInput,
     FlatList,
     RefreshControl,
-    DeviceEventEmitter,
-    Dimensions,
-    TouchableOpacity,
-    TouchableHighlight
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions/requestTrendingData'
@@ -29,8 +23,7 @@ import Utils from '../../util/Utils'
 import ViewUtils from '../../util/ViewUtils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 import TimeSpan from '../../model/TimeSpan'
-import languageColors from '../../../res/data/language_colors.json'
-const URL = 'https://github.com/trending/'
+
 
 const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
                            new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
@@ -43,38 +36,22 @@ class TrendingPage extends Component {
         this.state = {
             projectModels: [],
             isVisible: false,
-            lan_title:"All languages",
+            // lan_title:"All languages",
         }
     }
-    componentDidMount() {
-        // this.deEmitter = DeviceEventEmitter.addListener('left', (a) => {
-        //     alert('收到通知：' + a);
-        // });
-        this.loadData()
+    componentWillReceiveProps(nextProps){
+        const {selectKey} = nextProps
+        this.props.dispatch(actions.updateSelcetKey(selectKey))
+        // this.setState({
+        //     lan_title:selectKey
+        // })
     }
     componentWillUnmount(){
-        console.log(1)
         this.props.dispatch(actions.updateIsRenderer(false))
-    }
-    loadData(){
-        this.LanguageDao.fetch()
-            .then(res =>{
-                res.map((result,i,arr)=>{
-                    if(arr[i].checked){
-                        this.setState({
-                            lan_title:arr[i].name
-                        }) 
-                    }
-                })
-               
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
     renderTieleView(){
         return <View>
-            <Text style={{color:'#FFFFFF',fontSize:16}}>{this.state.lan_title}</Text>
+            <Text style={{color:'#FFFFFF',fontSize:16}}>{this.props.selectKey}</Text>
         </View>
     }
     openDrawer(navigation){
@@ -124,6 +101,7 @@ class TrendingTab extends Component{
     constructor(props) {
         super(props);
         this.dataRepository = new DataRepository(FLAG_STORAGE.flag_trending)
+        this.url = ''
         this.state = {
             result:[],
             isRefreshing:false,
@@ -131,15 +109,20 @@ class TrendingTab extends Component{
         }
     }
     componentDidMount(){
-        this.loadData(this.state.isFirst)
+        this.loadData(this.state.isFirst,this.props.url)
     }
-    loadData(isFirst){
+    componentWillReceiveProps(nextProps){
+        const {url} = nextProps
+        this.url = url
+        this.loadData(this.state.isFirst,url)
+    }
+    loadData(isFirst,url){
         this.setState({
             isRefreshing :isFirst ? false : true
         })
-        let url = this.genFetchUrl(this.props.searchText)
+        let searchUrl = this.genFetchUrl(this.props.searchText,url)
         this.dataRepository
-            .fetchRepository(url)
+            .fetchRepository(searchUrl)
             .then(result =>{
                 let items = result && result.items ? result.items : result ? result : []
                 // return this.dataRepository.fetchNetRepository(url)
@@ -155,14 +138,14 @@ class TrendingTab extends Component{
                 })
             })
             .catch(error =>{
-                console.log(error)
                 this.setState({
                     isRefreshing:false
                 })
             })
     }
-    genFetchUrl(timeSpan){
-       return URL + 'java?' + timeSpan
+    genFetchUrl(timeSpan,url){
+        let searchUrl = url ? url : this.url
+        return searchUrl + '?' + timeSpan
     }
     render(){
         if(this.state.result.length == 0){
@@ -180,7 +163,7 @@ class TrendingTab extends Component{
                         data={this.state.result}
                         renderItem={(data) => this.renderRow(data)}
                         keyExtractor={item => item.fullName} //FlatList 每一行需要一个key
-                        onScroll={event => this._onScroll(event)}
+                        // onScroll={event => this._onScroll(event)}
                         refreshControl={
                             <RefreshControl
                                 refreshing={this.state.isRefreshing} //控制是否可以刷新
@@ -219,7 +202,7 @@ class TrendingTab extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white',
+        // backgroundColor:'white',
         // backgroundColor:"#f6f6f6",
     },
     tips: {
@@ -233,7 +216,9 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    isRenderer:state.trendigDataState.isRenderer
+    isRenderer:state.trendigDataState.isRenderer,
+    selectKey:state.trendigDataState.selectKey,
+    url:state.trendigDataState.url
 })
 
 export default connect(mapStateToProps)(TrendingPage)

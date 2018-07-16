@@ -189,7 +189,7 @@ class PopularTab extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white',
+        // backgroundColor:'white',
         // backgroundColor:"#f6f6f6",
     },
     tips: {
