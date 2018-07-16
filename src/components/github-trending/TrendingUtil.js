@@ -13,7 +13,7 @@ import StringUtil from './StringUtil';
 var TAGS = {
     meta: {
         start: '<span class="d-inline-block float-sm-right">',
-        end: '</span>'
+        end: 'stars'
     },
     starCount: {
         start: '<a class="muted-link d-inline-block mr-3"',
@@ -41,9 +41,11 @@ export default class TrendingUtil {
 
             var metaNoteContent = this.parseContentWithNote(html, 'class="f6 text-gray mt-2">', '</li>');
             repo.meta = this.parseRepoLabelWithTag(repo, metaNoteContent, TAGS.meta);
+            if(!repo.meta){repo.meta = 0}
             repo.starCount = this.parseRepoLabelWithTag(repo, metaNoteContent, TAGS.starCount);
+            if(!repo.starCount){repo.starCount = 0}
             repo.forkCount = this.parseRepoLabelWithTag(repo, metaNoteContent, TAGS.forkCount);
-
+            if(!repo.forkCount){repo.forkCount = 0}
             this.parseRepoLang(repo, metaNoteContent);
             this.parseRepoContributors(repo, metaNoteContent);
             repos.push(repo);

@@ -10,6 +10,7 @@ import {
 import HTMLView from 'react-native-htmlview'
 import GlobalStyles from '../../res/styles/GlobalStyles'
 import {I18n} from '../../language/i18n'
+import Icon from '../common/Icon'
 export default class TrendingCell extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +31,21 @@ export default class TrendingCell extends Component {
        })
        return items
     }
-
+    renderMeta(timeSpan,meta){
+      let text 
+      if(timeSpan == 'since=daily'){
+        text = meta+" "+ I18n.t('trending.stars_today')
+      }else if(timeSpan == 'since=weekly'){
+        text = meta+" "+ I18n.t('trending.stars_this_week')
+      }else{
+        text = meta+" "+ I18n.t('trending.stars_this_month')
+      }
+      let content = <View style={{flexDirection:'row',alignItems:'center'}}>
+                <Icon name="star" style={{fontSize:10,marginRight:5}}/>
+                <Text style={{fontSize:12}}>{text}</Text>
+            </View> 
+      return content
+    }
     render() {
         const data = this.props.data
         const language = data.language ? <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -66,10 +81,16 @@ export default class TrendingCell extends Component {
                                 {this.renderContributors(data.contributors)}
                             </View>
                         }
-                        <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-                            <Text style={{fontSize:12}}>{data.starCount}</Text>
-                            <Text style={{fontSize:12}}>{data.forkCount}</Text>
-                            <Text style={{fontSize:12}}>{data.meta}</Text>
+                        <View style={{flexDirection:'row',justifyContent: 'space-between',marginTop:3}}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Icon name="star" style={{fontSize:10,marginRight:5}}/>
+                                <Text style={{fontSize:12}}>{data.starCount}</Text>
+                            </View>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Icon name="fork" style={{fontSize:10,marginRight:5}}/>
+                                <Text style={{fontSize:13}}>{data.forkCount}</Text>
+                            </View>
+                            {this.renderMeta(this.props.timeSpan,data.meta)}
                         </View>
                     </View>
                 </View>

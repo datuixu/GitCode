@@ -37,15 +37,11 @@ class TrendingPage extends Component {
         this.state = {
             projectModels: [],
             isVisible: false,
-            // lan_title:"All languages",
         }
     }
     componentWillReceiveProps(nextProps){
         const {selectKey} = nextProps
         this.props.dispatch(actions.updateSelcetKey(selectKey))
-        // this.setState({
-        //     lan_title:selectKey
-        // })
     }
     componentWillUnmount(){
         this.props.dispatch(actions.updateIsRenderer(false))
@@ -125,8 +121,8 @@ class TrendingTab extends Component{
         this.dataRepository
             .fetchRepository(searchUrl)
             .then(result =>{
-                let items = result && result.items ? result.items : result ? result : []
                 // return this.dataRepository.fetchNetRepository(url)
+                let items = result && result.items ? result.items : result ? result : []
                 if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
                 return items
             })
@@ -188,6 +184,7 @@ class TrendingTab extends Component{
         return (
             <TrendingCell 
               data={item}
+              timeSpan={this.props.searchText}
               onSelect={()=>this.onSelect(item)}
             />
         )

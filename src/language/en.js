@@ -15,7 +15,10 @@ export default {
         since_monthly:'Monthly',
         select_lan_nav_title:'Select Languages',
         placeholder_text:'please enter the language',
-        no_search_result:'Sorry, no related language is not querying'
+        no_search_result:'Sorry, no related language is not querying',
+        stars_today:'stars today',
+        stars_this_week:'stars this week',
+        stars_this_month:'stars this month'
     },
     favorite:{
         tab_name:'favorite'

@@ -15,7 +15,10 @@ export default {
         since_monthly:'本月',
         select_lan_nav_title:'选择语言',
         placeholder_text:'请输入语言',
-        no_search_result:'抱歉，没有查询到相关语言'
+        no_search_result:'抱歉，没有查询到相关语言',
+        stars_today:'星标 今日',
+        stars_this_week:'星标 本周',
+        stars_this_month:'星标 本月'
     },
     favorite:{
         tab_name:'收藏'
