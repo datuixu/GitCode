@@ -18,6 +18,7 @@ import {I18n} from '../../language/i18n'
 import languageColors from '../../res/data/language_colors.json'
 import Footer from '../common/Footer'
 import SearchBox from '../common/SearchBox'
+import Utils from '../util/Utils'
 
 const deviceWidth = Dimensions.get('window').width
 class TrendingDrawerItems extends Component {
@@ -27,13 +28,14 @@ class TrendingDrawerItems extends Component {
         this.startNo = 0 // 分页初始值
         this.endNo = 19 // 分页结束值
         this.items = [] //存储数据用于分页
+        this.isMoreData = true
+        this.searchText=''
         this.state = {
-            isMoreData:true, // 是否有更多数据
             searching:false
         };
     }
     componentDidMount(){
-        this.loadLanguages()
+        this.loadLanguages(true,this.startNo,this.endNo)
     }
     componentDidUpdate(){ // 组件更新结束之后执行，在初始化render时不执行
         this.prevIndex = this.props.selectIndex
@@ -51,34 +53,71 @@ class TrendingDrawerItems extends Component {
             return false
         }
     }
-    loadLanguages(){
+    loadLanguages(isLoadMore,startNo,endNo){
         let items = []
-        Object.keys(languageColors).forEach((key,index)=>{
-          if(this.startNo <= index && index <= this.endNo){
-            items.push({
-                language:key,
-                color:languageColors[key].color,
-                url:languageColors[key].url
-            })
-          }
-        })
+        if(!this.isMoreData && isLoadMore){ //如果上拉加载没有更多数据 直接返回
+           return
+        }else{
+            this.props.dispatch(actions.updateIsRenderer(true))
+            if(!isLoadMore) { // 不是上拉加载更多
+                if(this.items.length > 0){
+                    this.refs.flatList.scrollToIndex({viewPosition:0,index:0})
+                }
+                this.items=[]
+            }
+            this.loadMoreData(startNo,endNo,items,isLoadMore)
+            this.common(items,isLoadMore)
+        }
+    }
+    loadMoreData(startNo,endNo,items,isLoadMore){
+            if(this.searchText !== ''){
+                let searchItems = []
+                Object.keys(languageColors).forEach((key,i)=>{
+                    if(Utils.coverString(this.searchText,key)){
+                        searchItems.push({
+                            language:key,
+                            color:languageColors[key].color,
+                            url:languageColors[key].url
+                        })
+                    }
+                })
+                if(searchItems.length > 0){
+                    searchItems.forEach((item,index)=>{
+                        if(startNo <= index && index <= endNo){
+                            items.push({
+                                language:item.language,
+                                color:item.color,
+                                url:item.url
+                            })
+                        }
+                    })
+                }
+                if((items.length < 20) || ((startNo+20) >= searchItems.length)){
+                    this.isMoreData = false
+                }
+            }else{
+                Object.keys(languageColors).forEach((key,index)=>{
+                    if(startNo <= index && index <= endNo){
+                        items.push({
+                            language:key,
+                            color:languageColors[key].color,
+                            url:languageColors[key].url
+                        })
+                    }
+                })
+                if((items.length < 20) || ((startNo+20) >= languageColors.length)){
+                    this.isMoreData = false
+                }
+            }
+    }
+    common(items,isLoadMore){
         this.items = this.items.concat(items)
         this.props.dispatch(actions.updateTrendingLans(this.items))
         this.startNo = this.startNo+20
         this.endNo = this.endNo+20
-        if(this.startNo >= Object.keys(languageColors).length){
-            this.setState({
-                isMoreData:false
-            })
-        }
     }
     endReached(){
-        if(this.state.isMoreData){
-            this.props.dispatch(actions.updateIsRenderer(true))
-            this.loadLanguages()
-        }else{
-            return
-        }
+        this.loadLanguages(true,this.startNo,this.endNo)
     }
     renderRow(data){
         return <LanguageItem 
@@ -94,7 +133,7 @@ class TrendingDrawerItems extends Component {
     renderFooter(){
         return(
             <Footer 
-              isMoreData={this.state.isMoreData}
+              isMoreData={this.isMoreData}
             />
         )
     }
@@ -107,9 +146,24 @@ class TrendingDrawerItems extends Component {
        }, 50)
        
     }
-    searchLanguage(){
+    showSearchBox(){
         this.props.dispatch(actions.updateIsRenderer(true))
         this.setState({searching:true})
+    }
+    searchLanguage(text){
+        this.searchText=text
+        // this.setState({
+        //     isMoreData:true
+        // })
+        // if(this.searchText == ''){
+        //    this.loadLanguages(true)
+        // }else{
+            this.isMoreData = true
+            this.startNo=0
+            this.endNo = 19
+            console.log(19)
+          this.loadLanguages(false,this.startNo,this.endNo)
+        // }
     }
     render(){
         const {navigation} = this.props
@@ -119,22 +173,25 @@ class TrendingDrawerItems extends Component {
                   <View style={[styles.topView,{height:this.state.searching?80:50}]}>
                       <View style={styles.titleView}>
                         <Text style={{color:'white',fontSize:18,marginRight:10}}>{I18n.t('trending.select_lan_nav_title')}</Text>
-                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.searchLanguage()}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={()=>this.showSearchBox()}>
                             <Image style={{width:23,height:23}} source={require('../../res/images/ic_search_white_48pt.png')}/>
                         </TouchableOpacity>
                       </View>
                       {this.state.searching ? 
                         <View style={{marginTop:5}}>
                             <SearchBox 
-                            width={deviceWidth-210}
-                            placeholderText={I18n.t('trending.placeholder_text')}
+                                width={deviceWidth-210}
+                                placeholderText={I18n.t('trending.placeholder_text')}
+                                keyboardType='email-address'
+                                search={(text)=>this.searchLanguage(text)}
                             />
                         </View>:
                         null
                       }
                   </View>
-                  
-                  <FlatList
+                  {this.items.length > 0 ?                  
+                   <FlatList
+                        ref='flatList'
                         style={{marginBottom: this.state.searching ? 85 : 55}}
                         data={this.props.languages}
                         renderItem={(data) => this.renderRow(data)}
@@ -143,7 +200,11 @@ class TrendingDrawerItems extends Component {
                         ListFooterComponent={() => this.renderFooter()}
                         onEndReached={()=> this.endReached()} //上拉加载
                         onEndReachedThreshold={0.2} //这个值是触发onEndReached方法的阈值
-                  />
+                  />:
+                  <View>
+                      <Text>meiyou</Text>
+                  </View>
+                }
                 </SafeAreaView>
            </View>
         )

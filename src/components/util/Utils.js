@@ -30,4 +30,15 @@ export default class Utils {
         // if (currentDate.getMinutes() - targetDate.getMinutes() > 1)return false;
         return true;
     }
+
+    /**
+     * 忽略大小写判断字符串str是否包含subStr
+     * @param subStr 子字符串
+     * @param str 父字符串
+     * @returns boolean
+    */
+    static coverString(subStr,str){
+        var reg = eval("/"+subStr+"/ig");
+        return reg.test(str);
+    }
 }

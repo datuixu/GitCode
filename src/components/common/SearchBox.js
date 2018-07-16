@@ -24,6 +24,7 @@ export default class SearchBox extends Component {
         this.setState({
             text:text
         })
+        this.props.search(text)
     }
     render(){
         return (
@@ -31,6 +32,7 @@ export default class SearchBox extends Component {
                 <TextInput
                     ref = 'textInput'
                     editable = {true}
+                    keyboardType={this.props.keyboardType} //弹出哪种键盘
                     maxLength = {40}
                     numberOfLines = {1}
                     underlineColorAndroid={'transparent'}
