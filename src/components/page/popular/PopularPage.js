@@ -54,14 +54,16 @@ export default class PopularPage extends Component {
     }
     render() {
         var statusBar = {
-            backgroundColor: '#2196F3',
+            animated: true,
+            backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
-            translucent: false
+            translucent: true
         }
         let navigationBar =
             <NavigationBar
                 title={I18n.t('popular.title')}
                 statusBar={statusBar}
+                isLinearGradient={true}
             />;
         let content = this.state.languages.length > 0 ? 
         <ScrollableTabView

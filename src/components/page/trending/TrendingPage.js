@@ -9,8 +9,10 @@ import {
     View,
     FlatList,
     RefreshControl,
+    BVLinearGraient
 } from 'react-native'
 import { connect } from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
 import * as actions from '../../../actions/requestTrendingData'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
@@ -41,7 +43,7 @@ class TrendingPage extends Component {
     }
     componentWillReceiveProps(nextProps){
         const {selectKey} = nextProps
-        console.log(nextProps)
+        if(this.props.selectKey == selectKey)return
         this.props.dispatch(actions.updateSelcetKey(selectKey))
     }
     // 判断是否需要重新渲染页面
@@ -55,7 +57,6 @@ class TrendingPage extends Component {
     //     }
     // }
     componentDidUpdate(){
-        console.log(1)
         this.props.dispatch(actions.updateIsRenderer(false))
     }
     renderTieleView(){
@@ -70,14 +71,16 @@ class TrendingPage extends Component {
     render() {
         const {navigation} = this.props
         var statusBar = {
-            backgroundColor: '#2196F3',
+            animated: true,
+            backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
-            translucent: false
+            translucent: true
         }
         let navigationBar =
             <NavigationBar
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
+                isLinearGradient={true}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;
@@ -122,6 +125,7 @@ class TrendingTab extends Component{
     }
     componentWillReceiveProps(nextProps){
         const {url} = nextProps
+        if(url == this.url)return
         this.url = url
         this.loadData(this.state.isFirst,url)
     }
@@ -212,7 +216,7 @@ class TrendingTab extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor:'white',
+        // backgroundColor:'red',
         // backgroundColor:"#f6f6f6",
     },
     tips: {

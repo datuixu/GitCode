@@ -25,14 +25,16 @@ export default class HomePage extends Component {
         const {navigation} = this.props;
         console.log(navigation)
         var statusBar = {
-            backgroundColor: '#2196F3',
+            animated: true,
+            backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
-            translucent: false
+            translucent: true
         }
         let navigationBar =
             <NavigationBar
                 title={I18n.t('popular.title')}
                 statusBar={statusBar}
+                isLinearGradient={true}
             />;
         return <View style={styles.container}>
                  {navigationBar}

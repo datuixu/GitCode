@@ -13,6 +13,7 @@
     "react-native-check-box": "^2.1.0",
     "react-native-htmlview": "^0.12.1",
     "react-native-i18n": "^2.0.12",
+    "react-native-linear-gradient": "^2.4.0",
     "react-native-material-bottom-navigation": "^1.0.0",
     "react-native-root-toast": "^3.0.1",
     "react-native-scrollable-tab-view": "^0.8.0",

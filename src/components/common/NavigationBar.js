@@ -12,12 +12,15 @@ import {
     StatusBar,
     Text,
     View,
-    ViewPropTypes
+    ViewPropTypes,
+    BVLinearGraient
 } from 'react-native'
 import PropTypes from 'prop-types';
+import LinearGradient from 'react-native-linear-gradient';
 const NAV_BAR_HEIGHT_IOS = 44;
-const NAV_BAR_HEIGHT_ANDROID = 50;
+const NAV_BAR_HEIGHT_ANDROID = 70;
 const STATUS_BAR_HEIGHT = DeviceInfo.isIPhoneX_deprecated ? 0 : 20;
+const MARGIN_TOP = DeviceInfo.isIPhoneX_deprecated ? 0 : 20;
 const StatusBarShape = {
     barStyle: PropTypes.oneOf(['light-content', 'default',]),
     hidden: PropTypes.bool,
@@ -33,7 +36,7 @@ export default class NavigationBar extends Component {
         statusBar: PropTypes.shape(StatusBarShape),
         rightButton:  PropTypes.element,
         leftButton: PropTypes.element,
-
+        isLinearGradient: PropTypes.bool
     }
     static defaultProps = {
         statusBar: {
@@ -59,9 +62,9 @@ export default class NavigationBar extends Component {
 
     render() {
         let statusBar = !this.props.statusBar.hidden ?
-            <View style={styles.statusBar}>
+            <LinearGradient style={styles.statusBar} start={{x: 0, y: 0}}  end={{x: 1, y: 0}} colors={['#4f8dfe', '#31b7fe', '#37bafe']} >
                 <StatusBar {...this.props.statusBar} />
-            </View>: null;
+            </LinearGradient>: null;
 
         let titleView = this.props.titleView ? this.props.titleView :
             <Text ellipsizeMode="head" numberOfLines={1} style={styles.title}>{this.props.title}</Text>;
@@ -75,10 +78,15 @@ export default class NavigationBar extends Component {
                 {this.getButtonElement(this.props.rightButton)}
             </View>;
         return (
-            <View style={[styles.container, this.props.style]}>
-                {statusBar}
-                {content}
-            </View>
+            this.props.isLinearGradient ? <LinearGradient start={{x: 0, y: 0}}  end={{x: 1, y: 0}} colors={['#4f8dfe', '#31b7fe', '#37bafe']} style={this.props.style}>
+                    {statusBar}
+                    {content}
+            </LinearGradient> :
+                <View style={[styles.container, this.props.style]}>
+                    {statusBar}
+                    {content}
+                </View>
+           
         )
     }
 }
@@ -91,6 +99,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginTop:MARGIN_TOP,
         height: Platform.OS === 'ios' ? NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_ANDROID,
     },
     navBarTitleContainer: {
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        color: '#FFFFFF',
+        color: '#FFFFFF'
     },
     navBarButton: {
         alignItems: 'center',
