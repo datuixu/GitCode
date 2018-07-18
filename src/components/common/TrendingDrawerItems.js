@@ -55,6 +55,7 @@ class TrendingDrawerItems extends Component {
         }
     }
     loadLanguages(isLoadMore,startNo,endNo){
+        console.log(this.props.isRenderer)
         let items = []
         if(!this.isMoreData && isLoadMore){ //如果上拉加载没有更多数据 直接返回
            return

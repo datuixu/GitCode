@@ -41,9 +41,21 @@ class TrendingPage extends Component {
     }
     componentWillReceiveProps(nextProps){
         const {selectKey} = nextProps
+        console.log(nextProps)
         this.props.dispatch(actions.updateSelcetKey(selectKey))
     }
-    componentWillUnmount(){
+    // 判断是否需要重新渲染页面
+    // 这个方法在初始化render时不会执行，当props或者state发生变化时执行，
+    // 并且是在render之前，当新的props或者state不需要更新组件时，返回false
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if(nextProps.isRenderer == true){
+    //         return true
+    //     }else{
+    //         return false
+    //     }
+    // }
+    componentDidUpdate(){
+        console.log(1)
         this.props.dispatch(actions.updateIsRenderer(false))
     }
     renderTieleView(){
@@ -53,7 +65,7 @@ class TrendingPage extends Component {
     }
     openDrawer(navigation){
         this.props.dispatch(actions.updateIsRenderer(false))
-        navigation.openDrawer()
+        navigation.toggleDrawer()
     }
     render() {
         const {navigation} = this.props

@@ -1,13 +1,13 @@
 export default {
     home:{
-        tab_name:'home'
+        tab_name:'Home'
     },
     popular:{
-        tab_name:'hot',
+        tab_name:'Hot',
         title:'Hot'
     },
     trending:{
-        tab_name:'trending',
+        tab_name:'Trending',
         title:'Trending',
         built_by_title:'Built by',
         since_daily:'Daily',

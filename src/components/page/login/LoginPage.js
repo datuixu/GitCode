@@ -44,7 +44,7 @@ export default class LoginPage extends Component {
                         username:message.split(',')[0],
                         password:message.split(',')[1]
                     })
-                    this.props.navigation.navigate('TabPage', { name: 'TabPage' })
+                    this.props.navigation.navigate('HomeNavigator', { name: 'HomeNavigator' })
                 }} 
               />
             </View>
