@@ -33,7 +33,7 @@ export default class HomePage extends Component {
             <NavigationBar
                 title={I18n.t('home.title')}
                 statusBar={statusBar}
-                isLinearGradient={true}
+                isLinearGradient={false}
             />;
         return <View style={styles.container}>
                  {navigationBar}

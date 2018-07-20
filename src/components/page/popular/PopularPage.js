@@ -62,7 +62,7 @@ export default class PopularPage extends Component {
             <NavigationBar
                 title={I18n.t('popular.title')}
                 statusBar={statusBar}
-                isLinearGradient={true}
+                isLinearGradient={false}
             />;
         let content = this.state.languages.length > 0 ? 
         <ScrollableTabView

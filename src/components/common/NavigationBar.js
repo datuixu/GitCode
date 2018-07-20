@@ -78,11 +78,11 @@ export default class NavigationBar extends Component {
                 {this.getButtonElement(this.props.rightButton)}
             </View>;
         return (
-            this.props.isLinearGradient ? <LinearGradient start={{x: 0, y: 0}}  end={{x: 1, y: 0}} colors={['#4f8dfe', '#31b7fe', '#37bafe']} style={this.props.style}>
+            this.props.isLinearGradient ? <LinearGradient start={{x: 0, y: 0}}  end={{x: 1, y: 0}} colors={this.props.themeColor} style={this.props.style}>
                     {statusBar}
                     {content}
             </LinearGradient> :
-                <View style={[styles.container, this.props.style]}>
+                <View style={[this.props.style,{backgroundColor:this.props.themeColor}]}>
                     {statusBar}
                     {content}
                 </View>
@@ -92,9 +92,6 @@ export default class NavigationBar extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#2196F3',
-    },
     navBar: {
         flexDirection: 'row',
         alignItems: 'center',

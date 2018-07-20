@@ -78,7 +78,7 @@ class TrendingPage extends Component {
             <NavigationBar
                 titleView={this.renderTieleView()}
                 statusBar={statusBar}
-                isLinearGradient={true}
+                isLinearGradient={false}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;

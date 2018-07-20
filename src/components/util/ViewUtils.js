@@ -50,12 +50,13 @@ export default class ViewUtils {
         )
     }
 
-    static getLeftButton(callBack) {
+    static getLeftButton(callBack,color) {
         return <TouchableOpacity
             style={{padding: 8}}
             onPress={callBack}>
             <Image
                 style={{width: 26, height: 26,}}
+                tintColor={color}
                 source={require('../../res/images/ic_arrow_back_white_36pt.png')}/>
         </TouchableOpacity>
     }

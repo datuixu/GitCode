@@ -17,7 +17,6 @@ import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import {ThemeFactory} from '../../../res/styles/ThemeFactory'
 import * as actions from '../../../actions/requestGlobalData'
-import ThemeDao from '../../expand/dao/ThemeDao'
 import ViewUtils from '../../util/ViewUtils'
 import Icon from '../../common/Icon'
 import GlobalStyles from '../../../res/styles/GlobalStyles'
@@ -26,7 +25,6 @@ const deviceWidth = Dimensions.get('window').width
 class CustomThemePage extends Component {
    constructor(props) {
         super(props)
-        // this.themeDao=new ThemeDao()
         this.state = {
             visible:false
         }
@@ -84,19 +82,22 @@ class CustomThemePage extends Component {
     
    }
    render(){
+    const {theme,navigation} = this.props
     var statusBar = {
         animated: true,
         backgroundColor: 'rgba(0,0,0,0)',
         barStyle: 'light-content',
         translucent: true
     }
+    console.log(theme.themeColor)
     let navigationBar =
         <NavigationBar
             title={I18n.t('my.custom_theme_title')}
-            titleColor={this.props.theme.textColor}
+            titleColor={theme.textColor}
             statusBar={statusBar}
-            isLinearGradient={true}
-            leftButton={ViewUtils.getLeftButton(()=>this.props.navigation.goBack())}
+            isLinearGradient={theme.isLinearGradient}
+            themeColor={theme.themeColor}
+            leftButton={ViewUtils.getLeftButton(()=>navigation.goBack(),theme.iconColor)}
     />
     return <View style={styles.container}>
             {navigationBar}
@@ -137,22 +138,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.4)',
         alignItems:'center',
         justifyContent:'center'
-    },
-    themeItem: {
-        height: 150,
-        margin:3,
-        borderRadius:2,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical:3,
-        borderWidth:0.5,
-        borderRadius:2,
-        borderColor:'#dddddd',
-        shadowColor:'gray', // ios
-        shadowOffset:{width:0.5,hight:0.5},// ios
-        shadowOpacity:0.4,// ios
-        shadowRadius:1,// ios
-        elevation:2, // android
     },
     themeText:{
         fontWeight:'500',
