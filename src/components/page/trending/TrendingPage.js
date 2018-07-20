@@ -9,10 +9,8 @@ import {
     View,
     FlatList,
     RefreshControl,
-    BVLinearGraient
 } from 'react-native'
 import { connect } from 'react-redux'
-import LinearGradient from 'react-native-linear-gradient'
 import * as actions from '../../../actions/requestTrendingData'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
@@ -84,7 +82,7 @@ class TrendingPage extends Component {
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;
-        let content=timeSpanTextArray.length > 0 ? <ScrollableTabView
+        let content= <ScrollableTabView
           tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
@@ -100,7 +98,6 @@ class TrendingPage extends Component {
            return <TrendingTab key={i} tabLabel={arr[i].showText} searchText={arr[i].searchText} {...this.props}></TrendingTab>
         })}
         </ScrollableTabView>
-        :null
         return <View style={styles.container}>
                  {navigationBar}
                  {content}

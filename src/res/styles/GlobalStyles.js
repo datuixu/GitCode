@@ -50,5 +50,37 @@ module.exports ={
         shadowOpacity:0.4,// ios
         shadowRadius:1,// ios
         elevation:2, // android
+    },
+    cell_custom_theme:{
+        height: 150,
+        margin:3,
+        borderRadius:2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical:3,
+        borderWidth:0.5,
+        borderRadius:2,
+        borderColor:'#dddddd',
+        shadowColor:'gray', // ios
+        shadowOffset:{width:0.5,hight:0.5},// ios
+        shadowOpacity:0.4,// ios
+        shadowRadius:1,// ios
+        elevation:2, // android
+    },
+    cell_setting:{
+        height: 40,
+        margin:3,
+        borderRadius:2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical:3,
+        borderWidth:0.5,
+        borderRadius:2,
+        borderColor:'#dddddd',
+        shadowColor:'gray', // ios
+        shadowOffset:{width:0.5,hight:0.5},// ios
+        shadowOpacity:0.4,// ios
+        shadowRadius:1,// ios
+        elevation:2, // android
     }
 };

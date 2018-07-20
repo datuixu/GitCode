@@ -4,18 +4,19 @@ import {
 } from 'react-native'
 import {createStackNavigator,createDrawerNavigator} from 'react-navigation'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
-import {I18n} from '../../language/i18n'
-import Icon from '../common/Icon'
-import HomeDrawerItems from '../common/HomeDrawerItems'
-import TrendingDrawerItems from '../common/TrendingDrawerItems'
-import WelcomePage from '../page/WelcomePage'
-import PopularPage from '../page/popular/PopularPage'
-import HomePage from '../page/home/HomePage'
-import LoginPage from '../page/login/LoginPage'
-import CustomKeyPage from '../page/my/CustomKeyPage'
-import SortKeyPage from '../page/my/SortKeyPage'
-import TrendingPage from '../page/trending/TrendingPage'
-import PopularDetailPage from '../page/popular/PopularDetailPage'
+import {I18n} from '../language/i18n'
+import Icon from '../components/common/Icon'
+import HomeDrawerItems from '../components/common/HomeDrawerItems'
+import TrendingDrawerItems from '../components/common/TrendingDrawerItems'
+import WelcomePage from '../components/page/WelcomePage'
+import PopularPage from '../components/page/popular/PopularPage'
+import HomePage from '../components/page/home/HomePage'
+import LoginPage from '../components/page/login/LoginPage'
+import CustomKeyPage from '../components/page/my/CustomKeyPage'
+import CustomThemePage from '../components/page/my/CustomThemePage'
+import SortKeyPage from '../components/page/my/SortKeyPage'
+import TrendingPage from '../components/page/trending/TrendingPage'
+import PopularDetailPage from '../components/page/popular/PopularDetailPage'
 
 const deviceWidth = Dimensions.get('window').width
 
@@ -120,6 +121,9 @@ export const AppNavigator = createStackNavigator({
     },
     PopularDetailPage: {
         screen: PopularDetailPage
+    },
+    CustomThemePage: {
+        screen: CustomThemePage
     }
 }, {
     navigationOptions: {

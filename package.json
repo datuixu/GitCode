@@ -15,6 +15,7 @@
     "react-native-i18n": "^2.0.12",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-material-bottom-navigation": "^1.0.0",
+    "react-native-modalbox": "^1.6.0",
     "react-native-root-toast": "^3.0.1",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-sortable-listview": "^0.2.8",

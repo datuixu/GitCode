@@ -13,7 +13,6 @@ import {
 } from 'react-native'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
-import MyPage from '../../page/my/MyPage'
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -32,7 +31,7 @@ export default class HomePage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('popular.title')}
+                title={I18n.t('home.title')}
                 statusBar={statusBar}
                 isLinearGradient={true}
             />;

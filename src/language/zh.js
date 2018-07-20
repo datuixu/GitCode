@@ -30,9 +30,20 @@ export default {
         sort_key_title:'标签排序',
         sort_key_save_text:'保存',
         remove_key_title:'标签移除',
-        remove_key_text:'移除'
+        remove_key_text:'移除',
+        custom_theme_title:'个性主题'
     },
     loading:{
         title:'加载中...'
     },
+    theme:{
+        original_title:'默认主题',
+        golden_title:'流金岁月',
+        yellow_title:'一米阳光',
+        white_title:'白色极简',
+        pink_title:'落樱缤纷',
+        brown_title:'印象咖啡',
+        black_title:'黑色极简',
+        starryNight_title:'夜间主题'
+    }
 }

@@ -18,6 +18,9 @@ export default class WelcomePage extends Component {
     }
 
     componentDidMount() {
+        // new ThemeDao().getTheme().then((data) => {
+        //     this.theme = data
+        // })
         this.timer = setTimeout(() => {
             SplashScreen.hide();
             this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })

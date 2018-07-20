@@ -30,9 +30,22 @@ export default {
         sort_key_title:'Sort Lable',
         sort_key_save_text:'Save',
         remove_key_title:'Remove Lable',
-        remove_key_text:'Remove'
+        remove_key_text:'Remove',
+        custom_theme_title:'Personality Theme',
+        custom_theme_set:'Application',
+        custom_theme_use_set:'Already applied'
     },
     loading:{
         title:'loading...'
     },
+    theme:{
+        original_title:'Original theme',
+        golden_title:'Years of flow',
+        yellow_title:'One meter sun',
+        white_title:'White minimalism',
+        pink_title:'Riotous riotous',
+        brown_title:'Impress coffee',
+        black_title:'Black minimalism',
+        starryNight_title:'Nocturnal theme'
+    }
 }

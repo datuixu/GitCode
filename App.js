@@ -14,7 +14,7 @@ import {
   Image
 } from 'react-native'
 import { store } from './src/store/index'
-import {AppNavigator} from './src/components/navigators/AppNavigator'
+import {AppNavigator} from './src/router/AppNavigator'
 
 export default class App extends Component {
    render(){

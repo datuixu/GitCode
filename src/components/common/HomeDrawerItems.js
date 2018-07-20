@@ -35,6 +35,11 @@ export default class DrawerItems extends Component {
                             <Text>标签移除</Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('CustomThemePage',{isRemoveKey:true})}>
+                        <View>
+                            <Text>个性主题</Text>
+                        </View>
+                    </TouchableOpacity>
                 </SafeAreaView>
            </ScrollView>
         )

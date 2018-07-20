@@ -21,7 +21,7 @@ import * as actions from '../../actions/requestTrendingData'
 import {I18n} from '../../language/i18n'
 import Icon from '../common/Icon'
 import PopularPage from './popular/PopularPage'
-import {HomeNavigator,TrendingNavigator} from '../navigators/AppNavigator'
+import {HomeNavigator,TrendingNavigator} from '../../router/AppNavigator'
 
 export const FLAG_TAB = {
     flag_homeTab: 'tb_home',

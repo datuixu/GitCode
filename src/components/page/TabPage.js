@@ -16,7 +16,7 @@ import * as actions from '../../actions/requestTrendingData'
 import TabNavigator from 'react-native-tab-navigator'
 import {I18n} from '../../language/i18n'
 import PopularPage from './popular/PopularPage'
-import {HomeNavigator,TrendingNavigator} from '../navigators/AppNavigator'
+import {HomeNavigator,TrendingNavigator} from '../../router/AppNavigator'
 
 export const FLAG_TAB = {
     flag_homeTab: 'tb_home',

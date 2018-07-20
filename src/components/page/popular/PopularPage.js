@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
-import {TabNavigator} from 'react-navigation'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
