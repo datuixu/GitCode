@@ -10,6 +10,7 @@ import {I18n} from '../../language/i18n'
 
 export const ThemeFactory = {
     Original:{
+        key:'Original',
         title:I18n.t('theme.original_title'),
         isLinearGradient:true,
         themeColor:['#4f8dfe', '#31b7fe', '#37bafe'],
@@ -20,6 +21,7 @@ export const ThemeFactory = {
         iconColor:'#FFFFFF'
     },
     Golden:{
+        key:'Golden',
         title:I18n.t('theme.golden_title'),
         isLinearGradient:false,
         themeColor:'#212123',
@@ -30,6 +32,7 @@ export const ThemeFactory = {
         iconColor:'#dcb86c'
     },
     Yellow:{
+        key:'Yellow',
         title:I18n.t('theme.yellow_title'),
         isLinearGradient:false,
         themeColor:'#feba33',
@@ -40,6 +43,7 @@ export const ThemeFactory = {
         iconColor:'#FFFFFF'
     },
     White:{
+        key:'White',
         title:I18n.t('theme.white_title'),
         isLinearGradient:false,
         themeColor:'#FFFFFF',
@@ -50,6 +54,7 @@ export const ThemeFactory = {
         iconColor:'#12b8f4'
     },
     Pink:{
+        key:'Pink',
         title:I18n.t('theme.pink_title'),
         isLinearGradient:false,
         themeColor:'#fb6b8f',
@@ -60,6 +65,7 @@ export const ThemeFactory = {
         iconColor:'#FFFFFF'
     },
     Brown:{
+        key:'Brown',
         title:I18n.t('theme.brown_title'),
         isLinearGradient:false,
         themeColor:'#6e564a',
@@ -70,6 +76,7 @@ export const ThemeFactory = {
         iconColor:'#FFFFFF'
     },
     Black:{
+        key:'Black',
         title:I18n.t('theme.black_title'),
         isLinearGradient:false,
         themeColor:'#212123',
@@ -80,6 +87,7 @@ export const ThemeFactory = {
         iconColor:'#dcb86c'
     },
     StarryNight:{
+        key:'StarryNight',
         title:I18n.t('theme.starryNight_title'),
         isLinearGradient:false,
         themeColor:'#212123',

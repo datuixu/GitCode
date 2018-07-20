@@ -32,8 +32,9 @@ export default {
         remove_key_title:'Remove Lable',
         remove_key_text:'Remove',
         custom_theme_title:'Personality Theme',
-        custom_theme_set:'Application',
-        custom_theme_use_set:'Already applied'
+        custom_theme_set:'application',
+        custom_theme_use_set:'applied',
+        change_theme_title:'Switching theme...',
     },
     loading:{
         title:'loading...'

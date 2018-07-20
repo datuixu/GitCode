@@ -31,7 +31,10 @@ export default {
         sort_key_save_text:'保存',
         remove_key_title:'标签移除',
         remove_key_text:'移除',
-        custom_theme_title:'个性主题'
+        custom_theme_title:'个性主题',
+        custom_theme_set:'应用',
+        custom_theme_use_set:'已应用',
+        change_theme_title:'正在切换主题...',
     },
     loading:{
         title:'加载中...'
