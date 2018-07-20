@@ -17,12 +17,12 @@ import {ThemeFactory} from '../../res/styles/ThemeFactory'
 
 class WelcomePage extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     componentDidMount() {
-        new ThemeDao().getTheme().then((data) => {
-            this.props.dispatch(actions.updateThemeFactory(ThemeFactory[data]))
+        new ThemeDao().getTheme().then((key) => {
+            this.props.dispatch(actions.updateThemeFactory(ThemeFactory[key]))
         })
         this.timer = setTimeout(() => {
             SplashScreen.hide();
@@ -31,20 +31,20 @@ class WelcomePage extends Component {
             //     // theme: this.theme,
             //     navigation: this.props.navigation
             // })
-        }, 500);
+        }, 500)
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
+        this.timer && clearTimeout(this.timer)
     } 
 
     render() {
-        return null;
+        return null
     }
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
 
     },
     tips: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    theme: state.globalDataState.theme,
+    theme: state.globalDataState.theme
 })
 
 export default connect(mapStateToProps)(WelcomePage)

@@ -36,7 +36,8 @@ export default class NavigationBar extends Component {
         statusBar: PropTypes.shape(StatusBarShape),
         rightButton:  PropTypes.element,
         leftButton: PropTypes.element,
-        isLinearGradient: PropTypes.bool
+        isLinearGradient: PropTypes.bool,
+        themeColor: PropTypes.oneOfType([PropTypes.string,PropTypes.array])
     }
     static defaultProps = {
         statusBar: {

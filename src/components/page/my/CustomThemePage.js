@@ -96,7 +96,6 @@ class CustomThemePage extends Component {
         barStyle: 'light-content',
         translucent: true
     }
-    console.log(theme.themeColor)
     let navigationBar =
         <NavigationBar
             title={I18n.t('my.custom_theme_title')}

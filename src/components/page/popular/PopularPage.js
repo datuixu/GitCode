@@ -17,6 +17,7 @@ import {
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
+import { connect } from 'react-redux'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
@@ -26,8 +27,9 @@ import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUERY_STR = '&page=1&per_page=10&sort=stars'
 const deviceWidth = Dimensions.get('window').width;
-var dataRepository = new DataRepository(FLAG_STORAGE.flag_popular);
-export default class PopularPage extends Component {
+var dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
+
+class PopularPage extends Component {
     constructor(props) {
         super(props);
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
@@ -52,20 +54,27 @@ export default class PopularPage extends Component {
             })
     }
     render() {
+        const {theme,navigation} = this.props
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
             translucent: true
         }
+        console.log(theme.isLinearGradient)
+        console.log(theme.themeColor)
         let navigationBar =
             <NavigationBar
                 title={I18n.t('popular.title')}
+                titleColor={theme.textColor}
                 statusBar={statusBar}
-                isLinearGradient={false}
+                isLinearGradient={theme.isLinearGradient}
+                themeColor={theme.themeColor}
             />;
         let content = this.state.languages.length > 0 ? 
         <ScrollableTabView
+          isLinearGradient={theme.isLinearGradient}
+          themeColor={theme.themeColor}
           tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
@@ -197,3 +206,9 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 })
+
+const mapStateToProps = state => ({
+    theme: state.globalDataState.theme
+})
+
+export default connect(mapStateToProps)(PopularPage)

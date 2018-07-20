@@ -67,7 +67,7 @@ class TrendingPage extends Component {
         navigation.toggleDrawer()
     }
     render() {
-        const {navigation} = this.props
+        const {navigation,theme} = this.props
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -77,12 +77,16 @@ class TrendingPage extends Component {
         let navigationBar =
             <NavigationBar
                 titleView={this.renderTieleView()}
+                titleColor={theme.textColor}
                 statusBar={statusBar}
-                isLinearGradient={false}
+                isLinearGradient={theme.isLinearGradient}
+                themeColor={theme.themeColor}
                 leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;
         let content= <ScrollableTabView
+          isLinearGradient={theme.isLinearGradient}
+          themeColor={theme.themeColor}
           tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
@@ -229,7 +233,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     isRenderer:state.trendigDataState.isRenderer,
     selectKey:state.trendigDataState.selectKey,
-    url:state.trendigDataState.url
+    url:state.trendigDataState.url,
+    theme: state.globalDataState.theme
 })
 
 export default connect(mapStateToProps)(TrendingPage)

@@ -13,16 +13,16 @@ import {
 } from 'react-native'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
+import { connect } from 'react-redux'
 
-export default class HomePage extends Component {
+class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
         }
     }
     render() {
-        const {navigation} = this.props;
-        console.log(navigation)
+        const {theme,navigation} = this.props
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -31,9 +31,11 @@ export default class HomePage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('home.title')}
+                title=''
                 statusBar={statusBar}
-                isLinearGradient={false}
+                titleColor={theme.textColor}
+                isLinearGradient={theme.isLinearGradient}
+                themeColor={theme.themeColor}
             />;
         return <View style={styles.container}>
                  {navigationBar}
@@ -50,3 +52,9 @@ const styles = StyleSheet.create({
         flex: 1,
     }
 })
+
+const mapStateToProps = state => ({
+    theme: state.globalDataState.theme
+})
+
+export default connect(mapStateToProps)(HomePage)
