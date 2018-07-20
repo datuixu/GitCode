@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import {ThemeFactory} from '../../../res/styles/ThemeFactory'
+import ThemeDao from '../../expand/dao/ThemeDao'
 import * as actions from '../../../actions/requestGlobalData'
 import ViewUtils from '../../util/ViewUtils'
 import Icon from '../../common/Icon'
@@ -25,10 +26,15 @@ const deviceWidth = Dimensions.get('window').width
 class CustomThemePage extends Component {
    constructor(props) {
         super(props)
+        this.themeDao = new ThemeDao()
         this.state = {
             visible:false
         }
    }
+   componentWillUnmount() {
+     this.timer1 && clearTimeout(this.timer1)
+     this.timer2 && clearTimeout(this.timer2)
+   } 
    getThemeItem(key){
        let theme 
        if(key){
@@ -53,7 +59,7 @@ class CustomThemePage extends Component {
                  <Text style={{color:'#babcbb'}}>{I18n.t('my.custom_theme_use_set')}</Text>
                </View>
                 :
-               <TouchableOpacity activeOpacity={0.7} onPress={()=>this.changeTheme(theme)} style={[GlobalStyles.cell_setting,{backgroundColor:'white'}]}>
+               <TouchableOpacity activeOpacity={0.7} onPress={()=>this.changeTheme(key,theme)} style={[GlobalStyles.cell_setting,{backgroundColor:'white'}]}>
                 <Text style={{color:'#000000'}}>{I18n.t('my.custom_theme_set')}</Text>
                </TouchableOpacity>
             }
@@ -71,12 +77,13 @@ class CustomThemePage extends Component {
     }
     return views
    }
-   changeTheme(theme){
+   changeTheme(key,theme){
     this.setState({visible:true})
-    setTimeout(()=>{
+    this.timer1 = setTimeout(()=>{
+        this.themeDao.save(key)
         this.props.dispatch(actions.updateThemeFactory(theme))
     },800)
-    setTimeout(()=>{
+    this.timer2 = setTimeout(()=>{
         this.setState({visible:false})
     },1000)
     

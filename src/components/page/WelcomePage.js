@@ -9,18 +9,21 @@ import {
     Text,
 } from 'react-native'
 import NavigatorUtil from '../util/NavigatorUtil'
-// import ThemeDao from '../expand/dao/ThemeDao'
+import ThemeDao from '../expand/dao/ThemeDao'
 import SplashScreen from 'react-native-splash-screen'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/requestGlobalData'
+import {ThemeFactory} from '../../res/styles/ThemeFactory'
 
-export default class WelcomePage extends Component {
+class WelcomePage extends Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        // new ThemeDao().getTheme().then((data) => {
-        //     this.theme = data
-        // })
+        new ThemeDao().getTheme().then((data) => {
+            this.props.dispatch(actions.updateThemeFactory(ThemeFactory[data]))
+        })
         this.timer = setTimeout(() => {
             SplashScreen.hide();
             this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
@@ -33,7 +36,7 @@ export default class WelcomePage extends Component {
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
-    }
+    } 
 
     render() {
         return null;
@@ -48,3 +51,9 @@ const styles = StyleSheet.create({
         fontSize: 29
     }
 })
+
+const mapStateToProps = state => ({
+    theme: state.globalDataState.theme,
+})
+
+export default connect(mapStateToProps)(WelcomePage)

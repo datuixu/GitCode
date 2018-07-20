@@ -8,7 +8,6 @@
 import {
   AsyncStorage,
 } from 'react-native'
-import {ThemeFactory} from '../../../res/styles/ThemeFactory'
 const THEME_KEY='theme_key'
 
 export default class ThemeDao{
@@ -24,11 +23,10 @@ export default class ThemeDao{
          return;
        }
        if(!result){
-         this.save(ThemeFactory.Original);
-        //  result=ThemeFlags.Default;
+         this.save('Original');
+         result='Original';
        }
-       console.log(ThemeFactory.Original)
-       resolve(ThemeFactory.Original)
+       resolve(result)
      })
    })
   }
