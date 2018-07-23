@@ -68,6 +68,7 @@ class TrendingPage extends Component {
     }
     render() {
         const {navigation,theme} = this.props
+        console.log(this.props)
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -85,15 +86,15 @@ class TrendingPage extends Component {
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
             />;
         let content= <ScrollableTabView
-          isLinearGradient={theme.isLinearGradient}
-          themeColor={theme.themeColor}
-          tabBarBackgroundColor="#2196F3"
+        //   tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor="white"
           tabBarTextStyle={{fontFamily: 'CaviarDreams'}} // 解决android全面屏点击会显示不全问题
           tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
           initialPage={0}
           renderTabBar={() => <ScrollableTabBar 
+                isLinearGradient={theme.isLinearGradient}
+                themeColor={theme.themeColor}
                 style={{height: 40, borderWidth: 0, elevation: 2}}
                 tabStyle={{height: 39}}
           />}

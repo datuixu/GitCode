@@ -23,15 +23,16 @@ class WelcomePage extends Component {
     componentDidMount() {
         new ThemeDao().getTheme().then((key) => {
             this.props.dispatch(actions.updateThemeFactory(ThemeFactory[key]))
-        })
-        this.timer = setTimeout(() => {
-            SplashScreen.hide();
             this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
-            // NavigatorUtil.resetToHomePage({
-            //     // theme: this.theme,
-            //     navigation: this.props.navigation
-            // })
-        }, 500)
+        })
+        // this.timer = setTimeout(() => {
+        //     SplashScreen.hide();
+        //     this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
+        //     // NavigatorUtil.resetToHomePage({
+        //     //     // theme: this.theme,
+        //     //     navigation: this.props.navigation
+        //     // })
+        // }, 500)
     }
 
     componentWillUnmount() {

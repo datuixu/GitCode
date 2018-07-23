@@ -15,6 +15,7 @@ import {createDrawerNavigator} from 'react-navigation'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import CustomKeyPage from '../components/page/my/CustomKeyPage'
 import SortKeyPage from '../components/page/my/SortKeyPage'
+import CustomThemePage from '../components/page/my/CustomThemePage'
 import HomePage from '../components/page/home/HomePage'
 import PopularPage from '../components/page/popular/PopularPage'
 import TrendingPage from '../components/page/trending/TrendingPage'
@@ -32,6 +33,7 @@ class HomeNavigator extends Component {
     }
     render(){
         console.log(this.props)
+        const {navigation,theme} = this.props
         const TrendingNavigator = createDrawerNavigator({
             TrendingPage: {
                 screen: TrendingPage
@@ -54,7 +56,7 @@ class HomeNavigator extends Component {
                         <Icon
                             name='home'
                             size={24}
-                            style={{color: focused ? '#2196F3' : '#808394'}}
+                            style={{color: focused ? theme.selectedIconColor : '#808394'}}
                         />
                     )
                 }
@@ -67,7 +69,7 @@ class HomeNavigator extends Component {
                         <Icon
                             name='trending'
                             size={20}
-                            style={{color: focused ? '#2196F3' : '#808394'}}
+                            style={{color: focused ? theme.selectedIconColor : '#808394'}}
                         />
                     )
                 }
@@ -80,7 +82,7 @@ class HomeNavigator extends Component {
                         <Icon
                             name='hot'
                             size={24}
-                            style={{color: focused ? '#2196F3' : '#808394'}}
+                            style={{color: focused ? theme.selectedIconColor : '#808394'}}
                         />
                     )
                 }
@@ -88,7 +90,7 @@ class HomeNavigator extends Component {
           }, {
             initialRouteName: 'HomePage',
             shifting:true,
-            activeTintColor: '#2196F3',
+            activeTintColor: theme.selectedIconColor,
             animationEnabled:true,
             backBehavior:'none',
             barStyle: { 
@@ -106,6 +108,9 @@ class HomeNavigator extends Component {
             },
             SortKeyPage: {
                 screen : SortKeyPage
+            },
+            CustomThemePage:{
+                screen:CustomThemePage
             }
         },{
             backBehavior:'none',
