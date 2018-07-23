@@ -22,6 +22,7 @@ class HomePage extends Component {
         }
     }
     render() {
+        console.log(this.props)
         const {theme,navigation} = this.props
         var statusBar = {
             animated: true,
