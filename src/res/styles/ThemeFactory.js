@@ -1,5 +1,5 @@
 /**
- * 主题
+ * 主题工厂 created by wangjiahuan 2018-7-24
  * @flow
  */
 import React, {Component} from 'react'
@@ -14,6 +14,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.original_title'),
         isLinearGradient:true,
         themeColor:['#4f8dfe', '#31b7fe', '#37bafe'],
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#FFFFFF',
         selectedTitleColor:'#4f8dfe',
@@ -25,6 +26,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.golden_title'),
         isLinearGradient:false,
         themeColor:'#212123',
+        barStyle:{backgroundColor: "#212123", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#dcb86c',
         drawerBackgroundColor:'#171717',
         selectedTitleColor:'#dcb86c',
@@ -36,6 +38,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.yellow_title'),
         isLinearGradient:false,
         themeColor:'#feba33',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#4c4c4c',
         selectedTitleColor:'#feba33',
@@ -47,6 +50,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.white_title'),
         isLinearGradient:false,
         themeColor:'#FFFFFF',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#4f8dfe',
         drawerBackgroundColor:['#4f8dfe', '#31b7fe', '#37bafe'],
         selectedTitleColor:'#12b8f4',
@@ -58,6 +62,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.pink_title'),
         isLinearGradient:false,
         themeColor:'#fb6b8f',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#f0587e',
         selectedTitleColor:'#fb6b8f',
@@ -69,6 +74,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.brown_title'),
         isLinearGradient:false,
         themeColor:'#6e564a',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#513d34',
         selectedTitleColor:'#6e564a',
@@ -80,6 +86,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.black_title'),
         isLinearGradient:false,
         themeColor:'#212123',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#171717',
         selectedTitleColor:'#dcb86c',
@@ -91,6 +98,7 @@ export const ThemeFactory = {
         title:I18n.t('theme.starryNight_title'),
         isLinearGradient:false,
         themeColor:'#212123',
+        barStyle:{backgroundColor: "#FFFFFF", borderTopWidth: 0.5, borderTopColor: "#d6dadd"},
         textColor:'#FFFFFF',
         drawerBackgroundColor:'#171717',
         selectedTitleColor:'#dcb86c',
@@ -98,14 +106,3 @@ export const ThemeFactory = {
         iconColor:'#dcb86c'
     }
 }
-
-// export default class ThemeFactory{
-//     /**
-//      * 创建一个主题样式
-//      * @param themeFlag 主题标识
-//      * @returns {{themeColor: *, styles: *}}
-//      */
-//     static createTheme(themeFlag){
-//         return themeFlag
-//     }
-// }

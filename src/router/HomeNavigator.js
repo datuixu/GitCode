@@ -11,13 +11,14 @@ import {
 } from 'react-native'
 
 import { connect } from 'react-redux'
-import {createDrawerNavigator} from 'react-navigation'
+import {withNavigation , createDrawerNavigator} from 'react-navigation'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import CustomKeyPage from '../components/page/my/CustomKeyPage'
 import SortKeyPage from '../components/page/my/SortKeyPage'
 import CustomThemePage from '../components/page/my/CustomThemePage'
 import HomePage from '../components/page/home/HomePage'
 import PopularPage from '../components/page/popular/PopularPage'
+import PopularDetailPage from '../components/page/popular/PopularDetailPage'
 import TrendingPage from '../components/page/trending/TrendingPage'
 import * as actions from '../actions/requestGlobalData'
 import HomeDrawerItems from '../components/common/HomeDrawerItems'
@@ -26,7 +27,7 @@ import {I18n} from '../language/i18n'
 import Icon from '../components/common/Icon'
 
 const deviceWidth = Dimensions.get('window').width
-
+console.log(this.props)
 class HomeNavigator extends Component {
     constructor(props) {
         super(props)
@@ -99,16 +100,19 @@ class HomeNavigator extends Component {
                 borderTopColor:'#d6dadd',
             }
         });
-       const HomeNavigator = createDrawerNavigator({
+       const HomeNavigators = createDrawerNavigator({
             BottomTabNavigator: {
                 screen: BottomTabNavigator
             },
-            CustomKeyPage: {
-                screen: CustomKeyPage
+            HomePage:{
+              screen:HomePage
             },
-            SortKeyPage: {
-                screen : SortKeyPage
-            },
+            // CustomKeyPage: {
+            //     screen: CustomKeyPage
+            // },
+            // SortKeyPage: {
+            //     screen : SortKeyPage
+            // },
             CustomThemePage:{
                 screen:CustomThemePage
             }
@@ -122,7 +126,7 @@ class HomeNavigator extends Component {
                 )
             },
         })
-        return <HomeNavigator />
+        return <HomeNavigators />
     }
 }
 

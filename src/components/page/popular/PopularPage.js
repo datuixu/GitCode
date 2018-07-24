@@ -20,6 +20,7 @@ import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
 import { connect } from 'react-redux'
 import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
 import RepositoryCell from '../../common/RepositoryCell'
+import Icon from '../../common/Icon'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
@@ -30,6 +31,7 @@ const deviceWidth = Dimensions.get('window').width;
 var dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
 
 class PopularPage extends Component {
+
     constructor(props) {
         super(props);
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
@@ -38,6 +40,17 @@ class PopularPage extends Component {
             languages: [],
         }
         this.loadLanguage()
+    }
+    
+    static navigationOptions = {
+        tabBarLabel: I18n.t('popular.tab_name'),
+        tabBarIcon: ({tintColor, focused}) => (
+            <Icon
+                name='hot'
+                size={24}
+                style={{color: focused ? tintColor : '#808394'}}
+            />
+        )
     }
     // componentDidMount() {
     //     this.loadData()

@@ -14,12 +14,23 @@ import {
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import { connect } from 'react-redux'
+import Icon from '../../common/Icon'
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
         }
+    }
+    static navigationOptions = {
+        tabBarLabel: I18n.t('home.tab_name'),
+        tabBarIcon: ({tintColor, focused}) => (
+            <Icon
+                name='home'
+                size={24}
+                style={{color: focused ? tintColor : '#808394'}}
+            />
+        )
     }
     render() {
         console.log(this.props)

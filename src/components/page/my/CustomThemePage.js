@@ -90,6 +90,7 @@ class CustomThemePage extends Component {
    }
    render(){
     const {theme,navigation} = this.props
+    console.log(navigation)
     var statusBar = {
         animated: true,
         backgroundColor: 'rgba(0,0,0,0)',
@@ -103,7 +104,7 @@ class CustomThemePage extends Component {
             statusBar={statusBar}
             isLinearGradient={theme.isLinearGradient}
             themeColor={theme.themeColor}
-            leftButton={ViewUtils.getLeftButton(()=>navigation.goBack(),theme.iconColor)}
+            leftButton={ViewUtils.getLeftButton(()=>navigation.navigate('BottomTabNavigator'),theme.iconColor)}
     />
     return <View style={styles.container}>
             {navigationBar}

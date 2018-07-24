@@ -17,6 +17,7 @@ export default class DrawerItems extends Component {
     }
     render(){
         const {navigation} = this.props
+        console.log(navigation)
         return(
             <ScrollView style={{backgroundColor: 'white', flex: 1}}>
                 <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
@@ -35,7 +36,7 @@ export default class DrawerItems extends Component {
                             <Text>标签移除</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>navigation.navigate('CustomThemePage',{isRemoveKey:true})}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('CustomThemePage')}>
                         <View>
                             <Text>个性主题</Text>
                         </View>
