@@ -47,7 +47,7 @@ export default class TrendingCell extends Component {
       return content
     }
     render() {
-        const data = this.props.data
+        const {data,theme} = this.props
         const language = data.language ? <View style={{flexDirection:'row',alignItems:'center'}}>
                                             <Text style={{marginRight:5,fontSize:12}}>{data.language}</Text>
                                             <View style={{width:12,height:12,borderRadius:50,backgroundColor:data.languageColor}}></View>
@@ -62,7 +62,7 @@ export default class TrendingCell extends Component {
                 <View style={GlobalStyles.cell_container}>
                     <View style={{flex:1}}>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={styles.title}>{data.fullName}</Text>
+                            <Text style={[styles.title,{color:theme.cellTitleColor}]}>{data.fullName}</Text>
                             {language}
                         </View>
                         <HTMLView
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
         flex:1,
         fontSize: 16,
         marginBottom: 5,
-        color: '#2196F3'
     },
     description: {
         fontSize: 14,

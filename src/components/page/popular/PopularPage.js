@@ -86,9 +86,10 @@ class PopularPage extends Component {
         <ScrollableTabView
         //   tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
-          tabBarActiveTextColor="white"
+          tabBarActiveTextColor={theme.textColor}
+          tabBarInactiveTextColor={theme.textColor}
           tabBarTextStyle={{fontFamily: 'CaviarDreams'}} // 解决android全面屏点击会显示不全问题
-          tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
+          tabBarUnderlineStyle={{backgroundColor:theme.textColor,height:2}}
           initialPage={0}
           renderTabBar={() => <ScrollableTabBar 
                 isLinearGradient={theme.isLinearGradient}
@@ -195,6 +196,7 @@ class PopularTab extends Component{
             <RepositoryCell 
               data={item}
               onSelect={()=>this.onSelect(item)}
+              theme={this.props.theme}
             />
         )
     }

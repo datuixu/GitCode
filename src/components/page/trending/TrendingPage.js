@@ -69,9 +69,9 @@ class TrendingPage extends Component {
     componentDidUpdate(){
         this.props.dispatch(actions.updateIsRenderer(false))
     }
-    renderTieleView(){
+    renderTieleView(color){
         return <View>
-            <Text style={{color:'#FFFFFF',fontSize:16}}>{this.props.selectKey}</Text>
+            <Text style={{color:color,fontSize:16}}>{this.props.selectKey}</Text>
         </View>
     }
     openDrawer(navigation){
@@ -80,7 +80,6 @@ class TrendingPage extends Component {
     }
     render() {
         const {navigation,theme} = this.props
-        console.log(this.props)
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -89,20 +88,21 @@ class TrendingPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                titleView={this.renderTieleView()}
+                titleView={this.renderTieleView(theme.textColor)}
                 titleColor={theme.textColor}
                 statusBar={statusBar}
                 isLinearGradient={theme.isLinearGradient}
                 themeColor={theme.themeColor}
-                leftButton={<Text style={styles.leftButton}>{I18n.t('trending.title')}</Text>}
-                rightButton={ViewUtils.getRightButton(<Icon name="switch-language"/>,() => this.openDrawer(navigation))}
+                leftButton={<Text style={[styles.leftButton,{color:theme.textColor}]}>{I18n.t('trending.title')}</Text>}
+                rightButton={ViewUtils.getRightButton(<Icon name="switch-language" color={theme.iconColor}/>,() => this.openDrawer(navigation))}
             />;
         let content= <ScrollableTabView
         //   tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
-          tabBarActiveTextColor="white"
+          tabBarActiveTextColor={theme.textColor}
+          tabBarInactiveTextColor={theme.textColor}
           tabBarTextStyle={{fontFamily: 'CaviarDreams'}} // 解决android全面屏点击会显示不全问题
-          tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
+          tabBarUnderlineStyle={{backgroundColor:theme.textColor,height:2}}
           initialPage={0}
           renderTabBar={() => <ScrollableTabBar 
                 isLinearGradient={theme.isLinearGradient}
@@ -216,6 +216,7 @@ class TrendingTab extends Component{
               data={item}
               timeSpan={this.props.searchText}
               onSelect={()=>this.onSelect(item)}
+              theme={this.props.theme}
             />
         )
     }
@@ -238,7 +239,6 @@ const styles = StyleSheet.create({
     },
     leftButton:{
         fontSize: 20,
-        color: '#FFFFFF',
         marginLeft:10
     }
 })

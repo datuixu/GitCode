@@ -17,7 +17,7 @@ export default class RepositoryCell extends Component {
     }
 
     render() {
-        const data = this.props.data
+        const {data,theme} = this.props
         const img = data.owner.avatar_url ? <Image 
                         style={{height:50,width:50,borderRadius:50}}
                         source={{uri:data.owner.avatar_url}}
@@ -38,7 +38,7 @@ export default class RepositoryCell extends Component {
                     </View>
                     <View style={{flex:1}}>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={styles.title}>{data.full_name}</Text>
+                            <Text style={[styles.title,{color:theme.cellTitleColor}]}>{data.full_name}</Text>
                         </View>
                         <HTMLView
                             value={description}
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        marginBottom: 5,
-        color: '#2196F3'
+        marginBottom: 5
     },
     description: {
         fontSize: 14,
