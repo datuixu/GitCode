@@ -52,7 +52,7 @@ const BottomTabNavigator = createMaterialBottomTabNavigator({
     },
     TrendingNavigator: { 
         screen: TrendingNavigator,
-        navigationOptions:TrendingPage.navigationOptions
+        navigationOptions:TrendingPage.navigationOptions //解决找不到TrendingPage的navigationOptions配置问题
     },
     PopularPage: { 
         screen: PopularPage

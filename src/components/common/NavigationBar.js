@@ -63,9 +63,9 @@ export default class NavigationBar extends Component {
 
     render() {
         let statusBar = !this.props.statusBar.hidden ?
-            <LinearGradient style={styles.statusBar} start={{x: 0, y: 0}}  end={{x: 1, y: 0}} colors={['#4f8dfe', '#31b7fe', '#37bafe']} >
+            <View style={styles.statusBar}>
                 <StatusBar {...this.props.statusBar} />
-            </LinearGradient>: null;
+            </View>: null;
 
         let titleView = this.props.titleView ? this.props.titleView :
             <Text ellipsizeMode="head" numberOfLines={1} style={[styles.title,{color:this.props.titleColor}]}>{this.props.title}</Text>;

@@ -33,13 +33,11 @@ const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=da
 class TrendingPage extends Component {
     constructor(props) {
         super(props);
-        this.selectedIconColor = '#FFFFFF'
         this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_language)
         this.state = {
             projectModels: [],
             isVisible: false,
         }
-        console.log(this.props.theme.selectedIconColor)
     }
     static navigationOptions = {
         tabBarLabel: I18n.t('trending.tab_name'),

@@ -68,7 +68,7 @@ class PopularPage extends Component {
     }
     render() {
         const {theme,navigation} = this.props
-        var statusBar = {
+        let statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
