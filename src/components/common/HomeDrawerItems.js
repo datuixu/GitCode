@@ -12,6 +12,8 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import I18nDao from '../expand/dao/I18nDao' 
+import * as actions from '../../actions/requestGlobalData'
 import {I18n} from '../../language/i18n'
 import Icon from './Icon'
 
@@ -22,12 +24,25 @@ const deviceHeight = Dimensions.get('window').height
 
 class HomeDrawerItems extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+        this.I18nDao = new I18nDao()
         this.state = {
         };
     }
+    changeLocale(locale){
+        console.log(locale)
+      let localeLan = ''
+      if(locale == 'en'){
+        localeLan = 'zh'
+      }else{
+        localeLan = 'en'
+      }
+      this.I18nDao.save(localeLan)
+      this.props.dispatch(actions.updateLocale(localeLan))
+    }
     render(){
-        const {navigation,theme} = this.props
+        const {navigation,theme,locale} = this.props
+        console.log(this.props)
         let statusBar =  
             <StatusBar 
                 animated={true}
@@ -53,7 +68,7 @@ class HomeDrawerItems extends Component {
                 <TouchableHighlight style={styles.touchStyle} underlayColor={theme.underlayColor} onPress={()=>navigation.navigate('CustomThemePage')}>
                     <View style={styles.row}>
                       <Icon name="theme" color={theme.drawerIconColor} size={24}/>
-                      <Text style={[styles.textStyle,{color:theme.drawerTextColor}]}>{I18n.t('my.custom_theme_title')}</Text>
+                      <Text style={[styles.textStyle,{color:theme.drawerTextColor}]}>{I18n.t('my.custom_theme_title',{locale:locale})}</Text>
                     </View>
                 </TouchableHighlight>
 
@@ -63,12 +78,18 @@ class HomeDrawerItems extends Component {
             <View style={styles.footerStyle}>
                 <View style={{alignItems:'center',marginRight:35}}>
                   <Icon name="setting" size={19} color={theme.drawerIconColor}/>
-                  <Text style={{color:theme.drawerTextColor,marginTop:8}}>设置</Text>
+                  <Text style={{color:theme.drawerTextColor,marginTop:8}}>{I18n.t('my.setting_title',{locale:locale})}</Text>
                 </View>
                 <View style={{alignItems:'center'}}>
                   <Icon name="night" size={19} color={theme.drawerIconColor}/>
-                  <Text style={{color:theme.drawerTextColor,marginTop:7.3}}>夜间</Text>
+                  <Text style={{color:theme.drawerTextColor,marginTop:7.3}}>{I18n.t('my.night_title',{locale:locale})}</Text>
                 </View>
+                <TouchableHighlight onPress={()=>this.changeLocale(locale)}>
+                    <View style={{alignItems:'center'}} >
+                    <Icon name="night" size={19} color={theme.drawerIconColor}/>
+                    <Text style={{color:theme.drawerTextColor,marginTop:7.3}}>{I18n.t('my.night_title',{locale:locale})}</Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         return(
             <ScrollView style={{backgroundColor: theme.drawerBackgroundColor, flex: 1}}>
@@ -108,7 +129,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    theme: state.globalDataState.theme
+    theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(HomeDrawerItems)

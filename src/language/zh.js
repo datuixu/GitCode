@@ -35,6 +35,8 @@ export default {
         custom_theme_set:'应用',
         custom_theme_use_set:'已应用',
         change_theme_title:'正在切换主题...',
+        setting_title:'设置',
+        night_title:'夜间'
     },
     loading:{
         title:'加载中...'

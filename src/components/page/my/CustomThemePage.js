@@ -56,11 +56,11 @@ class CustomThemePage extends Component {
             }
             {this.props.theme.key == key ?
                <View style={[GlobalStyles.cell_setting,{backgroundColor:'#eaebed'}]}>
-                 <Text style={{color:'#babcbb'}}>{I18n.t('my.custom_theme_use_set')}</Text>
+                 <Text style={{color:'#babcbb'}}>{I18n.t('my.custom_theme_use_set',{locale:this.props.locale})}</Text>
                </View>
                 :
                <TouchableOpacity activeOpacity={0.7} onPress={()=>this.changeTheme(key,theme)} style={[GlobalStyles.cell_setting,{backgroundColor:'white'}]}>
-                <Text style={{color:'#000000'}}>{I18n.t('my.custom_theme_set')}</Text>
+                <Text style={{color:'#000000'}}>{I18n.t('my.custom_theme_set',{locale:this.props.locale})}</Text>
                </TouchableOpacity>
             }
         </View>
@@ -89,8 +89,7 @@ class CustomThemePage extends Component {
     
    }
    render(){
-    const {theme,navigation} = this.props
-    console.log(navigation)
+    const {theme,navigation,locale} = this.props
     var statusBar = {
         animated: true,
         backgroundColor: 'rgba(0,0,0,0)',
@@ -99,7 +98,7 @@ class CustomThemePage extends Component {
     }
     let navigationBar =
         <NavigationBar
-            title={I18n.t('my.custom_theme_title')}
+            title={I18n.t('my.custom_theme_title',{locale:locale})}
             titleColor={theme.textColor}
             statusBar={statusBar}
             isLinearGradient={theme.isLinearGradient}
@@ -120,7 +119,7 @@ class CustomThemePage extends Component {
                 <View style={styles.modalView}>
                     <View style={[styles.modal_container,{width:deviceWidth-100}]}>
                         <Image style={styles.image} source={require('../../../res/images/load.gif')}/>
-                        <Text style={{color:'#FFFFFF',fontSize:15}}>{I18n.t('my.change_theme_title')}</Text>
+                        <Text style={{color:'#FFFFFF',fontSize:15}}>{I18n.t('my.change_theme_title',{locale:locale})}</Text>
                     </View>
                 </View>
             </Modal>
@@ -160,6 +159,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(CustomThemePage)

@@ -43,7 +43,7 @@ class PopularPage extends Component {
     }
     
     static navigationOptions = {
-        tabBarLabel: I18n.t('popular.tab_name'),
+        tabBarLabel: I18n.t('popular.tab_name',{locale:locale}),
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='hot'
@@ -67,7 +67,7 @@ class PopularPage extends Component {
             })
     }
     render() {
-        const {theme,navigation} = this.props
+        const {theme,navigation,locale} = this.props
         let statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -76,7 +76,7 @@ class PopularPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('popular.title')}
+                title={I18n.t('popular.title',{locale:locale})}
                 titleColor={theme.textColor}
                 statusBar={statusBar}
                 isLinearGradient={theme.isLinearGradient}
@@ -160,7 +160,7 @@ class PopularTab extends Component{
             return(
                 <View>
                     <Loading 
-                      text={I18n.t('loading.title')}
+                      text={I18n.t('loading.title',{locale:locale})}
                     />
                 </View>
             )
@@ -178,7 +178,7 @@ class PopularTab extends Component{
                                 onRefresh={this._onRefresh.bind(this)} //刷新方法
                                 colors={['#459ef7', '#006cff','#2400ff','#3aa4d5']}
                                 tintColor={'#2196F3'}
-                                title={I18n.t('loading.title')}  
+                                title={I18n.t('loading.title',{locale:locale})}  
                                 titleColor={'#2196F3'}
                             />
                         }
@@ -221,7 +221,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    theme: state.globalDataState.theme
+    theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(PopularPage)

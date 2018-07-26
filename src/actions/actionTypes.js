@@ -12,5 +12,7 @@ export const UPDATE_URL = 'UPDATE_URL';
 
 export const UPDATE_THEME_FACTORY = 'UPDATE_THEME_FACTORY';
 
+export const UPDATE_LOCALE = 'UPDATE_LOCALE';
+
 
 

@@ -35,6 +35,8 @@ export default {
         custom_theme_set:'application',
         custom_theme_use_set:'applied',
         change_theme_title:'Switching theme...',
+        setting_title:'Setting',
+        night_title:'Night'
     },
     loading:{
         title:'loading...'

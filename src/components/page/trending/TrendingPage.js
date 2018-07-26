@@ -26,9 +26,9 @@ import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 import TimeSpan from '../../model/TimeSpan'
 
 
-const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
-                           new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
-                           new TimeSpan(I18n.t('trending.since_monthly'),'since=monthly')]
+const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily',{locale:locale}),'since=daily'),
+                           new TimeSpan(I18n.t('trending.since_weekly',{locale:locale}),'since=weekly'),
+                           new TimeSpan(I18n.t('trending.since_monthly',{locale:locale}),'since=monthly')]
 
 class TrendingPage extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class TrendingPage extends Component {
         }
     }
     static navigationOptions = {
-        tabBarLabel: I18n.t('trending.tab_name'),
+        tabBarLabel: I18n.t('trending.tab_name',{locale:locale}),
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='trending'
@@ -91,7 +91,7 @@ class TrendingPage extends Component {
                 statusBar={statusBar}
                 isLinearGradient={theme.isLinearGradient}
                 themeColor={theme.themeColor}
-                leftButton={<Text style={[styles.leftButton,{color:theme.textColor}]}>{I18n.t('trending.title')}</Text>}
+                leftButton={<Text style={[styles.leftButton,{color:theme.textColor}]}>{I18n.t('trending.title',{locale:locale})}</Text>}
                 rightButton={ViewUtils.getRightButton(<Icon name="switch-language" color={theme.iconColor}/>,() => this.openDrawer(navigation))}
             />;
         let content= <ScrollableTabView
@@ -177,7 +177,7 @@ class TrendingTab extends Component{
             return(
                 <View>
                     <Loading 
-                      text={I18n.t('loading.title')}
+                      text={I18n.t('loading.title',{locale:locale})}
                     />
                 </View>
             )
@@ -195,7 +195,7 @@ class TrendingTab extends Component{
                                 onRefresh={this._onRefresh.bind(this)} //刷新方法
                                 colors={['#459ef7', '#006cff','#2400ff','#3aa4d5']}
                                 tintColor={'#2196F3'}
-                                title={I18n.t('loading.title')}  
+                                title={I18n.t('loading.title',{locale:locale})}  
                                 titleColor={'#2196F3'}
                             />
                         }
@@ -245,7 +245,8 @@ const mapStateToProps = state => ({
     isRenderer:state.trendigDataState.isRenderer,
     selectKey:state.trendigDataState.selectKey,
     url:state.trendigDataState.url,
-    theme: state.globalDataState.theme
+    theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(TrendingPage)

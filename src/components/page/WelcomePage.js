@@ -8,31 +8,41 @@ import {
     StyleSheet,
     Text,
 } from 'react-native'
-import NavigatorUtil from '../util/NavigatorUtil'
+import {StackActions,NavigationActions} from 'react-navigation'
 import ThemeDao from '../expand/dao/ThemeDao'
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/requestGlobalData'
 import {ThemeFactory} from '../../res/styles/ThemeFactory'
+import I18nDao from '../expand/dao/I18nDao'
 
 class WelcomePage extends Component {
     constructor(props) {
         super(props)
     }
 
-    componentDidMount() {
+    componentDidMount() { // 初始化主题和语言配置
+        console.log(this.props)
         new ThemeDao().getTheme().then((key) => {
             this.props.dispatch(actions.updateThemeFactory(ThemeFactory[key]))
-            this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
+            // this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
         })
-        // this.timer = setTimeout(() => {
-        //     SplashScreen.hide();
-        //     this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
-        //     // NavigatorUtil.resetToHomePage({
-        //     //     // theme: this.theme,
-        //     //     navigation: this.props.navigation
-        //     // })
-        // }, 500)
+        new I18nDao().getI18n().then((lan) => {
+            this.props.dispatch(actions.updateLocale(lan))
+        })
+
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: "LoginPage"
+                })
+            ]
+        })
+        this.timer = setTimeout(() => {
+            // SplashScreen.hide();
+            this.props.navigation.dispatch(resetAction)
+        }, 1500)
     }
 
     componentWillUnmount() {
@@ -43,18 +53,10 @@ class WelcomePage extends Component {
         return null
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-
-    },
-    tips: {
-        fontSize: 29
-    }
-})
 
 const mapStateToProps = state => ({
-    theme: state.globalDataState.theme
+    theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(WelcomePage)

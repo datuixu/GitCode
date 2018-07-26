@@ -23,7 +23,7 @@ class HomePage extends Component {
         }
     }
     static navigationOptions = {
-        tabBarLabel: I18n.t('home.tab_name'),
+        tabBarLabel: I18n.t('home.tab_name',{locale:locale}),
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='home'
@@ -34,7 +34,7 @@ class HomePage extends Component {
     }
     render() {
         console.log(this.props)
-        const {theme,navigation} = this.props
+        const {theme,navigation,locale} = this.props
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    theme: state.globalDataState.theme
+    theme: state.globalDataState.theme,
+    locale: state.globalDataState.locale
 })
 
 export default connect(mapStateToProps)(HomePage)

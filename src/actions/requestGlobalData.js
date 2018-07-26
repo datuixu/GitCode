@@ -4,4 +4,8 @@ export function updateThemeFactory(theme) {
     return { type: types.UPDATE_THEME_FACTORY, theme:theme}
 }
 
+export function updateLocale(locale) {
+    return { type: types.UPDATE_LOCALE, locale:locale}
+}
+
 
