@@ -26,9 +26,9 @@ import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
 import TimeSpan from '../../model/TimeSpan'
 
 
-const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily',{locale:locale}),'since=daily'),
-                           new TimeSpan(I18n.t('trending.since_weekly',{locale:locale}),'since=weekly'),
-                           new TimeSpan(I18n.t('trending.since_monthly',{locale:locale}),'since=monthly')]
+const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
+                           new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
+                           new TimeSpan(I18n.t('trending.since_monthly'),'since=monthly')]
 
 class TrendingPage extends Component {
     constructor(props) {
@@ -39,8 +39,25 @@ class TrendingPage extends Component {
             isVisible: false,
         }
     }
-    static navigationOptions = {
-        tabBarLabel: I18n.t('trending.tab_name',{locale:locale}),
+    // componentDidMount() {
+    //     console.log('11111111111111')
+    //     // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
+    //     this.props.navigation.setParams({
+    //         tabBarLabel:I18n.t('trending.tab_name',{locale:this.props.locale})
+    //     })
+    // }
+    // static navigationOptions={
+    //     tabBarLabel: 'ssss',
+    //     tabBarIcon: ({tintColor, focused}) => (
+    //         <Icon
+    //             name='trending'
+    //             size={20}
+    //             style={{color: focused ? tintColor : '#808394'}}
+    //         />
+    //     )
+    // }
+    static navigationOptions =  ({ navigation }) =>({
+        tabBarLabel: navigation.state.params.trendingTabBarLabel,
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='trending'
@@ -48,7 +65,7 @@ class TrendingPage extends Component {
                 style={{color: focused ? tintColor : '#808394'}}
             />
         )
-    }
+    })
     componentWillReceiveProps(nextProps){
         const {selectKey} = nextProps
         if(this.props.selectKey == selectKey)return
@@ -77,7 +94,7 @@ class TrendingPage extends Component {
         navigation.toggleDrawer()
     }
     render() {
-        const {navigation,theme} = this.props
+        const {navigation,theme,locale} = this.props
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -173,6 +190,7 @@ class TrendingTab extends Component{
         return searchUrl + '?' + timeSpan
     }
     render(){
+        const {locale} = this.props
         if(this.state.result.length == 0){
             return(
                 <View>

@@ -37,6 +37,8 @@ const TrendingNavigator = createDrawerNavigator({
         screen:TrendingPage
     }
 },{
+    initialRouteName:'TrendingPage',
+    navigationOptions:TrendingPage.navigationOptions,
     drawerWidth: deviceWidth-200, // 抽屉宽
     drawerPosition: 'right', // 抽屉在左边还是右边
     contentComponent: props => {
@@ -48,10 +50,13 @@ const TrendingNavigator = createDrawerNavigator({
 
 const BottomTabNavigator = createMaterialBottomTabNavigator({
     HomePage: { 
-        screen: HomePage
+        screen: HomePage,
     },
     TrendingNavigator: { 
         screen: TrendingNavigator,
+        tabBarOnPress:({ navigation }) =>(console.log(navigation),{
+
+        }),
         navigationOptions:TrendingPage.navigationOptions //解决找不到TrendingPage的navigationOptions配置问题
     },
     PopularPage: { 
@@ -63,6 +68,20 @@ const BottomTabNavigator = createMaterialBottomTabNavigator({
     // activeTintColor: '#2196F3',
     animationEnabled:true,
     backBehavior:'none',
+    tabBarOnPress:async ({obj}) => {
+        console.log(obj);
+        try {
+            // const userData = await AsyncStorage.getItem('USER_INFO');
+            // if (userData) {
+            //     obj.defaultHandler();
+            // }
+            // else {
+            //     obj.navigation.navigate('Login');
+            // }
+        } catch (e) {
+            // Toast.show(e.message, 'center', 1000);
+        }
+    }
     // barStyle: { 
     //     backgroundColor: '#FFFFFF',
     //     borderTopWidth:0.5,
@@ -91,8 +110,20 @@ export const AppNavigator = createStackNavigator({
     LoginPage: {
         screen: LoginPage
     },
+    TrendingNavigator:{
+        screen:TrendingNavigator
+    },
     HomeNavigator: {
         screen: HomeNavigator
+    },
+    HomePage:{
+        screen:HomePage
+    },
+    TrendingPage:{
+        screen:TrendingPage
+    },
+    PopularPage:{
+        screen:PopularPage
     },
     CustomThemePage:{
         screen:CustomThemePage

@@ -42,7 +42,6 @@ class HomeDrawerItems extends Component {
     }
     render(){
         const {navigation,theme,locale} = this.props
-        console.log(this.props)
         let statusBar =  
             <StatusBar 
                 animated={true}

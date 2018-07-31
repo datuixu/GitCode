@@ -40,9 +40,9 @@ class WelcomePage extends Component {
             ]
         })
         this.timer = setTimeout(() => {
-            // SplashScreen.hide();
+            SplashScreen.hide(); //关闭启动屏幕
             this.props.navigation.dispatch(resetAction)
-        }, 1500)
+        }, 800)
     }
 
     componentWillUnmount() {

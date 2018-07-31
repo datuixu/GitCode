@@ -19,11 +19,19 @@ import Icon from '../../common/Icon'
 class HomePage extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
         }
     }
-    static navigationOptions = {
-        tabBarLabel: I18n.t('home.tab_name',{locale:locale}),
+    componentDidMount(){
+        // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
+        this.props.navigation.setParams({
+            tabBarLabel:I18n.t('home.tab_name',{locale:this.props.locale}),
+            trendingTabBarLabel:I18n.t('trending.tab_name',{locale:this.props.locale})
+        })
+    }
+    static navigationOptions =  ({ navigation }) =>({
+        tabBarLabel: navigation.state.params.tabBarLabel,
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='home'
@@ -31,9 +39,9 @@ class HomePage extends Component {
                 style={{color: focused ? tintColor : '#808394'}}
             />
         )
-    }
+    })
+
     render() {
-        console.log(this.props)
         const {theme,navigation,locale} = this.props
         var statusBar = {
             animated: true,

@@ -41,9 +41,14 @@ class PopularPage extends Component {
         }
         this.loadLanguage()
     }
-    
-    static navigationOptions = {
-        tabBarLabel: I18n.t('popular.tab_name',{locale:locale}),
+    componentDidMount() {
+        // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
+        this.props.navigation.setParams({
+            tabBarLabel:I18n.t('popular.tab_name',{locale:this.props.locale})
+        })
+    }
+    static navigationOptions =  ({ navigation }) =>({
+        tabBarLabel: navigation.state.params.tabBarLabel,
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='hot'
@@ -51,10 +56,7 @@ class PopularPage extends Component {
                 style={{color: focused ? tintColor : '#808394'}}
             />
         )
-    }
-    // componentDidMount() {
-    //     this.loadData()
-    // }
+    })
     loadLanguage(){
         this.LanguageDao.fetch()
             .then(res =>{
@@ -156,6 +158,7 @@ class PopularTab extends Component{
             })
     }
     render(){
+        const {locale} = this.props
         if(this.state.result.length == 0){
             return(
                 <View>
