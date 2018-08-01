@@ -57,7 +57,8 @@ class TrendingPage extends Component {
     //     )
     // }
     static navigationOptions =  ({ navigation }) =>({
-        tabBarLabel: navigation.state.params.trendingTabBarLabel,
+        // tabBarLabel: navigation.state.params.trendingTabBarLabel,
+        tabBarLabel: '3',
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='trending'

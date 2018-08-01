@@ -48,7 +48,8 @@ class PopularPage extends Component {
         })
     }
     static navigationOptions =  ({ navigation }) =>({
-        tabBarLabel: navigation.state.params.tabBarLabel,
+        // tabBarLabel: navigation.state.params.tabBarLabel,
+        tabBarLabel: '2',
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='hot'

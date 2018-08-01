@@ -8,7 +8,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  Easing
+  Easing,
+  ViewPropTypes 
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -39,7 +40,7 @@ export default class PopMenu extends Component {
   static propTypes = {
     isVisible: PropTypes.bool,
     onClose: PropTypes.func,
-    contentStyle:View.propTypes.style,
+    contentStyle:ViewPropTypes.style,
   }
   constructor(props) {
     super(props);

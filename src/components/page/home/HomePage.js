@@ -24,6 +24,7 @@ class HomePage extends Component {
         }
     }
     componentDidMount(){
+        console.log('1111')
         // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
         this.props.navigation.setParams({
             tabBarLabel:I18n.t('home.tab_name',{locale:this.props.locale}),
@@ -31,7 +32,8 @@ class HomePage extends Component {
         })
     }
     static navigationOptions =  ({ navigation }) =>({
-        tabBarLabel: navigation.state.params.tabBarLabel,
+        // tabBarLabel: navigation.state.params.tabBarLabel,
+        tabBarLabel: '1',
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
                 name='home'

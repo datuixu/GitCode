@@ -35,7 +35,7 @@ class WelcomePage extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: "LoginPage"
+                    routeName: "HomeNavigator"
                 })
             ]
         })
