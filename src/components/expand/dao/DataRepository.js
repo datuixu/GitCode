@@ -6,7 +6,7 @@ import {
     AsyncStorage,
 } from 'react-native';
 import GitHubTrending from '../../github-trending/GitHubTrending';
-export var FLAG_STORAGE = {flag_popular: 'popular', flag_trending: 'trending', flag_my: 'my'}
+export var FLAG_STORAGE = {flag_hot: 'hot', flag_trending: 'trending', flag_my: 'my'}
 
 export default class DataRepository {
     constructor(flag) {

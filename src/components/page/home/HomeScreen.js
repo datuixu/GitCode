@@ -16,7 +16,7 @@ import {I18n} from '../../../language/i18n'
 import { connect } from 'react-redux'
 import Icon from '../../common/Icon'
 
-class HomePage extends Component {
+class HomeScreen extends Component {
     constructor(props) {
         super(props);
         
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
     locale: state.globalDataState.locale
 })
 
-export default connect(mapStateToProps)(HomePage)
+export default connect(mapStateToProps)(HomeScreen)

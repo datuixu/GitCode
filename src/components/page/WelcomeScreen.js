@@ -16,7 +16,7 @@ import * as actions from '../../actions/requestGlobalData'
 import {ThemeFactory} from '../../res/styles/ThemeFactory'
 import I18nDao from '../expand/dao/I18nDao'
 
-class WelcomePage extends Component {
+class WelcomeScreen extends Component {
     constructor(props) {
         super(props)
     }
@@ -25,7 +25,6 @@ class WelcomePage extends Component {
         console.log(this.props)
         new ThemeDao().getTheme().then((key) => {
             this.props.dispatch(actions.updateThemeFactory(ThemeFactory[key]))
-            // this.props.navigation.navigate('LoginPage', { name: 'LoginPage' })
         })
         new I18nDao().getI18n().then((lan) => {
             this.props.dispatch(actions.updateLocale(lan))
@@ -35,7 +34,7 @@ class WelcomePage extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: "LoginPage"
+                    routeName: "LoginScreen"
                 })
             ]
         })
@@ -59,4 +58,4 @@ const mapStateToProps = state => ({
     locale: state.globalDataState.locale
 })
 
-export default connect(mapStateToProps)(WelcomePage)
+export default connect(mapStateToProps)(WelcomeScreen)

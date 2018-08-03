@@ -23,7 +23,7 @@ import Icon from '../../common/Icon'
 import GlobalStyles from '../../../res/styles/GlobalStyles'
 
 const deviceWidth = Dimensions.get('window').width
-class CustomThemePage extends Component {
+class CustomTheme extends Component {
    constructor(props) {
         super(props)
         this.themeDao = new ThemeDao()
@@ -162,4 +162,4 @@ const mapStateToProps = state => ({
     locale: state.globalDataState.locale
 })
 
-export default connect(mapStateToProps)(CustomThemePage)
+export default connect(mapStateToProps)(CustomTheme)

@@ -2,7 +2,7 @@ export default {
     home:{
         tab_name:'首页'
     },
-    popular:{
+    hot:{
         tab_name:'热门',
         title:'热门版本库'
     },

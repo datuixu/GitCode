@@ -26,7 +26,7 @@ export default class NavigatorUtil {
     /**
      * 跳转首页
      */
-    static resetToHomePage(params) {
+    static resetToHomeScreen(params) {
         console.log(NavigationActions)
         const {navigation} = params;
         const resetAction = NavigationActions.reset({

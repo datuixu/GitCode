@@ -6,72 +6,97 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    Image,
     View,
-    TextInput,
     FlatList,
     RefreshControl,
-    DeviceEventEmitter,
-    Dimensions
-} from 'react-native';
+} from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../../../actions/requestTrendingData'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 import SafeAreaViewPlus from '../../common/SafeAreaViewPlus'
-import { connect } from 'react-redux'
-import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
-import RepositoryCell from '../../common/RepositoryCell'
 import Icon from '../../common/Icon'
+import DataRepository,{FLAG_STORAGE} from '../../expand/dao/DataRepository'
+import TrendingCell from '../../common/TrendingCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import Loading from '../../common/Loading'
 import Utils from '../../util/Utils'
+import ViewUtils from '../../util/ViewUtils'
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao'
-const URL = 'https://api.github.com/search/repositories?q='
-const QUERY_STR = '&page=1&per_page=10&sort=stars'
-const deviceWidth = Dimensions.get('window').width;
-var dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
+import TimeSpan from '../../model/TimeSpan'
 
-class PopularPage extends Component {
 
+const timeSpanTextArray = [new TimeSpan(I18n.t('trending.since_daily'),'since=daily'),
+                           new TimeSpan(I18n.t('trending.since_weekly'),'since=weekly'),
+                           new TimeSpan(I18n.t('trending.since_monthly'),'since=monthly')]
+
+class TrendingScreen extends Component {
     constructor(props) {
         super(props);
-        this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_key)
+        this.LanguageDao = new LanguageDao(FLAG_LANGUAGE.flag_language)
         this.state = {
             projectModels: [],
-            languages: [],
+            isVisible: false,
         }
-        this.loadLanguage()
     }
-    componentDidMount() {
-        // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
-        this.props.navigation.setParams({
-            tabBarLabel:I18n.t('popular.tab_name',{locale:this.props.locale})
-        })
-    }
+    // componentDidMount() {
+    //     console.log('11111111111111')
+    //     // 通过在componentDidMount里面设置setParams将tabBarLabel的值动态修改
+    //     this.props.navigation.setParams({
+    //         tabBarLabel:I18n.t('trending.tab_name',{locale:this.props.locale})
+    //     })
+    // }
+    // static navigationOptions={
+    //     tabBarLabel: 'ssss',
+    //     tabBarIcon: ({tintColor, focused}) => (
+    //         <Icon
+    //             name='trending'
+    //             size={20}
+    //             style={{color: focused ? tintColor : '#808394'}}
+    //         />
+    //     )
+    // }
     static navigationOptions =  ({ navigation }) =>({
-        // tabBarLabel: navigation.state.params.tabBarLabel,
-        tabBarLabel: '2',
+        // tabBarLabel: navigation.state.params.trendingTabBarLabel,
+        tabBarLabel: '3',
         tabBarIcon: ({tintColor, focused}) => (
             <Icon
-                name='hot'
-                size={24}
+                name='trending'
+                size={20}
                 style={{color: focused ? tintColor : '#808394'}}
             />
         )
     })
-    loadLanguage(){
-        this.LanguageDao.fetch()
-            .then(res =>{
-               this.setState({
-                languages:res
-               })
-            })
-            .catch(error => {
-                console.log(error)
-            })
+    componentWillReceiveProps(nextProps){
+        const {selectKey} = nextProps
+        if(this.props.selectKey == selectKey)return
+        this.props.dispatch(actions.updateSelcetKey(selectKey))
+    }
+    // 判断是否需要重新渲染页面
+    // 这个方法在初始化render时不会执行，当props或者state发生变化时执行，
+    // 并且是在render之前，当新的props或者state不需要更新组件时，返回false
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if(nextProps.isRenderer == true){
+    //         return true
+    //     }else{
+    //         return false
+    //     }
+    // }
+    componentDidUpdate(){
+        this.props.dispatch(actions.updateIsRenderer(false))
+    }
+    renderTieleView(color){
+        return <View>
+            <Text style={{color:color,fontSize:16}}>{this.props.selectKey}</Text>
+        </View>
+    }
+    openDrawer(navigation){
+        this.props.dispatch(actions.updateIsRenderer(false))
+        navigation.toggleDrawer()
     }
     render() {
-        const {theme,navigation,locale} = this.props
-        let statusBar = {
+        const {navigation,theme,locale} = this.props
+        var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
             barStyle: 'light-content',
@@ -79,14 +104,15 @@ class PopularPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18n.t('popular.title',{locale:locale})}
+                titleView={this.renderTieleView(theme.textColor)}
                 titleColor={theme.textColor}
                 statusBar={statusBar}
                 isLinearGradient={theme.isLinearGradient}
                 themeColor={theme.themeColor}
+                leftButton={<Text style={[styles.leftButton,{color:theme.textColor}]}>{I18n.t('trending.title',{locale:locale})}</Text>}
+                rightButton={ViewUtils.getRightButton(<Icon name="switch-language" color={theme.iconColor}/>,() => this.openDrawer(navigation))}
             />;
-        let content = this.state.languages.length > 0 ? 
-        <ScrollableTabView
+        let content= <ScrollableTabView
         //   tabBarBackgroundColor="#2196F3"
           tabBarInactiveTextColor="mintcream"
           tabBarActiveTextColor={theme.textColor}
@@ -101,14 +127,10 @@ class PopularPage extends Component {
                 tabStyle={{height: 39}}
           />}
         >
-        {this.state.languages.map((result,i,arr)=>{
-          let lan = arr[i]
-          return lan.checked ? <PopularTab key={i} tabLabel={lan.name} {...this.props}></PopularTab> : null
+        {timeSpanTextArray.map((result,i,arr)=>{
+           return <TrendingTab key={i} tabLabel={arr[i].showText} searchText={arr[i].searchText} {...this.props}></TrendingTab>
         })}
-
         </ScrollableTabView>
-        :
-        null
         return <View style={styles.container}>
                  {navigationBar}
                  {content}
@@ -117,10 +139,11 @@ class PopularPage extends Component {
 
 }
 
-class PopularTab extends Component{
+class TrendingTab extends Component{
     constructor(props) {
         super(props);
-        // this.dataRepository = new DataRepository(FLAG_STORAGE.flag_popular)
+        this.dataRepository = new DataRepository(FLAG_STORAGE.flag_trending)
+        this.url = ''
         this.state = {
             result:[],
             isRefreshing:false,
@@ -128,19 +151,25 @@ class PopularTab extends Component{
         }
     }
     componentDidMount(){
-        this.loadData(this.state.isFirst)
+        this.loadData(this.state.isFirst,this.props.url)
     }
-    loadData(isFirst){
+    componentWillReceiveProps(nextProps){
+        const {url} = nextProps
+        if(url == this.url)return
+        this.url = url
+        this.loadData(this.state.isFirst,url)
+    }
+    loadData(isFirst,url){
         this.setState({
             isRefreshing :isFirst ? false : true
         })
-        let url = URL+this.props.tabLabel+QUERY_STR
-        dataRepository
-            .fetchRepository(url)
+        let searchUrl = this.genFetchUrl(this.props.searchText,url)
+        this.dataRepository
+            .fetchRepository(searchUrl)
             .then(result =>{
-                // return dataRepository.fetchNetRepository(url)
+                // return this.dataRepository.fetchNetRepository(url)
                 let items = result && result.items ? result.items : result ? result : []
-                if (result && result.update_date && !Utils.checkDate(result.update_date)) return dataRepository.fetchNetRepository(url)
+                if (result && result.update_date && !Utils.checkDate(result.update_date)) return this.dataRepository.fetchNetRepository(url)
                 return items
             })
             .then((items) => {
@@ -152,11 +181,14 @@ class PopularTab extends Component{
                 })
             })
             .catch(error =>{
-                console.log(error)
                 this.setState({
                     isRefreshing:false
                 })
             })
+    }
+    genFetchUrl(timeSpan,url){
+        let searchUrl = url ? url : this.url
+        return searchUrl + '?' + timeSpan
     }
     render(){
         const {locale} = this.props
@@ -174,7 +206,7 @@ class PopularTab extends Component{
                     <FlatList
                         data={this.state.result}
                         renderItem={(data) => this.renderRow(data)}
-                        keyExtractor={item => item.id.toString()} //FlatList 每一行需要一个key
+                        keyExtractor={item => item.fullName} //FlatList 每一行需要一个key
                         // onScroll={event => this._onScroll(event)}
                         refreshControl={
                             <RefreshControl
@@ -197,8 +229,9 @@ class PopularTab extends Component{
     renderRow(data) {
         const item = data.item
         return (
-            <RepositoryCell 
+            <TrendingCell 
               data={item}
+              timeSpan={this.props.searchText}
               onSelect={()=>this.onSelect(item)}
               theme={this.props.theme}
             />
@@ -208,7 +241,6 @@ class PopularTab extends Component{
         this.loadData(this.state.isFirst)
     }
     onSelect(item){
-        console.log(this.props.navigation)
         this.props.navigation.navigate('PopularDetailPage',{item:item})
     }
 }
@@ -216,17 +248,24 @@ class PopularTab extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor:'white',
+        // backgroundColor:'red',
         // backgroundColor:"#f6f6f6",
     },
     tips: {
         fontSize: 20
+    },
+    leftButton:{
+        fontSize: 20,
+        marginLeft:10
     }
 })
 
 const mapStateToProps = state => ({
+    isRenderer:state.trendigDataState.isRenderer,
+    selectKey:state.trendigDataState.selectKey,
+    url:state.trendigDataState.url,
     theme: state.globalDataState.theme,
     locale: state.globalDataState.locale
 })
 
-export default connect(mapStateToProps)(PopularPage)
+export default connect(mapStateToProps)(TrendingScreen)

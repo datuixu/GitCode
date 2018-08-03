@@ -13,15 +13,15 @@ import {
 // import { connect } from 'react-redux'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 // import BottomTabNavigator from './BottomTabNavigator'
-import WelcomePage from '../components/page/WelcomePage'
-import PopularDetailPage from '../components/page/popular/PopularDetailPage'
-import PopularPage from '../components/page/popular/PopularPage'
-import TrendingPage from '../components/page/trending/TrendingPage'
-import HomePage from '../components/page/home/HomePage'
+import WelcomeScreen from '../components/page/WelcomeScreen'
+import PopularDetailPage from '../components/page/hot/PopularDetailPage'
+import HotScreen from '../components/page/hot/HotScreen'
+import TrendingScreen from '../components/page/trending/TrendingScreen'
+import HomeScreen from '../components/page/home/HomeScreen'
 import HomeDrawerItems from '../components/common/HomeDrawerItems'
 import TrendingDrawerItems from '../components/common/TrendingDrawerItems'
-import LoginPage from '../components/page/login/LoginPage'
-import CustomThemePage from '../components/page/my/CustomThemePage'
+import LoginScreen from '../components/page/login/LoginScreen'
+import CustomTheme from '../components/page/my/CustomTheme'
 import {I18n} from '../language/i18n'
 import Icon from '../components/common/Icon'
 
@@ -33,11 +33,11 @@ const deviceWidth = Dimensions.get('window').width
 // )
 
 const TrendingNavigator = createDrawerNavigator({
-    TrendingPage:{
-        screen:TrendingPage
+    TrendingScreen:{
+        screen:TrendingScreen
     }
 },{
-    initialRouteName:'TrendingPage',
+    initialRouteName:'TrendingScreen',
     drawerWidth: deviceWidth-200, // 抽屉宽
     drawerPosition: 'right', // 抽屉在左边还是右边
     contentComponent: props => {
@@ -48,18 +48,18 @@ const TrendingNavigator = createDrawerNavigator({
 })
 
 const BottomTabNavigator = createMaterialBottomTabNavigator({
-    HomePage: { 
-        screen: HomePage,
+    HomeScreen: { 
+        screen: HomeScreen,
     },
     TrendingNavigator: { 
         screen: TrendingNavigator,
-        navigationOptions:TrendingPage.navigationOptions //解决找不到TrendingPage的navigationOptions配置问题
+        navigationOptions:TrendingScreen.navigationOptions //解决找不到TrendingScreen的navigationOptions配置问题
     },
-    PopularPage: { 
-        screen: PopularPage
+    HotScreen: { 
+        screen: HotScreen
     }
   }, {
-    initialRouteName: 'HomePage',
+    initialRouteName: 'HomeScreen',
     shifting:true,
     // activeTintColor: '#2196F3',
     animationEnabled:true,
@@ -86,11 +86,11 @@ const HomeNavigator = createDrawerNavigator({
 })
 
 export const AppNavigator = createStackNavigator({
-    WelcomePage: {
-        screen: WelcomePage
+    WelcomeScreen: {
+        screen: WelcomeScreen
     },
-    LoginPage: {
-        screen: LoginPage
+    LoginScreen: {
+        screen: LoginScreen
     },
     TrendingNavigator:{
         screen:TrendingNavigator
@@ -98,17 +98,17 @@ export const AppNavigator = createStackNavigator({
     HomeNavigator: {
         screen: HomeNavigator
     },
-    HomePage:{
-        screen:HomePage
+    HomeScreen:{
+        screen:HomeScreen
     },
-    TrendingPage:{
-        screen:TrendingPage
+    TrendingScreen:{
+        screen:TrendingScreen
     },
-    PopularPage:{
-        screen:PopularPage
+    HotScreen:{
+        screen:HotScreen
     },
-    CustomThemePage:{
-        screen:CustomThemePage
+    CustomTheme:{
+        screen:CustomTheme
     },
     PopularDetailPage:{
         screen:PopularDetailPage

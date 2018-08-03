@@ -2,7 +2,7 @@ export default {
     home:{
         tab_name:'Home'
     },
-    popular:{
+    hot:{
         tab_name:'Hot',
         title:'Hot'
     },

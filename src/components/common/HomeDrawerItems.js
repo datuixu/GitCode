@@ -64,7 +64,7 @@ class HomeDrawerItems extends Component {
             <View style={{height:(deviceHeight/5)*4}}>
               <View style={{marginTop:15}}>
 
-                <TouchableHighlight style={styles.touchStyle} underlayColor={theme.underlayColor} onPress={()=>navigation.navigate('CustomThemePage')}>
+                <TouchableHighlight style={styles.touchStyle} underlayColor={theme.underlayColor} onPress={()=>navigation.navigate('CustomTheme')}>
                     <View style={styles.row}>
                       <Icon name="theme" color={theme.drawerIconColor} size={24}/>
                       <Text style={[styles.textStyle,{color:theme.drawerTextColor}]}>{I18n.t('my.custom_theme_title',{locale:locale})}</Text>

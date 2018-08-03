@@ -23,7 +23,7 @@ import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
-class LoginPage extends Component {
+class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -128,4 +128,4 @@ const mapStateToProps = state => ({
     locale: state.globalDataState.locale
 })
 
-export default connect(mapStateToProps)(LoginPage)
+export default connect(mapStateToProps)(LoginScreen)
