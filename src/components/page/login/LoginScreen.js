@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import { Fumi,Kohana } from 'react-native-textinput-effects'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import Icon from '../../common/Icon'
+import Base64 from '../../util/Base64'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
 const deviceWidth = Dimensions.get('window').width
@@ -95,6 +96,9 @@ class LoginScreen extends Component {
     }
 
     req(){
+        let str = "MrWangjiahuan:mayuan521**"
+        str = Base64.encode(str)
+        console.log(str)
         let params = {
             "client_secret": "b4854101132a27baf77840249b5caa67e2891123"
           }
@@ -104,7 +108,7 @@ class LoginScreen extends Component {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization':'Basic TXJXYW5namlhaHVhbjptYXl1YW41MjEqKg=='
+              'Authorization':'Basic'+" "+str
             },
             body: JSON.stringify(params)
         })

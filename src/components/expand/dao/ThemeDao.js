@@ -1,6 +1,6 @@
 /**
  * ThemeDao
- * @flow
+ * @author wangjiahuan
  */
 'use strict';
 

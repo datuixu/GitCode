@@ -1,5 +1,5 @@
 /**
- * I18nDao
+ * LoginDao
  * @flow
  * @author wangjiahuan
  */
@@ -10,34 +10,34 @@ import {
   AsyncStorage,
 } from 'react-native'
 
-const I18N_KEY='i18n_key'
+const TOKEN='token'
 
-export default class I18nDao{
+export default class LoginDao{
   /**
-   * 获取当前的语言
+   * 获取当前登录的用户token
    * @returns {Promise}
    */
-  getI18n(){
+  getToken(){
    return new Promise((resolve,reject)=>{
-     AsyncStorage.getItem(I18N_KEY,(error,result)=>{
+     AsyncStorage.getItem(TOKEN,(error,result)=>{
        if(error){
          reject(error);
          return;
        }
        if(!result){
-         this.save('en');
-         result='en';
+         this.save('');
+         result='';
        }
        resolve(result)
      })
    })
   }
   /**
-   * 保存国际化语言
-   * @param lan
+   * 保存token
+   * @param token
    */
-  save(lan){
-    AsyncStorage.setItem(I18N_KEY,lan,(error=>{}))
+  save(token){
+    AsyncStorage.setItem(TOKEN,token,(error=>{}))
   }
 }
 
