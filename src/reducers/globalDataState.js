@@ -5,7 +5,8 @@ import {ThemeFactory} from '../res/styles/ThemeFactory';
 
 const initialState = {
     theme:ThemeFactory.Original,// 默认主题
-    locale:'en' // 当前默认语言为英文
+    locale:'en', // 当前默认语言为英文
+    user:{} // 当前登录用户信息
 };
 
 export default function globalDataState(state = initialState, action) {
@@ -20,6 +21,11 @@ export default function globalDataState(state = initialState, action) {
             return Object.assign({}, state, {
                 ...state,
                 locale: action.locale
+        });
+        case types.UPDATE_USER:
+            return Object.assign({}, state, {
+                ...state,
+                user: action.user
         });
         default: 
             return state;

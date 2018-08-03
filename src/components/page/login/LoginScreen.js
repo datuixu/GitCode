@@ -17,10 +17,13 @@ import {
     Dimensions,
     Button
 } from 'react-native'
+import {StackActions,NavigationActions} from 'react-navigation'
 import { connect } from 'react-redux'
 import { Fumi,Kohana } from 'react-native-textinput-effects'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import Icon from '../../common/Icon'
+import LoginDao from '../../expand/dao/LoginDao'
+import UserInfoDao from '../../expand/dao/UserInfoDao'
 import Base64 from '../../util/Base64'
 import NavigationBar from '../../common/NavigationBar'
 import {I18n} from '../../../language/i18n'
@@ -29,6 +32,8 @@ const deviceHeight = Dimensions.get('window').height
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
+        this.LoginDao = new LoginDao()
+        this.UserInfoDao = new UserInfoDao()
         this.state = {
             username:"",
             password:""
@@ -96,6 +101,15 @@ class LoginScreen extends Component {
     }
 
     req(){
+        const resetHome = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: "HomeNavigator"
+                })
+            ]
+        })
+
         let str = "MrWangjiahuan:mayuan521**"
         str = Base64.encode(str)
         console.log(str)
@@ -113,8 +127,15 @@ class LoginScreen extends Component {
             body: JSON.stringify(params)
         })
         .then((response) => response.json())
-        .then((responseJson) => {
-            console.log(responseJson)
+        .then((data) => {
+            this.LoginDao.saveToken(data.token)
+            this.UserInfoDao.getUserInfo(data.token).then((user) => {
+                let userInfo = Object.assign({}, user, {
+                    token: data.token
+                })
+                this.props.dispatch(actions.updateUser(userInfo))
+                this.props.navigation.dispatch(resetHome)
+            })
           })
           .catch((error) => {
             console.error(error);
@@ -131,7 +152,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     theme: state.globalDataState.theme,
-    locale: state.globalDataState.locale
+    locale: state.globalDataState.locale,
+    user: state.globalDataState.user
 })
 
 export default connect(mapStateToProps)(LoginScreen)

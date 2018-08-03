@@ -14,5 +14,7 @@ export const UPDATE_THEME_FACTORY = 'UPDATE_THEME_FACTORY';
 
 export const UPDATE_LOCALE = 'UPDATE_LOCALE';
 
+export const UPDATE_USER = 'UPDATE_USER';
+
 
 

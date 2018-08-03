@@ -47,6 +47,7 @@ class HomeScreen extends Component {
 
     render() {
         const {theme,navigation,locale} = this.props
+        console.log(this.props)
         var statusBar = {
             animated: true,
             backgroundColor: 'rgba(0,0,0,0)',
@@ -79,7 +80,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     theme: state.globalDataState.theme,
-    locale: state.globalDataState.locale
+    locale: state.globalDataState.locale,
+    user: state.globalDataState.user
 })
 
 export default connect(mapStateToProps)(HomeScreen)

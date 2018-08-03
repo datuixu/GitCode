@@ -8,4 +8,10 @@ export function updateLocale(locale) {
     return { type: types.UPDATE_LOCALE, locale:locale}
 }
 
+export function updateUser(user) {
+    return { type: types.UPDATE_USER, user:user}
+}
+
+
+
 
