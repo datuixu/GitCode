@@ -38,6 +38,11 @@ export default {
         setting_title:'Setting',
         night_title:'Night'
     },
+    login:{
+        user_name:'用户名',
+        pass_word:'密码',
+        login_name:'登录'
+    },
     loading:{
         title:'loading...'
     },
