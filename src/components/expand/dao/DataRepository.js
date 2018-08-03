@@ -1,5 +1,7 @@
 /**
- * Created by wangjh on 2018/7/8.
+ * Created on 2018/7/8.
+ * 
+ *  @author wangjiahuan
  */
 
 import {

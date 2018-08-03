@@ -1,5 +1,7 @@
 /**
- * 主题工厂 created by wangjiahuan 2018-7-24
+ * 主题工厂 created on 2018-7-24
+ * 
+ *  @author wangjiahuan
  * @flow
  */
 import React, {Component} from 'react'

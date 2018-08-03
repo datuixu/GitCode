@@ -1,5 +1,7 @@
 /**
- * Created by wangjh on 2017/7/1.
+ * Created on 2017/7/1.
+ * 
+ *  @author wangjiahuan
  */
 
 import React, {Component} from 'react';

@@ -1,5 +1,7 @@
 /**
- * Created by wangjh on 2018/7/14
+ * Created on 2018/7/14
+ * 
+ *  @author wangjiahuan
  * 搜索组件
  */
 import React, {Component} from 'react'

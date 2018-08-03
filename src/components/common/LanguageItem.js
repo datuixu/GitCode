@@ -1,5 +1,7 @@
 /**
- * Created by wangjh on 2018/4/9
+ * Created on 2018/4/9
+ * 
+ *  @author wangjiahuan
  * trending模块的选择语言 的每个item 为了解决单独渲染 提高性能
  */
 import React, {Component} from 'react'

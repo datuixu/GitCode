@@ -1,5 +1,7 @@
 /**
- * Created by wangjh on 2018/4/9
+ * Created on 2018/4/9
+ * 
+ *  @author wangjiahuan
  * 上拉加载 底部footer组件
  */
 import React, {Component} from 'react';

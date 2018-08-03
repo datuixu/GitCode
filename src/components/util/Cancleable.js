@@ -1,5 +1,7 @@
 /**
- * Created by penn on 2017/1/18.
+ * Created on 2017/1/18.
+ * 
+ *  @author wangjiahuan
  */
 
 export default function makeCancelable(promise) {
